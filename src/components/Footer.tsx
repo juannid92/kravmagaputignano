@@ -1,0 +1,256 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap-config";
+import { Button } from "@/components/ui/button";
+import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Zap } from "lucide-react";
+import Link from "next/link";
+
+const sedi = [
+  {
+    nome: "Putignano",
+    indirizzo: "Via San Francesco, 28\n70017 Putignano (BA)",
+  },
+  {
+    nome: "Conversano",
+    indirizzo: "Via Crocifisso, 45\n70014 Conversano (BA)",
+  },
+];
+
+export function Footer() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (prefersReducedMotion) {
+        gsap.set(".footer-content", { y: 0, opacity: 1 });
+        return;
+      }
+
+      // CTA Section animation
+      gsap.fromTo(
+        ".footer-cta-content > *",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Background glow pulse
+      gsap.to(".footer-glow", {
+        scale: 1.05,
+        opacity: 0.4,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    },
+    { scope: sectionRef }
+  );
+
+  return (
+    <footer ref={sectionRef} className="relative">
+      {/* CTA Section - Full Width Red/Black */}
+      <section className="relative bg-[#FF3D00] overflow-hidden">
+        {/* Background effects */}
+        <div className="footer-glow absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Diagonal stripes */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <pattern id="stripes" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="10" stroke="black" strokeWidth="0.5" />
+            </pattern>
+            <rect width="100" height="100" fill="url(#stripes)" />
+          </svg>
+        </div>
+
+        {/* Noise texture */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <filter id="noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#noise)" />
+          </svg>
+        </div>
+
+        {/* Content */}
+        <div className="footer-cta-content relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+          {/* Top accent */}
+          <div className="absolute top-0 left-0 right-0 h-2 bg-[#0A0A0A]" />
+
+          <div className="text-center">
+            {/* Icon */}
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0A0A0A] rounded-full mb-8">
+              <Zap className="w-8 h-8 text-[#FF3D00]" />
+            </div>
+
+            {/* Heading */}
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+              INIZIA ORA
+            </h2>
+
+            {/* Red line */}
+            <div className="w-32 h-[3px] bg-[#0A0A0A] mx-auto mb-8" />
+
+            {/* Subtext */}
+            <p className="text-white/90 text-lg sm:text-xl max-w-2xl mx-auto mb-12 font-body">
+              La prima lezione è gratuita e senza impegno.
+              <br />
+              <span className="font-medium">Contattaci e prenota oggi.</span>
+            </p>
+
+            {/* Phone CTA */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-12">
+              <a
+                href="tel:+393334567890"
+                className="flex items-center gap-4 bg-[#0A0A0A] hover:bg-[#0A0A0A]/90 text-white px-8 py-4 transition-all duration-300 hover:scale-105 group"
+              >
+                <Phone className="w-6 h-6 text-[#FF3D00]" />
+                <span className="font-display text-2xl">+39 333 456 7890</span>
+              </a>
+            </div>
+
+            {/* Form hint */}
+            <div className="flex items-center justify-center gap-2 text-white/70 text-sm">
+              <span>Oppure</span>
+              <button className="text-white underline hover:text-white/80 transition-colors">
+                scrivici un messaggio
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom accent */}
+          <div className="absolute bottom-0 left-0 right-0 h-2 bg-[#0A0A0A]" />
+        </div>
+      </section>
+
+      {/* Footer Info Section */}
+      <section className="bg-[#0A0A0A] py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-12 md:gap-8">
+            {/* Brand */}
+            <div className="footer-content">
+              <Link href="#" className="inline-block mb-6">
+                <span className="font-display text-3xl text-white tracking-tight">
+                  KRAV MAGA
+                </span>
+                <span className="block text-white/40 text-xs font-body mt-1 uppercase tracking-wider">
+                  Putignano & Conversano
+                </span>
+              </Link>
+              <p className="text-white/50 text-sm font-body leading-relaxed max-w-xs">
+                Scuola di Krav Maga in provincia di Bari. Corsi per adulti e bambini,
+                tenuti da istruttori certificati KMFD.
+              </p>
+
+              {/* Social */}
+              <div className="flex items-center gap-3 mt-6">
+                <a
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-[#FF3D00]/30 flex items-center justify-center hover:border-[#FF3D00] hover:bg-[#FF3D00]/10 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-4 h-4 text-white/50 hover:text-[#FF3D00]" />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-[#FF3D00]/30 flex items-center justify-center hover:border-[#FF3D00] hover:bg-[#FF3D00]/10 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-4 h-4 text-white/50 hover:text-[#FF3D00]" />
+                </a>
+              </div>
+            </div>
+
+            {/* Sedi */}
+            <div className="footer-content">
+              <h4 className="font-body text-xs text-[#FF3D00] uppercase tracking-[0.2em] mb-6">
+                Le Nostre Sedi
+              </h4>
+              <div className="space-y-6">
+                {sedi.map((sede) => (
+                  <div key={sede.nome}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-2 h-2 bg-[#FF3D00]" />
+                      <h5 className="font-display text-xl text-white">{sede.nome}</h5>
+                    </div>
+                    <p className="text-white/50 text-sm font-body whitespace-pre-line pl-4">
+                      {sede.indirizzo}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Contatti */}
+            <div className="footer-content">
+              <h4 className="font-body text-xs text-[#FF3D00] uppercase tracking-[0.2em] mb-6">
+                Contatti
+              </h4>
+              <div className="space-y-4">
+                <a
+                  href="tel:+393334567890"
+                  className="flex items-center gap-3 text-white/50 hover:text-[#FF3D00] transition-colors group"
+                >
+                  <Phone className="w-5 h-5 text-[#FF3D00]/60 group-hover:text-[#FF3D00]" />
+                  <span className="text-sm font-body">+39 333 456 7890</span>
+                </a>
+                <a
+                  href="mailto:info@kravmagapuglia.it"
+                  className="flex items-center gap-3 text-white/50 hover:text-[#FF3D00] transition-colors group"
+                >
+                  <Mail className="w-5 h-5 text-[#FF3D00]/60 group-hover:text-[#FF3D00]" />
+                  <span className="text-sm font-body">info@kravmagapuglia.it</span>
+                </a>
+                <div className="flex items-center gap-3 text-white/50 pt-2">
+                  <MapPin className="w-5 h-5 text-[#FF3D00]/60" />
+                  <span className="text-sm font-body">Bari, Italia</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom */}
+          <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-white/30 text-xs font-body">
+              © {new Date().getFullYear()} Krav Maga Putignano & Conversano
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-[#FF3D00]/30 text-white/50 hover:text-white hover:border-[#FF3D00] hover:bg-[#FF3D00]/10 transition-all duration-300"
+            >
+              Torna su
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </div>
+      </section>
+    </footer>
+  );
+}
