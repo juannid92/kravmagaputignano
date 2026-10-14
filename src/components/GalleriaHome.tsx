@@ -163,7 +163,7 @@ export function GalleriaHome() {
 
         <div
           ref={stickyRef}
-          className="sticky top-0 md:h-screen flex items-center overflow-hidden bg-[#0A0A0A] md:py-0 py-8"
+          className="sticky top-0 md:h-screen flex items-center overflow-hidden bg-[#0A0A0A] md:py-0 py-8 z-50"
         >
           {/* Title */}
           <div className="absolute top-10 left-8 z-20 hidden md:block">
