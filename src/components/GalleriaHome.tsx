@@ -145,11 +145,46 @@ export function GalleriaHome() {
 
   return (
     <>
-      {/* Horizontal Gallery Section */}
+      {/* Mobile: Grid layout semplice */}
       <section
         ref={sectionRef}
         data-section="3"
-        className="relative"
+        className="relative md:hidden bg-[#0A0A0A] py-12 px-4"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase mb-2 block">
+              Galleria
+            </span>
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-white">
+              I NOSTRI ALLENAMENTI
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {kravGalleryImages.map((img, i) => (
+              <div
+                key={i}
+                className="relative aspect-[3/4] overflow-hidden rounded-lg"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  sizes="50vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Desktop: Horizontal Gallery Section */}
+      <section
+        ref={sectionRef}
+        data-section="3"
+        className="relative hidden md:block"
         style={{ height: "350vh" }}
       >
         <div

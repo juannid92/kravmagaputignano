@@ -259,7 +259,7 @@ export function NonSport() {
       ref={sectionRef}
       data-section="2"
       className="relative"
-      style={{ height: "500vh" }} // Aumentato per più spazio
+      style={{ height: "300vh" }}
     >
       {/* Background gradient */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#0A0A0A] via-[#0D0D0D] to-[#0A0A0A]" />
@@ -277,7 +277,7 @@ export function NonSport() {
 
       <div
         ref={stickyRef}
-        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden"
+        className="sticky top-0 h-screen md:h-screen flex items-center justify-center overflow-hidden"
       >
         <div className="relative w-full max-w-4xl mx-auto px-6">
           {/* Section header - titolo piccolo che sparisce subito */}
