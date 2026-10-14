@@ -50,7 +50,7 @@ export function GalleriaHome() {
             end: () => `+=${getDistance() + 300}`,
             scrub: 1.5,
             pin: stickyRef.current,
-            pinSpacing: true,
+            pinSpacing: false,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
@@ -145,51 +145,25 @@ export function GalleriaHome() {
 
   return (
     <>
-      {/* Mobile: Grid layout semplice */}
+      {/* Horizontal Gallery Section */}
       <section
         ref={sectionRef}
         data-section="3"
-        className="relative md:hidden bg-[#0A0A0A] py-12 px-4"
+        className="relative"
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase mb-2 block">
-              Galleria
-            </span>
-            <h2 className="font-[family-name:var(--font-display)] text-2xl text-white">
-              I NOSTRI ALLENAMENTI
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {kravGalleryImages.map((img, i) => (
-              <div
-                key={i}
-                className="relative aspect-[3/4] overflow-hidden rounded-lg"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                  sizes="50vw"
-                />
-              </div>
-            ))}
-          </div>
+        {/* Mobile Title */}
+        <div className="md:hidden text-center py-8 bg-[#0A0A0A]">
+          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase mb-2 block">
+            Galleria
+          </span>
+          <h2 className="font-[family-name:var(--font-display)] text-2xl text-white">
+            I NOSTRI ALLENAMENTI
+          </h2>
         </div>
-      </section>
 
-      {/* Desktop: Horizontal Gallery Section */}
-      <section
-        ref={sectionRef}
-        data-section="3"
-        className="relative hidden md:block"
-        style={{ height: "350vh" }}
-      >
         <div
           ref={stickyRef}
-          className="sticky top-0 h-screen flex items-center overflow-hidden bg-[#0A0A0A]"
+          className="sticky top-0 md:h-screen flex items-center overflow-hidden bg-[#0A0A0A] md:py-0 py-8"
         >
           {/* Title */}
           <div className="absolute top-10 left-8 z-20 hidden md:block">
@@ -210,18 +184,16 @@ export function GalleriaHome() {
           <div
             ref={trackRef}
             className={cn(
-              "flex items-center gap-6 md:gap-8",
-              "pl-[20vw]"
+              "flex md:flex-row flex-col md:items-center gap-6 md:gap-8",
+              "md:pl-[20vw] pl-4 pr-4 w-full"
             )}
             style={{ willChange: "transform" }}
           >
             {kravGalleryImages.map((img, i) => (
               <div
                 key={i}
-                className="gallery-img-wrap flex-shrink-0 relative overflow-hidden cursor-pointer group"
+                className="gallery-img-wrap flex-shrink-0 relative overflow-hidden cursor-pointer group md:w-[clamp(240px,25vw,320px)] md:h-[clamp(400px,55vw,650px)] w-full aspect-[3/4] max-w-[300px] mx-auto"
                 style={{
-                  width: "clamp(240px, 25vw, 320px)",
-                  height: "clamp(400px, 55vw, 650px)",
                   borderRadius: "1rem",
                 }}
               >
@@ -255,7 +227,7 @@ export function GalleriaHome() {
             ))}
 
             {/* Last spacer */}
-            <div className="flex-shrink-0 w-[20vw]" />
+            <div className="flex-shrink-0 md:w-[20vw] w-4" />
           </div>
 
           {/* Mobile scroll hint */}

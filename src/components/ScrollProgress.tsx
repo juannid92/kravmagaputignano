@@ -36,7 +36,7 @@ export function ScrollProgress() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.8 }
     );
 
     sections.forEach((section) => observer.observe(section));
