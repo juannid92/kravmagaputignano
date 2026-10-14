@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const concepts = [
   {
@@ -36,28 +37,30 @@ export function NonSport() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
-  useGSAP(
-    () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-      const mm = gsap.matchMedia();
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-      mm.add("(min-width: 768px)", () => {
-        if (prefersReducedMotion) {
-          gsap.set(".concept-item", { opacity: 1, y: 0 });
-          return;
-        }
+    const mm = gsap.matchMedia();
 
-        if (!sectionRef.current || !stickyRef.current) return;
+    mm.add("(min-width: 768px)", () => {
+      if (prefersReducedMotion) {
+        gsap.set(".concept-item", { opacity: 1, y: 0 });
+        return;
+      }
 
-        // Initial states
-        gsap.set(".concept-item-0", { opacity: 1, y: 0 });
-        gsap.set(".concept-item-1", { opacity: 0, y: 80 });
-        gsap.set(".concept-item-2", { opacity: 0, y: 80 });
+      if (!sectionRef.current || !stickyRef.current) return;
 
-        // 1. PARALLAX on side lines - they move slower during scroll
+      // Initial states
+      gsap.set(".concept-item-0", { opacity: 1, y: 0 });
+      gsap.set(".concept-item-1", { opacity: 0, y: 80 });
+      gsap.set(".concept-item-2", { opacity: 0, y: 80 });
+
+      // 1. PARALLAX on side lines
+      if (leftLineRef.current) {
         gsap.to(leftLineRef.current, {
           yPercent: -40,
           ease: "none",
@@ -68,7 +71,9 @@ export function NonSport() {
             scrub: true,
           },
         });
+      }
 
+      if (rightLineRef.current) {
         gsap.to(rightLineRef.current, {
           yPercent: -40,
           ease: "none",
@@ -79,180 +84,196 @@ export function NonSport() {
             scrub: true,
           },
         });
+      }
 
-        // 2. BREATHING effect on main card (subtle oscillating scale)
-        cardRefs.current.forEach((card) => {
-          if (card) {
-            gsap.to(card, {
-              scale: 1.015,
-              duration: 2.5,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-            });
-          }
-        });
-
-        // 3. CORNER BRACKETS animation when active (expand slightly)
-        cardRefs.current.forEach((card) => {
-          if (card) {
-            const corners = card.querySelectorAll('.corner-bracket');
-            if (corners.length > 0) {
-              gsap.to(corners, {
-                width: "3rem",
-                height: "3rem",
-                duration: 0.6,
-                stagger: 0.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: sectionRef.current,
-                  start: "top 80%",
-                  toggleActions: "play none none reverse",
-                },
-              });
-            }
-          }
-        });
-
-        // 4. TITLE REVEAL animation + nasconde durante scroll pinned
-        if (titleRef.current) {
-          gsap.fromTo(
-            titleRef.current,
-            { opacity: 0, scale: 0.8, y: 20 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 60%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        }
-
-        // NASCONDI header SUBITO quando inizia scroll pinned
-        gsap.to(".nonsport-header", {
-          opacity: 0,
-          y: -60,
-          duration: 0.3,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top+=2% top",
-            end: "top+=8% top",
-            scrub: 0.3,
-          },
-        });
-
-        // Animazioni migliorate con scale e glow
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "+=500%",
-            scrub: 1.5,
-            pin: stickyRef.current,
-            anticipatePin: 1,
-          },
-        });
-
-        // 01 -> 02: slide out con scale down + fade
-        tl.to(".concept-item-0", {
-          opacity: 0,
-          y: -100,
-          scale: 0.85,
-          rotation: -3,
-          duration: 0.6,
-        }, ">-0.4")
-          .fromTo(".concept-item-1",
-            { opacity: 0, y: 100, scale: 1.1, rotation: 3 },
-            { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.8, ease: "power3.out" },
-            "<0.1"
-          );
-
-        // 02 -> 03: slide out con scale down + fade
-        tl.to(".concept-item-1", {
-          opacity: 0,
-          y: -100,
-          scale: 0.85,
-          rotation: -3,
-          duration: 0.6,
-        }, ">-0.4")
-          .fromTo(".concept-item-2",
-            { opacity: 0, y: 100, scale: 1.1, rotation: 3 },
-            { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.8, ease: "power3.out" },
-            "<0.1"
-          );
-
-        // Glow pulsante sul numero
-        gsap.to(".concept-number", {
-          textShadow: "0 0 40px rgba(204, 0, 0, 0.9), 0 0 80px rgba(204, 0, 0, 0.6), 0 0 120px rgba(204, 0, 0, 0.4)",
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-
-        // Hover effect sul card (mouse tracking)
-        const sticky = stickyRef.current;
-        if (sticky) {
-          const card = sticky.querySelector('.concept-item:not([style*="opacity: 0"])');
-          if (card) {
-            sticky.addEventListener('mousemove', (e) => {
-              const rect = sticky.getBoundingClientRect();
-              const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-              const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-
-              gsap.to(card, {
-                rotateY: x * 5,
-                rotateX: -y * 5,
-                duration: 0.5,
-                ease: "power2.out"
-              });
-            });
-
-            sticky.addEventListener('mouseleave', () => {
-              gsap.to(card, {
-                rotateY: 0,
-                rotateX: 0,
-                duration: 0.5,
-                ease: "power2.out"
-              });
-            });
-          }
+      // 2. BREATHING effect on main card
+      cardRefs.current.forEach((card) => {
+        if (card) {
+          gsap.to(card, {
+            scale: 1.015,
+            duration: 2.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          });
         }
       });
 
-      mm.add("(max-width: 767px)", () => {
-        concepts.forEach((_, i) => {
-          if (prefersReducedMotion) {
-            gsap.set(`.concept-item-${i}`, { opacity: 1, y: 0 });
-            return;
-          }
-
-          gsap.fromTo(
-            `.concept-item-${i}`,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
+      // 3. CORNER BRACKETS animation
+      cardRefs.current.forEach((card) => {
+        if (card) {
+          const corners = card.querySelectorAll('.corner-bracket');
+          if (corners.length > 0) {
+            gsap.to(corners, {
+              width: "3rem",
+              height: "3rem",
               duration: 0.6,
+              stagger: 0.1,
               ease: "power2.out",
               scrollTrigger: {
-                trigger: `.concept-item-${i}`,
+                trigger: sectionRef.current,
                 start: "top 80%",
                 toggleActions: "play none none reverse",
               },
-            }
-          );
-        });
+            });
+          }
+        }
       });
-    },
-    { scope: sectionRef }
-  );
+
+      // 4. TITLE REVEAL animation
+      if (titleRef.current) {
+        gsap.fromTo(
+          titleRef.current,
+          { opacity: 0, scale: 0.8, y: 20 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 60%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
+
+      // NASCONDI header SUBITO quando inizia scroll pinned
+      gsap.to(".nonsport-header", {
+        opacity: 0,
+        y: -60,
+        duration: 0.3,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top+=2% top",
+          end: "top+=8% top",
+          scrub: 0.3,
+        },
+      });
+
+      // Animazioni migliorate con scale e glow
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=500%",
+          scrub: 1.5,
+          pin: stickyRef.current,
+          anticipatePin: 1,
+        },
+      });
+
+      // 01 -> 02
+      tl.to(".concept-item-0", {
+        opacity: 0,
+        y: -100,
+        scale: 0.85,
+        rotation: -3,
+        duration: 0.6,
+      }, ">-0.4")
+        .fromTo(".concept-item-1",
+          { opacity: 0, y: 100, scale: 1.1, rotation: 3 },
+          { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.8, ease: "power3.out" },
+          "<0.1"
+        );
+
+      // 02 -> 03
+      tl.to(".concept-item-1", {
+        opacity: 0,
+        y: -100,
+        scale: 0.85,
+        rotation: -3,
+        duration: 0.6,
+      }, ">-0.4")
+        .fromTo(".concept-item-2",
+          { opacity: 0, y: 100, scale: 1.1, rotation: 3 },
+          { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.8, ease: "power3.out" },
+          "<0.1"
+        );
+
+      // Glow pulsante sul numero
+      gsap.to(".concept-number", {
+        textShadow: "0 0 40px rgba(204, 0, 0, 0.9), 0 0 80px rgba(204, 0, 0, 0.6), 0 0 120px rgba(204, 0, 0, 0.4)",
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+
+      // Hover effect sul card (mouse tracking)
+      const sticky = stickyRef.current;
+      if (sticky) {
+        const handleMouseMove = (e: MouseEvent) => {
+          const rect = sticky.getBoundingClientRect();
+          const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+          const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+
+          const activeCard = sticky.querySelector('.concept-item:not([style*="opacity: 0"])') as HTMLElement;
+          if (activeCard) {
+            gsap.to(activeCard, {
+              rotateY: x * 5,
+              rotateX: -y * 5,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          }
+        };
+
+        const handleMouseLeave = () => {
+          const activeCard = sticky.querySelector('.concept-item:not([style*="opacity: 0"])') as HTMLElement;
+          if (activeCard) {
+            gsap.to(activeCard, {
+              rotateY: 0,
+              rotateX: 0,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          }
+        };
+
+        sticky.addEventListener('mousemove', handleMouseMove);
+        sticky.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+          sticky.removeEventListener('mousemove', handleMouseMove);
+          sticky.removeEventListener('mouseleave', handleMouseLeave);
+        };
+      }
+    });
+
+    mm.add("(max-width: 767px)", () => {
+      concepts.forEach((_, i) => {
+        if (prefersReducedMotion) {
+          gsap.set(`.concept-item-${i}`, { opacity: 1, y: 0 });
+          return;
+        }
+
+        gsap.fromTo(
+          `.concept-item-${i}`,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: `.concept-item-${i}`,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    });
+
+    // Cleanup
+    return () => {
+      mm.revert();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
 
   return (
     <section
