@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { useGSAP } from "@gsap/react";
+import { useRef, useState, useEffect } from "react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -30,53 +29,71 @@ const concepts = [
 
 export function NonSport() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeConcept, setActiveConcept] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isInView, setIsInView] = useState(false);
 
-  useGSAP(
-    () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-      if (prefersReducedMotion) {
-        setActiveConcept(0);
-        return;
-      }
+    if (prefersReducedMotion) {
+      setActiveIndex(0);
+      return;
+    }
 
-      // Setup iniziale: nascondi concetti 2 e 3
-      gsap.set(".concept-1", { opacity: 0, y: 60 });
-      gsap.set(".concept-2", { opacity: 0, y: 60 });
+    const section = sectionRef.current;
+    if (!section) return;
 
-      // Timeline per transizioni smooth tra concetti
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=300%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            // Calcola quale concetto mostrare
-            const progress = self.progress;
-            let newConcept = 0;
-            if (progress > 0.66) newConcept = 2;
-            else if (progress > 0.33) newConcept = 1;
-            setActiveConcept(newConcept);
-          },
+    // Reset quando la sezione esce dal viewport
+    const onLeave = () => {
+      setActiveIndex(0);
+      setIsInView(false);
+    };
+
+    const scrollTrigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top center",
+      end: "bottom center",
+      onEnter: () => setIsInView(true),
+      onLeave: onLeave,
+      onEnterBack: () => setIsInView(true),
+      onLeaveBack: onLeave,
+    });
+
+    // Timeline per transizioni smooth tra concetti
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=200%",
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          let newIndex = 0;
+          if (progress > 0.66) newIndex = 2;
+          else if (progress > 0.33) newIndex = 1;
+          setActiveIndex(newIndex);
         },
-      });
+      },
+    });
 
-      // Transizione da 01 a 02
-      tl.to(".concept-0", { opacity: 0, y: -60, duration: 0.5 })
-        .to(".concept-1", { opacity: 1, y: 0, duration: 0.5 }, "<0.1");
+    tl.to({}, { duration: 0.001 }); // tick per far partire
 
-      // Transizione da 02 a 03
-      tl.to(".concept-1", { opacity: 0, y: -60, duration: 0.5 })
-        .to(".concept-2", { opacity: 1, y: 0, duration: 0.5 }, "<0.1");
-    },
-    { scope: sectionRef }
-  );
+    return () => {
+      scrollTrigger.kill();
+      tl.kill();
+    };
+  }, []);
+
+  // Calcola opacity per ogni card
+  const getCardOpacity = (index: number) => {
+    if (!isInView) return 0;
+    if (index === activeIndex) return 1;
+    return 0;
+  };
 
   return (
     <section
@@ -108,8 +125,8 @@ export function NonSport() {
         {concepts.map((concept, i) => (
           <div
             key={concept.number}
-            className={`concept-${i} absolute inset-0 flex items-center justify-center px-6 transition-opacity duration-500`}
-            style={{ opacity: i === 0 ? 1 : 0, pointerEvents: i === 0 ? 'auto' : 'none' }}
+            className="absolute inset-0 flex items-center justify-center px-6 transition-opacity duration-500"
+            style={{ opacity: getCardOpacity(i), pointerEvents: activeIndex === i && isInView ? 'auto' : 'none' }}
           >
             <div className="relative max-w-3xl w-full bg-gradient-to-b from-[#131318] to-[#0A0A0A] border border-[#CC0000]/30 p-8 md:p-14 shadow-[0_0_80px_rgba(204,0,0,0.15)]">
               {/* Corner accents */}

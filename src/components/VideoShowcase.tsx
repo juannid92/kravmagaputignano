@@ -95,20 +95,20 @@ export function VideoShowcase() {
             <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-[#CC0000] z-10" />
             <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-[#CC0000] z-10" />
 
-            {/* Video placeholder - il video vero va aggiunto quando disponibile */}
-            <video
-              ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              src=""
-              onError={(e) => {
-                // Se il video non carica, nascondi il video e mostra il placeholder
-                e.currentTarget.style.display = 'none';
-              }}
-            />
+            {/* Video placeholder - nascosto finché non si ha un video reale */}
+            {false && (
+              <video
+                ref={videoRef}
+                className="absolute inset-0 w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            )}
 
             {/* Placeholder quando video non disponibile */}
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gradient-to-br from-[#131318] to-[#0A0A0A]">
