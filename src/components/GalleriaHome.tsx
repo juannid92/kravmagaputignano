@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
+import { useRef, useEffect } from "react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const kravGalleryImages = [
   { src: "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Allenamento Krav Maga - Tecniche di difesa" },
@@ -24,124 +25,138 @@ export function GalleriaHome() {
   const trackRef = useRef<HTMLDivElement>(null);
   const galleryContentRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-      if (prefersReducedMotion) return;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-      const mm = gsap.matchMedia();
+    if (prefersReducedMotion) return;
 
-      mm.add("(min-width: 768px)", () => {
-        if (!trackRef.current || !sectionRef.current || !stickyRef.current) return;
+    const mm = gsap.matchMedia();
 
-        const track = trackRef.current;
-        const getDistance = () => track.scrollWidth - window.innerWidth;
+    mm.add("(min-width: 768px)", () => {
+      if (!trackRef.current || !sectionRef.current || !stickyRef.current) return;
 
-        // Horizontal scroll animation
-        gsap.to(track, {
-          x: () => -getDistance(),
+      const track = trackRef.current;
+      const getDistance = () => track.scrollWidth - window.innerWidth;
+
+      // Horizontal scroll animation con spazio extra per arrivare fino all'ultima immagine
+      gsap.to(track, {
+        x: () => -getDistance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          // Abbastanza spazio per far vedere TUTTE le immagini
+          end: () => `+=${getDistance() + window.innerWidth}`,
+          scrub: 1.5,
+          pin: stickyRef.current,
+          pinSpacing: true, // Importante: dà spazio dopo la gallery per scrollare
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Immagini reveal con effetto cinema
+      gsap.utils.toArray(".gallery-img-wrap").forEach((item: any) => {
+        gsap.fromTo(
+          item,
+          {
+            opacity: 0,
+            scale: 0.8,
+            rotateY: 20,
+            skewX: 5,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotateY: 0,
+            skewX: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: () => `+=${getDistance() + window.innerWidth}`,
+              scrub: 0.8,
+            },
+          }
+        );
+      });
+
+      // Parallax interno sulle immagini
+      gsap.utils.toArray(".gallery-img-inner").forEach((img: any) => {
+        gsap.to(img, {
+          scale: 1.15,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: () => `+=${getDistance() + 300}`,
-            scrub: 1.5,
-            pin: stickyRef.current,
-            pinSpacing: false,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
+            end: () => `+=${getDistance() + window.innerWidth}`,
+            scrub: true,
           },
         });
+      });
 
-        // Immagini più allungate (formato verticale)
-        const imgWidth = "clamp(240px, 25vw, 320px)";
-        const imgHeight = "clamp(400px, 55vw, 650px)";
+      // Progress bar
+      gsap.to(".gallery-progress", {
+        width: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${getDistance() + window.innerWidth}`,
+          scrub: true,
+        },
+      });
+    });
 
-        // Immagini reveal con effetto cinema
-        gsap.utils.toArray(".gallery-img-wrap").forEach((item: any, i: number) => {
-          gsap.fromTo(
-            item,
-            {
-              opacity: 0,
-              scale: 0.8,
-              rotateY: 20,
-              skewX: 5,
-            },
-            {
-              opacity: 1,
-              scale: 1,
-              rotateY: 0,
-              skewX: 0,
-              duration: 1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top top",
-                end: () => `+=${getDistance()}`,
-                scrub: 0.8,
-              },
-            }
-          );
-        });
-
-        // Parallax interno sulle immagini
-        gsap.utils.toArray(".gallery-img-inner").forEach((img: any) => {
-          gsap.to(img, {
-            scale: 1.15,
-            ease: "none",
+    mm.add("(max-width: 767px)", () => {
+      gsap.utils.toArray(".gallery-img-wrap").forEach((item: any) => {
+        gsap.fromTo(
+          item,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
             scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: () => `+=${getDistance() + 300}`,
-              scrub: true,
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
             },
-          });
-        });
+          }
+        );
       });
+    });
 
-      mm.add("(max-width: 767px)", () => {
-        gsap.utils.toArray(".gallery-img-wrap").forEach((item: any, i: number) => {
-          gsap.fromTo(
-            item,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.5,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: item,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        });
-      });
+    // Content below gallery reveal
+    gsap.fromTo(
+      ".gallery-content-item",
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: galleryContentRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
 
-      // Content below gallery reveal
-      gsap.fromTo(
-        ".gallery-content-item",
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: galleryContentRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    },
-    { scope: sectionRef }
-  );
+    // Cleanup
+    return () => {
+      mm.revert();
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
 
   return (
     <>
@@ -150,13 +165,14 @@ export function GalleriaHome() {
         ref={sectionRef}
         data-section="3"
         className="relative"
+        style={{ height: "400vh" }} // Spazio per scroll orizzontale
       >
         {/* Mobile Title */}
         <div className="md:hidden text-center py-8 bg-[#0A0A0A]">
-          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase mb-2 block">
+          <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase mb-2 block">
             Galleria
           </span>
-          <h2 className="font-[family-name:var(--font-display)] text-2xl text-white">
+          <h2 className="font-display text-2xl text-white">
             I NOSTRI ALLENAMENTI
           </h2>
         </div>
@@ -167,10 +183,10 @@ export function GalleriaHome() {
         >
           {/* Title */}
           <div className="absolute top-10 left-8 z-20 hidden md:block">
-            <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase mb-2 block">
+            <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase mb-2 block">
               Galleria
             </span>
-            <h2 className="font-[family-name:var(--font-display)] text-3xl text-white">
+            <h2 className="font-display text-3xl text-white">
               I NOSTRI ALLENAMENTI
             </h2>
           </div>
@@ -214,7 +230,7 @@ export function GalleriaHome() {
 
                 {/* Image info overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 z-20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white text-sm font-[family-name:var(--font-display)] tracking-wide">
+                  <p className="text-white text-sm font-display tracking-wide">
                     {img.alt}
                   </p>
                   <div className="w-8 h-[2px] bg-[#D4AF37] mt-2" />
@@ -231,7 +247,7 @@ export function GalleriaHome() {
           </div>
 
           {/* Mobile scroll hint */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs font-[family-name:var(--font-display)] uppercase tracking-widest md:hidden">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs font-display uppercase tracking-widest md:hidden">
             ← Scorri →
           </div>
         </div>
@@ -251,10 +267,10 @@ export function GalleriaHome() {
         <div className="max-w-6xl mx-auto px-6">
           {/* Section Title */}
           <div className="gallery-content-item text-center mb-16">
-            <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.4em] uppercase block mb-4">
+            <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase block mb-4">
               La Nostra Struttura
             </span>
-            <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-5xl text-white mb-4">
+            <h2 className="font-display text-4xl md:text-5xl text-white mb-4">
               PASSIONE E DEDIZIONE
             </h2>
             <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
@@ -273,7 +289,7 @@ export function GalleriaHome() {
                 </svg>
               </div>
 
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-white mb-3 tracking-wide">
+              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
                 PALESTRUTTURA
               </h3>
               <p className="text-white/50 text-sm leading-relaxed">
@@ -291,7 +307,7 @@ export function GalleriaHome() {
                 </svg>
               </div>
 
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-white mb-3 tracking-wide">
+              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
                 ISTRUTTORI
               </h3>
               <p className="text-white/50 text-sm leading-relaxed">
@@ -309,7 +325,7 @@ export function GalleriaHome() {
                 </svg>
               </div>
 
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-white mb-3 tracking-wide">
+              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
                 SICUREZZA
               </h3>
               <p className="text-white/50 text-sm leading-relaxed">
@@ -321,19 +337,19 @@ export function GalleriaHome() {
           {/* Stats Row */}
           <div className="gallery-content-item mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <span className="block font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#D32F2F] mb-2">200+</span>
+              <span className="block font-display text-4xl md:text-5xl text-[#D32F2F] mb-2">200+</span>
               <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Studenti Attivi</span>
             </div>
             <div>
-              <span className="block font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#D4AF37] mb-2">15+</span>
+              <span className="block font-display text-4xl md:text-5xl text-[#D4AF37] mb-2">15+</span>
               <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Anni di Esperienza</span>
             </div>
             <div>
-              <span className="block font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#D32F2F] mb-2">2</span>
+              <span className="block font-display text-4xl md:text-5xl text-[#D32F2F] mb-2">2</span>
               <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Sedi Operative</span>
             </div>
             <div>
-              <span className="block font-[family-name:var(--font-display)] text-4xl md:text-5xl text-[#D4AF37] mb-2">500+</span>
+              <span className="block font-display text-4xl md:text-5xl text-[#D4AF37] mb-2">500+</span>
               <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Lezioni Tenute</span>
             </div>
           </div>
