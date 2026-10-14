@@ -41,7 +41,7 @@ export function Chiusura() {
   );
 
   return (
-    <section ref={sectionRef} className="py-24 sm:py-32 bg-accent relative overflow-hidden">
+    <section ref={sectionRef} data-section="8" className="py-24 sm:py-32 bg-accent relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div

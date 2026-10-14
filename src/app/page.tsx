@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { NonSport } from "@/components/NonSport";
 import { GalleriaHome } from "@/components/GalleriaHome";
+import { VideoShowcase } from "@/components/VideoShowcase";
 import { Percorsi } from "@/components/Percorsi";
 import { Sedi } from "@/components/Sedi";
 import { Maestro } from "@/components/Maestro";
@@ -16,16 +17,7 @@ export default function Home() {
       <Hero />
       <NonSport />
       <GalleriaHome />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 px-6 py-12 bg-background">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div
-            key={i}
-            className="aspect-[3/4] bg-surface rounded-lg border border-foreground/10 flex items-center justify-center"
-          >
-            <span className="text-foreground/20 text-sm font-body">Immagine {i}</span>
-          </div>
-        ))}
-      </div>
+      <VideoShowcase />
       <Percorsi />
       <Sedi />
       <Maestro />

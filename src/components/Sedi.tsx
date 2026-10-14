@@ -108,6 +108,7 @@ export function Sedi() {
   return (
     <section
       id="sedi"
+      data-section="5"
       ref={sectionRef}
       className="py-24 sm:py-32 bg-[#0A0A0A] relative overflow-hidden"
     >

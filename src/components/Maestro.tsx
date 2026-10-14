@@ -102,6 +102,7 @@ export function Maestro() {
   return (
     <section
       id="istruttore"
+      data-section="6"
       ref={sectionRef}
       className="py-24 sm:py-32 bg-[#0A0A0A] relative overflow-hidden"
     >

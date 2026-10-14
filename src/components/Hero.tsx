@@ -5,24 +5,22 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import { Play } from "lucide-react";
+import { ArrowRight, Play, Trophy, Users, Shield } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Video da Pexels - gratuito con CORS aperto
 const kravVideo = "https://videos.pexels.com/video-files/5766254/5766254-uhd_2560_1440_25fps.mp4";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
   const eyebrowRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const goldAccentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -31,10 +29,8 @@ export function Hero() {
       ).matches;
 
       if (prefersReducedMotion) {
-        // Show everything immediately
         gsap.set([
           eyebrowRef.current,
-          lineRef.current,
           titleRef.current,
           subtitleRef.current,
           ctaRef.current,
@@ -45,56 +41,53 @@ export function Hero() {
       // Initial states
       gsap.set([
         eyebrowRef.current,
-        lineRef.current,
         titleRef.current,
         subtitleRef.current,
         ctaRef.current,
-      ], { opacity: 0, y: 30 });
+      ], { opacity: 0, y: 40 });
 
-      // Eyebrow animation - più lento
+      // Eyebrow
       gsap.to(eyebrowRef.current, {
         opacity: 1,
         y: 0,
         duration: 1,
         ease: "power3.out",
-        delay: 0.3,
+        delay: 0.2,
       });
 
-      // Line animation - draw from left to right - più lento
-      gsap.to(lineRef.current, {
-        scaleX: 1,
-        opacity: 1,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.5,
-      });
-
-      // Title reveal with clip - più lento
+      // Title reveal con fade normale, non clip-path
       gsap.fromTo(
         titleRef.current,
-        { clipPath: "inset(0 100% 0 0)", y: 20 },
-        { clipPath: "inset(0 0% 0 0)", y: 0, duration: 1, ease: "power4.out", delay: 0.7 }
+        { opacity: 0, y: 60, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power4.out", delay: 0.4 }
       );
 
-      // Subtitle - più lento
+      // Gold accent line
+      gsap.fromTo(
+        ".gold-line",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.5, ease: "power3.out", delay: 0.8 }
+      );
+
+      // Subtitle
       gsap.to(subtitleRef.current, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: "power3.out",
-        delay: 1.2,
+        delay: 0.9,
       });
 
-      // CTA - più lento
+      // CTA
       gsap.to(ctaRef.current, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: "power3.out",
-        delay: 1.4,
+        delay: 1.1,
       });
 
-      // Video parallax on scroll
+      // Video parallax
       gsap.to(videoRef.current, {
         yPercent: 25,
         ease: "none",
@@ -106,7 +99,7 @@ export function Hero() {
         },
       });
 
-      // Overlay fade on scroll
+      // Overlay fade
       gsap.to(overlayRef.current, {
         opacity: 0.85,
         ease: "none",
@@ -118,14 +111,29 @@ export function Hero() {
         },
       });
 
-      // Pulsing glow animation
-      gsap.to(glowRef.current, {
-        scale: 1.1,
-        opacity: 0.6,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
+      // Content fade out on scroll
+      gsap.to(contentRef.current, {
+        opacity: 0,
+        y: -80,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "60% top",
+          scrub: true,
+        },
+      });
+
+      // Video scale
+      gsap.to(videoRef.current, {
+        scale: 1.15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "60% top",
+          scrub: true,
+        },
       });
     },
     { scope: sectionRef }
@@ -134,7 +142,8 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden"
+      data-section="1"
+      className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-0 will-change-transform">
@@ -149,171 +158,152 @@ export function Hero() {
           poster="https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1920"
         >
           <source src={kravVideo} type="video/mp4" />
-          <source src="https://cdn.coverr.co/videos/coverr-boxing-training-in-gym-5764/1080p.mp4" type="video/mp4" />
         </video>
       </div>
-
-      {/* Red Glow Overlay - Top */}
-      <div
-        ref={glowRef}
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[60%] z-[1] opacity-40"
-        style={{
-          background: 'radial-gradient(ellipse at center top, rgba(255, 61, 0, 0.8) 0%, rgba(255, 61, 0, 0) 70%)',
-        }}
-      />
-
-      {/* Red Glow Overlay - Bottom corners */}
-      <div
-        className="absolute bottom-0 left-0 w-[50%] h-[40%] z-[1] opacity-30"
-        style={{
-          background: 'radial-gradient(ellipse at bottom left, rgba(255, 61, 0, 0.6) 0%, rgba(255, 61, 0, 0) 70%)',
-        }}
-      />
-      <div
-        className="absolute bottom-0 right-0 w-[50%] h-[40%] z-[1] opacity-30"
-        style={{
-          background: 'radial-gradient(ellipse at bottom right, rgba(255, 61, 0, 0.6) 0%, rgba(255, 61, 0, 0) 70%)',
-        }}
-      />
 
       {/* Dark Overlay */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 z-[2] bg-gradient-to-b from-black/70 via-black/50 to-black/80 will-change-opacity"
+        className="absolute inset-0 z-[2] bg-gradient-to-b from-black/60 via-black/50 to-black/85 will-change-opacity"
+      />
+
+      {/* Accent Glow - Red */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120%] h-[50%] z-[1] opacity-30"
+        style={{
+          background: 'radial-gradient(ellipse at center top, rgba(220, 38, 38, 0.6) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Gold Accent Glow */}
+      <div ref={goldAccentRef} className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[80%] h-[30%] z-[1] opacity-20"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(212, 175, 55, 0.4) 0%, transparent 70%)',
+        }}
       />
 
       {/* Noise texture */}
-      <div className="absolute inset-0 z-[3] opacity-[0.03] pointer-events-none">
-        <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute inset-0 z-[3] opacity-[0.04] pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 200 200">
           <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
           </filter>
           <rect width="100%" height="100%" filter="url(#noise)" />
         </svg>
       </div>
 
-      {/* Red accent lines */}
-      <div className="absolute top-0 left-0 w-full h-full z-[4] pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-[#FF3D00]/0 via-[#FF3D00]/20 to-[#FF3D00]/0" />
-        <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-[#FF3D00]/0 via-[#FF3D00]/20 to-[#FF3D00]/0" />
+      {/* Side accent lines */}
+      <div className="absolute top-0 left-0 w-full h-full z-[4] pointer-events-none">
+        <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-[#D32F2F]/20 to-transparent" />
+        <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-[#D32F2F]/20 to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
+      <div ref={contentRef} className="relative z-20 text-center px-4 max-w-5xl mx-auto">
         {/* Eyebrow */}
-        <div
-          ref={eyebrowRef}
-          className="flex items-center justify-center gap-4 mb-8"
-        >
-          <div className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#FF3D00]" />
-          <span className="text-[#FF3D00] font-body text-xs tracking-[0.4em] uppercase">
-            Putignano • Bari
+        <div ref={eyebrowRef} className="flex items-center justify-center gap-4 mb-6">
+          <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
+          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.5em] uppercase">
+            Putignano • Puglia
           </span>
-          <div className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#FF3D00]" />
+          <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
         </div>
 
         {/* Main Title */}
-        <div className="relative mb-8">
-          {/* Red glow behind title */}
-          <div
-            className="absolute inset-0 blur-[100px] opacity-50"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(255, 61, 0, 0.8) 0%, transparent 70%)',
-            }}
-          />
-
+        <div className="relative mb-4">
           <h1
             ref={titleRef}
-            className="relative font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white mb-4 leading-[0.9] tracking-tight"
+            className="relative font-[family-name:var(--font-display)] text-white mb-2 leading-[0.85]"
+            style={{ fontSize: "clamp(4rem, 14vw, 12rem)", letterSpacing: "0.02em" }}
           >
-            DIFESA
-            <br />
-            <span className="text-[#FF3D00]">PERSONALE</span>
+            KRAV MAGA
           </h1>
+          {/* Gold accent underline */}
+          <div className="gold-line w-40 h-[3px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-2 origin-center" />
         </div>
 
-        {/* Accent line */}
-        <div
-          ref={lineRef}
-          className="w-32 h-[3px] bg-[#FF3D00] mx-auto mb-8 origin-left"
-        />
-
         {/* Subtitle */}
-        <p
-          ref={subtitleRef}
-          className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-2xl mx-auto font-body tracking-wide"
-        >
-          Impara a proteggere te stesso e i tuoi cari
-          <br />
-          <span className="text-[#FF3D00] font-medium">
-            Con le tecniche del Krav Maga
+        <p ref={subtitleRef} className="text-lg sm:text-xl md:text-2xl text-white/80 mb-10 max-w-xl mx-auto font-[family-name:var(--font-display)] tracking-wide">
+          DIFESA PERSONALE
+          <span className="block text-[#D4AF37] text-sm mt-2 tracking-[0.3em]">
+            SCUOLA UFFICIALE
           </span>
         </p>
 
         {/* CTA */}
-        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
             variant="default"
             size="lg"
-            className="group bg-[#FF3D00] hover:bg-[#FF3D00]/90 text-white border-2 border-[#FF3D00] shadow-[0_0_30px_rgba(255,61,0,0.4)] hover:shadow-[0_0_50px_rgba(255,61,0,0.6)] transition-all duration-300"
+            className="bg-[#D32F2F] hover:bg-[#B71C1C] text-white border-2 border-[#D32F2F] shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider"
           >
-            <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-            Prenota Lezione Gratuita
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            <Play className="w-4 h-4 mr-2" />
+            PROVA GRATIS
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
 
           <Button
             variant="outline"
             size="lg"
-            className="group border-2 border-white/30 text-white hover:border-[#FF3D00] hover:bg-[#FF3D00]/10 hover:text-[#FF3D00] transition-all duration-300"
+            className="border-2 border-[#D4AF37]/50 text-[#D4AF37] hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider"
           >
-            Scopri i Corsi
+            SCOPRI I CORSI
           </Button>
         </div>
 
         {/* Stats row */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-8 text-white/50">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-[#FF3D00] rounded-full" />
-            <span className="text-sm font-body uppercase tracking-wider">Istruttore Certificato</span>
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex items-center gap-3">
+            <Shield className="w-5 h-5 text-[#D4AF37]" />
+            <div className="text-left">
+              <span className="block text-white text-lg font-[family-name:var(--font-display)]">CERTIFICATO</span>
+              <span className="text-white/40 text-xs tracking-wider">IKMF</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-[#FF3D00] rounded-full" />
-            <span className="text-sm font-body uppercase tracking-wider">200+ Studenti</span>
+          <div className="w-px h-8 bg-white/20" />
+          <div className="flex items-center gap-3">
+            <Users className="w-5 h-5 text-[#D32F2F]" />
+            <div className="text-left">
+              <span className="block text-white text-lg font-[family-name:var(--font-display)]">200+</span>
+              <span className="text-white/40 text-xs tracking-wider">STUDENTI</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-[#FF3D00] rounded-full" />
-            <span className="text-sm font-body uppercase tracking-wider">15+ Anni Esperienza</span>
+          <div className="w-px h-8 bg-white/20" />
+          <div className="flex items-center gap-3">
+            <Trophy className="w-5 h-5 text-[#D4AF37]" />
+            <div className="text-left">
+              <span className="block text-white text-lg font-[family-name:var(--font-display)]">15+</span>
+              <span className="text-white/40 text-xs tracking-wider">ANNI</span>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Corner accents */}
+      <div className="absolute top-6 left-6 z-20 opacity-25">
+        <div className="w-12 h-px bg-white" />
+        <div className="w-px h-12 bg-white" />
+      </div>
+      <div className="absolute top-6 right-6 z-20 opacity-25">
+        <div className="w-12 h-px bg-white ml-auto" />
+        <div className="w-px h-12 bg-white ml-auto" />
+      </div>
+      <div className="absolute bottom-6 left-6 z-20 opacity-25">
+        <div className="w-12 h-px bg-white" />
+        <div className="w-px h-12 bg-white -mt-px" />
+      </div>
+      <div className="absolute bottom-6 right-6 z-20 opacity-25">
+        <div className="w-12 h-px bg-white ml-auto" />
+        <div className="w-px h-12 bg-white ml-auto -mt-px" />
       </div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
         <div className="flex flex-col items-center gap-2">
-          <span className="text-white/30 text-xs font-body uppercase tracking-widest">
+          <span className="text-white/30 text-[10px] font-[family-name:var(--font-display)] uppercase tracking-[0.3em]">
             Scorri
           </span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-[#FF3D00] to-transparent" />
+          <div className="w-[1px] h-10 bg-gradient-to-b from-[#D4AF37] to-transparent" />
         </div>
-      </div>
-
-      {/* Corner accents */}
-      <div className="absolute top-8 left-8 z-20 opacity-30">
-        <div className="w-16 h-px bg-white" />
-        <div className="w-px h-16 bg-white mt-0" />
-      </div>
-      <div className="absolute top-8 right-8 z-20 opacity-30">
-        <div className="w-16 h-px bg-white ml-auto" />
-        <div className="w-px h-16 bg-white mt-0 ml-auto" />
-      </div>
-      <div className="absolute bottom-8 left-8 z-20 opacity-30">
-        <div className="w-16 h-px bg-white" />
-        <div className="w-px h-16 bg-white mt-0 -mt-px" />
-      </div>
-      <div className="absolute bottom-8 right-8 z-20 opacity-30">
-        <div className="w-16 h-px bg-white ml-auto" />
-        <div className="w-px h-16 bg-white mt-0 ml-auto -mt-px" />
       </div>
     </section>
   );

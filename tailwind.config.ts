@@ -9,27 +9,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Palette Tattica - Kras Maga
-        background: "#08080A",
-        surface: "#111114",
-        surfaceAlt: "#1A1A1D",
-        foreground: "#F5F5F3",
-        foregroundMuted: "#9A9A97",
-        accent: "#F59E0B",      // Ambra - riferimento Israele
-        accentDark: "#D97706",
+        // Palette Elegante - Krav Maga
+        background: "#0A0A0A",
+        surface: "#141414",
+        surfaceAlt: "#1E1E1E",
+        foreground: "#FFFFFF",
+        foregroundMuted: "#A0A0A0",
+        accent: "#CC0000",           // Rosso Ferrari
+        accentHover: "#AA0000",
+        gold: "#D4AF37",            // Oro
+        goldSubtle: "rgba(212, 175, 55, 0.15)",
         danger: "#EF4444",
-        border: "rgba(245, 245, 243, 0.08)",
-        borderAccent: "rgba(245, 158, 11, 0.3)",
+        border: "rgba(255, 255, 255, 0.08)",
+        borderAccent: "rgba(204, 0, 0, 0.3)",
       },
       fontFamily: {
-        display: ["var(--font-bebas-neue)", "sans-serif"],
-        body: ["var(--font-space-grotesk)", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
+        heading: ["var(--font-heading)", "serif"],
       },
       fontSize: {
-        "display-xl": ["clamp(4rem, 12vw, 10rem)", { lineHeight: "0.9", letterSpacing: "-0.02em" }],
-        "display-lg": ["clamp(3rem, 8vw, 6rem)", { lineHeight: "0.95", letterSpacing: "-0.02em" }],
-        "display-md": ["clamp(2rem, 5vw, 3.5rem)", { lineHeight: "1", letterSpacing: "-0.01em" }],
+        "display-xl": ["clamp(4rem, 12vw, 10rem)", { lineHeight: "0.9", letterSpacing: "0.02em" }],
+        "display-lg": ["clamp(3rem, 8vw, 6rem)", { lineHeight: "0.95", letterSpacing: "0.01em" }],
+        "display-md": ["clamp(2rem, 5vw, 3.5rem)", { lineHeight: "1", letterSpacing: "0.01em" }],
       },
       spacing: {
         "section": "8rem",
@@ -41,8 +43,9 @@ const config: Config = {
         DEFAULT: "4px",
       },
       boxShadow: {
-        glow: "0 0 40px rgba(245, 158, 11, 0.15)",
-        "glow-sm": "0 0 20px rgba(245, 158, 11, 0.1)",
+        glow: "0 0 40px rgba(204, 0, 0, 0.15)",
+        "glow-sm": "0 0 20px rgba(204, 0, 0, 0.1)",
+        "glow-gold": "0 0 30px rgba(212, 175, 55, 0.2)",
       },
       animation: {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
@@ -51,8 +54,8 @@ const config: Config = {
       },
       keyframes: {
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px rgba(245, 158, 11, 0.2)" },
-          "50%": { boxShadow: "0 0 40px rgba(245, 158, 11, 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 20px rgba(204, 0, 0, 0.2)" },
+          "50%": { boxShadow: "0 0 40px rgba(204, 0, 0, 0.4)" },
         },
         "slide-up": {
           "0%": { transform: "translateY(20px)", opacity: "0" },
