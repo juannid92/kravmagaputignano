@@ -13,9 +13,9 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // DISABILITATO SU MOBILE - causava problemi di scroll bloccato
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    if (isMobile) {
+    // Keep touch scrolling native; ScrollTrigger works on both paths.
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+    if (isMobile || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
@@ -31,13 +31,14 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     // Integrate Lenis with ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    const tick = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(tick);
 
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(tick);
+      lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
       lenisRef.current = null;
     };

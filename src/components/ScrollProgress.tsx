@@ -9,39 +9,40 @@ gsap.registerPlugin(ScrollTrigger);
 export function ScrollProgress() {
   const progressRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(1);
-  const totalSections = 8;
+  const totalSections = 9;
 
   useEffect(() => {
-    gsap.to(progressRef.current, {
-      scaleX: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.3,
-      },
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("section[data-section]"));
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      let current = 1;
+      const middle = window.innerHeight / 2;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= middle) {
+          current = Number(section.dataset.section);
+        }
+      }
+      setCurrentSection(previous => previous === current ? previous : current);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const ctx = gsap.context(() => {
+      gsap.to(progressRef.current, {
+        scaleX: 1, ease: "none",
+        scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.3 },
+      });
     });
-  }, []);
-
-  useEffect(() => {
-    const sections = document.querySelectorAll("section[data-section]");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionNum = parseInt(entry.target.getAttribute("data-section") || "1");
-            setCurrentSection(sectionNum);
-          }
-        });
-      },
-      { threshold: 0.8 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    ScrollTrigger.addEventListener("refresh", schedule);
+    update();
+    return () => {
+      ctx.revert();
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      ScrollTrigger.removeEventListener("refresh", schedule);
+    };
   }, []);
 
   return (

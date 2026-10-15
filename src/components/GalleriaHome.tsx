@@ -26,136 +26,41 @@ export function GalleriaHome() {
   const galleryContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) return;
-
+    const section = sectionRef.current;
+    const viewport = stickyRef.current;
+    const track = trackRef.current;
+    if (!section || !viewport || !track) return;
     const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px)", () => {
-      if (!trackRef.current || !sectionRef.current || !stickyRef.current) return;
-
-      const track = trackRef.current;
-      const getDistance = () => track.scrollWidth - window.innerWidth;
-
-      // Horizontal scroll animation con spazio extra per arrivare fino all'ultima immagine
-      gsap.to(track, {
-        x: () => -getDistance(),
-        ease: "none",
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const timeline = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          id: "gallery-horizontal",
+          trigger: section,
           start: "top top",
-          // Abbastanza spazio per far vedere TUTTE le immagini
-          end: () => `+=${getDistance() + window.innerWidth}`,
-          scrub: 1.5,
-          pin: stickyRef.current,
-          pinSpacing: true, // Importante: dà spazio dopo la gallery per scrollare
+          end: () => `+=${Math.max(distance(), viewport.clientHeight)}`,
+          scrub: true,
+          pin: viewport,
+          pinSpacing: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
-
-      // Immagini reveal con effetto cinema
-      gsap.utils.toArray(".gallery-img-wrap").forEach((item: any) => {
-        gsap.fromTo(
-          item,
-          {
-            opacity: 0,
-            scale: 0.8,
-            rotateY: 20,
-            skewX: 5,
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            rotateY: 0,
-            skewX: 0,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: () => `+=${getDistance() + window.innerWidth}`,
-              scrub: 0.8,
-            },
-          }
-        );
-      });
-
-      // Parallax interno sulle immagini
-      gsap.utils.toArray(".gallery-img-inner").forEach((img: any) => {
-        gsap.to(img, {
-          scale: 1.15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${getDistance() + window.innerWidth}`,
-            scrub: true,
-          },
-        });
-      });
-
-      // Progress bar
-      gsap.to(".gallery-progress", {
-        width: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: () => `+=${getDistance() + window.innerWidth}`,
-          scrub: true,
-        },
-      });
+      timeline.to(track, { x: () => -distance(), duration: 1, ease: "none" }, 0);
+      timeline.to(track.querySelectorAll(".gallery-img-inner"), { scale: 1.08, duration: 1, ease: "none" }, 0);
+      timeline.to(section.querySelector(".gallery-progress"), { scaleX: 1, duration: 1, ease: "none" }, 0);
+    }, section);
+    // The content reveal is scoped and cleaned up with this matchMedia context.
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const content = galleryContentRef.current;
+      if (!content) return;
+      gsap.fromTo(content.querySelectorAll(".gallery-content-item"),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1,
+          scrollTrigger: { trigger: content, start: "top 85%", toggleActions: "play none none reverse" } }
+      );
     });
-
-    mm.add("(max-width: 767px)", () => {
-      gsap.utils.toArray(".gallery-img-wrap").forEach((item: any) => {
-        gsap.fromTo(
-          item,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 85%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      });
-    });
-
-    // Content below gallery reveal
-    gsap.fromTo(
-      ".gallery-content-item",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: galleryContentRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
-
-    // Cleanup
-    return () => {
-      mm.revert();
-      ScrollTrigger.getAll().forEach(t => t.kill());
-    };
+    return () => mm.revert();
   }, []);
 
   return (
@@ -165,56 +70,46 @@ export function GalleriaHome() {
         ref={sectionRef}
         data-section="3"
         className="relative"
-        style={{ height: "400vh" }} // Spazio per scroll orizzontale
+        data-testid="gallery"
       >
-        {/* Mobile Title */}
-        <div className="md:hidden text-center py-8 bg-[#0A0A0A]">
-          <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase mb-2 block">
-            Galleria
-          </span>
-          <h2 className="font-display text-2xl text-white">
-            I NOSTRI ALLENAMENTI
-          </h2>
-        </div>
-
         <div
           ref={stickyRef}
-          className="sticky top-0 md:h-screen flex items-center overflow-hidden bg-[#0A0A0A] md:py-0 py-8 z-50"
+          className="gallery-viewport relative flex items-center overflow-hidden bg-[#0A0A0A]"
         >
           {/* Title */}
-          <div className="absolute top-10 left-8 z-20 hidden md:block">
+          <div className="gallery-heading absolute left-6 md:left-8 z-20">
             <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase mb-2 block">
               Galleria
             </span>
-            <h2 className="font-display text-3xl text-white">
+            <h2 className="font-display text-2xl md:text-3xl text-white">
               I NOSTRI ALLENAMENTI
             </h2>
           </div>
 
           {/* Progress bar */}
           <div className="absolute top-0 left-0 w-full h-1 bg-white/5 z-30">
-            <div className="gallery-progress h-full bg-gradient-to-r from-[#D32F2F] to-[#D4AF37]" style={{ width: "0%" }} />
+            <div className="gallery-progress h-full bg-gradient-to-r from-[#D32F2F] to-[#D4AF37]" style={{ transform: "scaleX(0)", transformOrigin: "left" }} />
           </div>
 
           {/* Track */}
           <div
             ref={trackRef}
             className={cn(
-              "flex md:flex-row flex-col md:items-center gap-6 md:gap-8",
-              "md:pl-[20vw] pl-4 pr-4 w-full"
+              "gallery-track flex flex-row items-center gap-6 md:gap-8"
             )}
             style={{ willChange: "transform" }}
+            data-testid="gallery-track"
           >
             {kravGalleryImages.map((img, i) => (
               <div
                 key={i}
-                className="gallery-img-wrap flex-shrink-0 relative overflow-hidden cursor-pointer group md:w-[clamp(240px,25vw,320px)] md:h-[clamp(400px,55vw,650px)] w-full aspect-[3/4] max-w-[300px] mx-auto"
+                className="gallery-img-wrap flex-shrink-0 relative overflow-hidden group"
                 style={{
                   borderRadius: "1rem",
                 }}
               >
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Image */}
                 <div className="gallery-img-inner absolute inset-0 will-change-transform rounded-xl overflow-hidden">
@@ -229,7 +124,7 @@ export function GalleriaHome() {
                 </div>
 
                 {/* Image info overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 z-20 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4 z-20 transform translate-y-0 md:translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <p className="text-white text-sm font-display tracking-wide">
                     {img.alt}
                   </p>
@@ -242,13 +137,12 @@ export function GalleriaHome() {
               </div>
             ))}
 
-            {/* Last spacer */}
-            <div className="flex-shrink-0 md:w-[20vw] w-4" />
+
           </div>
 
           {/* Mobile scroll hint */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs font-display uppercase tracking-widest md:hidden">
-            ← Scorri →
+          <div className="gallery-hint absolute bottom-5 left-1/2 -translate-x-1/2 text-white/40 text-[10px] font-display uppercase tracking-widest">
+            Scorri per esplorare
           </div>
         </div>
       </section>
