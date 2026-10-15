@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/clean-export.cjs && next build && node scripts/stamp-build.cjs",
     "start": "next start",
     "lint": "next lint",
-    "test:scroll": "npm run build && playwright test"
+    "test:scroll": "npm run build && playwright test",
+    "test:deploy": "node --test tests/deploy.test.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
