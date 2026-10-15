@@ -2,7 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "scroll-parity.spec.ts",
+  testMatch: ["scroll-parity.spec.ts", "structure.spec.ts"],
   timeout: 120000,
   workers: 1,
   use: {

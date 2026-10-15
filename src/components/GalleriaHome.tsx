@@ -147,106 +147,88 @@ export function GalleriaHome() {
         </div>
       </section>
 
-      {/* Content Section Below Gallery */}
-      <section ref={galleryContentRef} className="relative py-24 md:py-32 bg-[#0A0A0A]">
-        {/* Background decoration */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[60%] opacity-10"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(220, 38, 38, 0.3) 0%, transparent 70%)',
-            }}
-          />
-        </div>
-
-        <div className="max-w-6xl mx-auto px-6">
-          {/* Section Title */}
-          <div className="gallery-content-item text-center mb-16">
-            <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase block mb-4">
-              La Nostra Struttura
-            </span>
-            <h2 className="font-display text-4xl md:text-5xl text-white mb-4">
-              PASSIONE E DEDIZIONE
-            </h2>
-            <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto" />
-          </div>
-
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Feature 1 */}
-            <div className="gallery-content-item relative p-8 bg-[#0D0D0D] border border-white/5 hover:border-[#D32F2F]/30 transition-colors duration-300 group">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#D32F2F]/50 group-hover:border-[#D32F2F] transition-colors" />
-
-              <div className="w-14 h-14 bg-[#D32F2F]/10 flex items-center justify-center mb-6 group-hover:bg-[#D32F2F]/20 transition-colors">
-                <svg className="w-7 h-7 text-[#D32F2F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
-                PALESTRUTTURA
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed">
-                Attrezzature professionali per l'allenamento funzionale e il combattimento. Spazi dedicati per ogni tipo di esercitazione.
-              </p>
+      {/* Open editorial section: no repeated cards or framed panels. */}
+      <section
+        ref={galleryContentRef}
+        aria-labelledby="structure-title"
+        data-testid="structure"
+        className="relative bg-[#0A0A0A] px-6 py-24 md:py-32"
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+            <div className="gallery-content-item lg:col-span-5">
+              <span className="mb-6 block font-display text-sm uppercase tracking-[0.25em] text-[#D4AF37]">
+                La Nostra Struttura
+              </span>
+              <h2
+                id="structure-title"
+                className="font-stencil text-[clamp(2.5rem,4vw,3.25rem)] leading-[1.05] tracking-wide text-white"
+              >
+                PASSIONE<br />
+                <span className="whitespace-nowrap text-[#D4AF37]">E DEDIZIONE</span>
+              </h2>
+              <span aria-hidden="true" className="mt-8 block h-[3px] w-16 bg-[#CC0000]" />
             </div>
 
-            {/* Feature 2 */}
-            <div className="gallery-content-item relative p-8 bg-[#0D0D0D] border border-white/5 hover:border-[#D4AF37]/30 transition-colors duration-300 group">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#D4AF37]/50 group-hover:border-[#D4AF37] transition-colors" />
-
-              <div className="w-14 h-14 bg-[#D4AF37]/10 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/20 transition-colors">
-                <svg className="w-7 h-7 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
-                ISTRUTTORI
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed">
-                Maestri certificati IKMF con anni di esperienza nel Krav Maga e nelle arti marziali. Formazione continua e aggiornamento.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="gallery-content-item relative p-8 bg-[#0D0D0D] border border-white/5 hover:border-[#D32F2F]/30 transition-colors duration-300 group">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#D32F2F]/50 group-hover:border-[#D32F2F] transition-colors" />
-
-              <div className="w-14 h-14 bg-[#D32F2F]/10 flex items-center justify-center mb-6 group-hover:bg-[#D32F2F]/20 transition-colors">
-                <svg className="w-7 h-7 text-[#D32F2F]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-xl text-white mb-3 tracking-wide">
-                SICUREZZA
-              </h3>
-              <p className="text-white/50 text-sm leading-relaxed">
-                Protocolli di sicurezza rigorosi per ogni allenamento. Protezioni adeguate e supervisione costante durante le esercitazioni.
-              </p>
+            <div className="lg:col-span-7">
+              {[
+                {
+                  number: "01",
+                  title: "PALESTRUTTURA",
+                  text: "Attrezzature professionali per l'allenamento funzionale e il combattimento. Spazi dedicati per ogni tipo di esercitazione.",
+                },
+                {
+                  number: "02",
+                  title: "ISTRUTTORI",
+                  text: "Maestri certificati IKMF con anni di esperienza nel Krav Maga e nelle arti marziali. Formazione continua e aggiornamento.",
+                },
+                {
+                  number: "03",
+                  title: "SICUREZZA",
+                  text: "Protocolli di sicurezza rigorosi per ogni allenamento. Protezioni adeguate e supervisione costante durante le esercitazioni.",
+                },
+              ].map((feature, index) => (
+                <div
+                  key={feature.number}
+                  data-testid="structure-feature"
+                  className={cn(
+                    "gallery-content-item grid grid-cols-[2rem_minmax(0,1fr)] gap-4 sm:grid-cols-[3rem_minmax(0,1fr)] sm:gap-6",
+                    index > 0 && "mt-8 border-t border-white/15 pt-8"
+                  )}
+                >
+                  <span aria-hidden="true" className="pt-1 font-display text-sm tracking-wider text-[#D4AF37]">
+                    {feature.number}
+                  </span>
+                  <div>
+                    <h3 className="mb-3 font-display text-2xl tracking-wide text-white sm:text-3xl">
+                      {feature.title}
+                    </h3>
+                    <p className="max-w-[48ch] text-base leading-relaxed text-white/70">
+                      {feature.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Stats Row */}
-          <div className="gallery-content-item mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div>
-              <span className="block font-display text-4xl md:text-5xl text-[#D32F2F] mb-2">200+</span>
-              <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Studenti Attivi</span>
-            </div>
-            <div>
-              <span className="block font-display text-4xl md:text-5xl text-[#D4AF37] mb-2">15+</span>
-              <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Anni di Esperienza</span>
-            </div>
-            <div>
-              <span className="block font-display text-4xl md:text-5xl text-[#D32F2F] mb-2">2</span>
-              <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Sedi Operative</span>
-            </div>
-            <div>
-              <span className="block font-display text-4xl md:text-5xl text-[#D4AF37] mb-2">500+</span>
-              <span className="text-white/40 text-xs tracking-[0.2em] uppercase">Lezioni Tenute</span>
-            </div>
-          </div>
+          <dl className="gallery-content-item mt-16 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-white/15 pt-10 md:mt-24 md:grid-cols-4 md:gap-8 md:pt-12">
+            {[
+              { value: "200+", label: "Studenti Attivi" },
+              { value: "15+", label: "Anni di Esperienza" },
+              { value: "2", label: "Sedi Operative" },
+              { value: "500+", label: "Lezioni Tenute" },
+            ].map(stat => (
+              <div key={stat.label} className="flex min-w-0 flex-col">
+                <dt className="order-2 mt-3 text-sm leading-relaxed tracking-wide text-white/65">
+                  {stat.label}
+                </dt>
+                <dd className="order-1 font-display text-5xl leading-none tracking-tight text-white md:text-6xl">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
     </>
