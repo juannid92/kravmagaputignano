@@ -50,8 +50,8 @@ export function StructureManifesto() {
         <span>Putignano / Conversano</span>
       </header>
       <h2 id="structure-title" className={styles.title}>
-        <span>PASSIONE</span>
-        <span className={styles.secondLine} data-manifesto-word><em>E</em> DEDIZIONE</span>
+        <span>Passione</span>
+        <span className={styles.secondLine} data-manifesto-word>e dedizione</span>
       </h2>
       <div className={styles.copy}>
         {[

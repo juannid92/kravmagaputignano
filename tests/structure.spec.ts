@@ -19,6 +19,14 @@ for (const viewport of [{width:1440,height:1000},{width:390,height:844},{width:3
     expect(text!.x).toBeGreaterThanOrEqual(20);expect(text!.x+text!.width).toBeLessThanOrEqual(viewport.width-20);
    }
    await expect(section.locator('h3')).toHaveText(['Palestruttura','Istruttori','Sicurezza']);
+   const title = section.locator('h2');
+   await expect(title).toHaveText(/Passione\s*e dedizione/);
+   await expect(title).toHaveCSS('font-weight','500');
+   expect(await title.evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeLessThan(viewport.width < 768 ? 60 : 110);
+   await expect(title.locator('span').nth(1)).toHaveCSS('color','rgb(239, 60, 69)');
+   expect(await section.locator('dd').first().evaluate(e => getComputedStyle(e).fontFamily)).not.toContain('Impact');
+   expect(await section.locator('dd').first().evaluate(e => getComputedStyle(e).fontFamily)).toContain('Arial');
+   await expect(section.locator('dl').first()).toHaveCSS('transform','none');
    await expect(section.locator('dt')).toHaveText(['Studenti attivi','Anni di esperienza','Sedi operative','Lezioni tenute']);
    await expect(section.locator('dd')).toHaveText(['200+','15+','2','500+']);
    expect(await section.evaluate(e=>e.parentElement!.classList.contains('pin-spacer'))).toBe(false);
