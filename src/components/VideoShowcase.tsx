@@ -62,7 +62,7 @@ export function VideoShowcase() {
   return (
     <section
       ref={sectionRef}
-      data-section="3"
+      data-section="4"
       className="relative py-24 sm:py-32 bg-[#0A0A0A] overflow-hidden"
     >
       {/* Background con pattern mimetico */}

@@ -97,7 +97,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      data-section="7"
+      data-section="8"
       ref={sectionRef}
       className="py-24 sm:py-32 bg-[#0A0A0A] relative overflow-hidden"
     >
