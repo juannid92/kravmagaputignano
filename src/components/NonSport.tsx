@@ -11,8 +11,10 @@ const concepts = [
 
 export function NonSport() {
   const sectionRef = useRef<HTMLElement>(null);
+  const panelRefs = useRef<Array<HTMLElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -42,6 +44,46 @@ export function NonSport() {
     return () => mm.revert(); // Never kill triggers owned by other sections.
   }, []);
 
+  // Animate panel swap: exit (out 280ms, slide -30px) + entrance (in 400ms, slide +30px)
+  useEffect(() => {
+    if (reducedMotion) return;
+    const panels = panelRefs.current.filter(Boolean) as HTMLElement[];
+    if (panels.length === 0) return;
+
+    if (isFirstRender.current) {
+      // First mount: snap active to its target state without animating from a hidden state.
+      isFirstRender.current = false;
+      panels.forEach((el, i) => {
+        gsap.set(el, { opacity: i === activeIndex ? 1 : 0, y: i === activeIndex ? 0 : 30 });
+      });
+      return;
+    }
+
+    panels.forEach((el, i) => {
+      if (i === activeIndex) {
+        // Incoming panel: from below, decelerate (motion-design: entrance = ease-out)
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 30, visibility: "visible" },
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", overwrite: true }
+        );
+      } else {
+        // Outgoing panel: upward, accelerate (motion-design: exit = ease-in)
+        gsap.to(el, {
+          opacity: 0,
+          y: -30,
+          duration: 0.28,
+          ease: "power2.in",
+          overwrite: true,
+          onComplete: () => {
+            // Restore CSS-driven hidden state after the slide-out finishes
+            if (i !== activeIndex) gsap.set(el, { visibility: "hidden" });
+          },
+        });
+      }
+    });
+  }, [activeIndex, reducedMotion]);
+
   return (
     <section ref={sectionRef} data-section="2" data-testid="nonsport" className="nonsport-section relative bg-[#0A0A0A]">
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#0A0A0A] via-[#0D0D0D] to-[#0A0A0A]" />
@@ -55,7 +97,14 @@ export function NonSport() {
         </header>
         <div className="nonsport-panels">
           {concepts.map((concept, i) => (
-            <article key={concept.number} data-testid={`concept-${concept.number}`} data-active={activeIndex === i} aria-hidden={!reducedMotion && activeIndex !== i} className="concept-item nonsport-panel">
+            <article
+              key={concept.number}
+              ref={(el) => { panelRefs.current[i] = el; }}
+              data-testid={`concept-${concept.number}`}
+              data-active={activeIndex === i}
+              aria-hidden={!reducedMotion && activeIndex !== i}
+              className="concept-item nonsport-panel"
+            >
               <div className="nonsport-card relative w-full bg-gradient-to-b from-[#131318] to-[#0A0A0A] border border-[#CC0000]/30 shadow-[0_0_80px_rgba(204,0,0,0.15)]">
                 <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#CC0000]" />
                 <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#CC0000]" />
