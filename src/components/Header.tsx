@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
 import { gsap } from "@/lib/gsap-config";
@@ -72,12 +73,22 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            <Link href="/" className="flex items-center gap-2" aria-label="Krav Maga Putignano — torna alla home">
-              <span className="font-display text-xl sm:text-2xl tracking-tight">
-                KRAV MAGA
-              </span>
-              <span className="hidden sm:inline text-foreground/60 text-sm font-body">
-                Putignano & Conversano
+            <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Krav Maga Putignano — torna alla home">
+              <Image
+                src="/images/federkravmaga-logo.jpg"
+                alt="Federkravmaga Italia — Global Defender Putignano"
+                width={44}
+                height={44}
+                className="h-9 sm:h-11 w-auto shrink-0"
+                priority
+              />
+              <span className="hidden sm:flex flex-col leading-none">
+                <span className="font-display text-base sm:text-lg tracking-tight text-white">
+                  KRAV MAGA
+                </span>
+                <span className="text-foreground/60 text-[10px] sm:text-xs font-body uppercase tracking-wider mt-0.5">
+                  Putignano & Conversano
+                </span>
               </span>
             </Link>
 
@@ -139,7 +150,16 @@ export function Header() {
         <div className="p-6">
           {/* Header del menu */}
           <div className="flex items-center justify-between mb-10">
-            <span className="font-display text-xl text-white">MENU</span>
+            <Link href="/" onClick={closeMenu} className="flex items-center gap-3" aria-label="Krav Maga Putignano — torna alla home">
+              <Image
+                src="/images/federkravmaga-logo.jpg"
+                alt="Federkravmaga Italia"
+                width={36}
+                height={36}
+                className="h-9 w-auto"
+              />
+              <span className="font-display text-lg text-white">KRAV MAGA</span>
+            </Link>
             <button
               onClick={closeMenu}
               className="p-2 hover:bg-surface rounded-lg transition-colors"

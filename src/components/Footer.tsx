@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { Button } from "@/components/ui/button";
@@ -202,17 +203,26 @@ export function Footer() {
           <div className="grid md:grid-cols-4 gap-12 md:gap-8">
             {/* Brand */}
             <div className="footer-content md:col-span-1">
-              <Link href="/" className="inline-block mb-6">
-                <span className="font-display text-3xl text-white tracking-tight">
-                  KRAV MAGA
-                </span>
-                <span className="block text-white/40 text-xs font-body mt-1 uppercase tracking-wider">
-                  Putignano & Conversano
+              <Link href="/" className="inline-flex items-center gap-3 mb-5" aria-label="Krav Maga Putignano — torna alla home">
+                <Image
+                  src="/images/federkravmaga-logo.jpg"
+                  alt="Federkravmaga Italia — Global Defender Putignano"
+                  width={48}
+                  height={48}
+                  className="h-12 w-auto"
+                />
+                <span className="flex flex-col leading-none">
+                  <span className="font-display text-2xl text-white tracking-tight">
+                    KRAV MAGA
+                  </span>
+                  <span className="text-white/40 text-[10px] font-body mt-1 uppercase tracking-wider">
+                    Putignano & Conversano
+                  </span>
                 </span>
               </Link>
               <p className="text-white/50 text-sm font-body leading-relaxed max-w-xs">
                 Scuola di Krav Maga in provincia di Bari. Corsi per adulti e bambini,
-                tenuti da istruttori certificati KMFD.
+                tenuti da istruttori certificati Federkravmaga.
               </p>
 
               {/* Identità legale (placeholder da compilare) */}

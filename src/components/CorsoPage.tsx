@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { Shield, Users, Zap, Heart, Eye, Target, Star, Award, MessageCircle, Phone, MapPin, Clock, ArrowRight, Check } from "lucide-react";
@@ -254,6 +255,15 @@ export function CorsoPage({ variant }: { variant: Variant }) {
         />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Image
+            src="/images/federkravmaga-logo.jpg"
+            alt="Federkravmaga Italia — Global Defender Putignano"
+            width={120}
+            height={120}
+            className="mx-auto mb-6 h-20 sm:h-24 w-auto"
+            priority
+          />
+
           <span
             className="font-display text-xs tracking-[0.4em] uppercase block mb-4"
             style={{ color: p.accent }}
