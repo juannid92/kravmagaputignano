@@ -306,7 +306,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="mailto:[INSERIRE EMAIL]"
+                    href="mailto:reclami@kravmagapuglia.it"
                     className="text-white/60 hover:text-[#CC0000] transition-colors"
                   >
                     Reclami e segnalazioni

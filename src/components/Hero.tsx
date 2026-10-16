@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, Trophy, Users, Shield } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -237,23 +237,23 @@ export function Hero() {
 
         {/* CTA */}
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button
-            variant="default"
-            size="lg"
-            className="bg-[#D32F2F] hover:bg-[#B71C1C] text-white border-2 border-[#D32F2F] shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider"
+          <a
+            href="tel:+393334567890"
+            className="inline-flex items-center bg-[#D32F2F] hover:bg-[#B71C1C] text-white border-2 border-[#D32F2F] shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider px-6 py-3 text-base sm:text-lg"
+            aria-label="Chiama per prenotare una lezione di prova gratuita"
           >
             <Play className="w-4 h-4 mr-2" />
             PROVA GRATIS
             <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+          </a>
 
-          <Button
-            variant="outline"
-            size="lg"
-            className="border-2 border-[#D4AF37]/50 text-[#D4AF37] hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider"
+          <Link
+            href="/corsi/adulti"
+            className="inline-flex items-center border-2 border-[#D4AF37]/50 text-[#D4AF37] hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider px-6 py-3 text-base sm:text-lg"
+            aria-label="Vai alla pagina dei corsi per adulti"
           >
             SCOPRI I CORSI
-          </Button>
+          </Link>
         </div>
 
         {/* Stats row */}

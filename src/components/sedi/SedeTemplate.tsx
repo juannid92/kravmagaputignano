@@ -324,19 +324,6 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
         </section>
       )}
 
-      {/* Footer */}
-      <footer className="bg-background border-t border-foreground/10 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link href="/" className="inline-block mb-4">
-            <span className="font-display text-2xl text-foreground">KRAV MAGA</span>
-            <span className="block text-foreground/40 text-xs font-body">Putignano & Conversano</span>
-          </Link>
-          <p className="text-foreground/40 text-xs font-body">
-            © 2024 Krav Maga Putignano & Conversano. Tutti i diritti riservati.
-          </p>
-        </div>
-      </footer>
-
       {/* Lightbox */}
       <Lightbox
         isOpen={lightboxOpen}

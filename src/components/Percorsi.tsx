@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Zap, Users, Heart, Eye, Target, Star, Award } from "lucide-react";
 import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
@@ -759,17 +759,17 @@ export function Percorsi() {
                 ))}
               </ul>
 
-              <Button
-                variant="default"
-                size="lg"
-                className={`group relative overflow-hidden transition-all duration-300 ${palette.cta} ${palette.ctaHover} ${palette.ctaShadow} ${palette.ctaShadowHover}`}
+              <Link
+                href={activeTab === "adulti" ? "/corsi/adulti" : "/corsi/kids"}
+                className={`group relative inline-flex items-center overflow-hidden transition-all duration-300 ${palette.cta} ${palette.ctaHover} ${palette.ctaShadow} ${palette.ctaShadowHover} px-8 py-4 text-base sm:text-lg font-semibold tracking-wider rounded-none`}
+                aria-label={`Scopri i corsi ${activeTab === "adulti" ? "per adulti" : "per bambini"}`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                 <span className="relative z-10 flex items-center">
                   Scopri i corsi {activeTab === "adulti" ? "adulti" : "bambini"}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
-              </Button>
+              </Link>
             </div>
           </div>
         </div>
