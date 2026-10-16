@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
-import { Shield, Users, Zap, Heart, Eye, Target, Star, Award, MessageCircle, Phone, MapPin, Clock, ArrowRight, Check } from "lucide-react";
+import { Shield, Users, Zap, Heart, Eye, Target, Star, Award, MessageCircle, Phone, MapPin, Clock, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import { sedi } from "@/lib/sedi";
 
 type Variant = "adulti" | "kids";
@@ -45,6 +45,8 @@ type Palette = {
   whatsappMessage: string;
   phoneHref: string;
   phoneDisplay: string;
+  otherCourseHref: string;
+  otherCourseLabel: string;
   features: { Icon: typeof Shield; title: string; description: string }[];
   lessonSteps: { label: string; duration: string; description: string }[];
 };
@@ -85,6 +87,8 @@ const PALETTES: Record<Variant, Palette> = {
     whatsappMessage: "Ciao, vorrei prenotare una lezione di prova per il corso adulti.",
     phoneHref: "tel:+393334567890",
     phoneDisplay: "+39 333 456 7890",
+    otherCourseHref: "/corsi/kids",
+    otherCourseLabel: "Vai al corso Kids",
     features: [
       {
         Icon: Shield,
@@ -149,6 +153,8 @@ const PALETTES: Record<Variant, Palette> = {
     whatsappMessage: "Ciao, vorrei informazioni sul corso per bambini.",
     phoneHref: "tel:+393334567890",
     phoneDisplay: "+39 333 456 7890",
+    otherCourseHref: "/corsi/adulti",
+    otherCourseLabel: "Vai al corso Adulti",
     features: [
       {
         Icon: Eye,
@@ -255,6 +261,28 @@ export function CorsoPage({ variant }: { variant: Variant }) {
         />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Nav interna: torna ai corsi + passa all'altro corso */}
+          <nav
+            aria-label="Navigazione tra corsi"
+            className="flex items-center justify-between mb-10"
+          >
+            <Link
+              href="/#percorsi"
+              className="inline-flex items-center gap-2 text-white/60 hover:text-white text-xs sm:text-sm font-display uppercase tracking-[0.2em] transition-colors group"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              Torna ai corsi
+            </Link>
+            <Link
+              href={p.otherCourseHref}
+              className="inline-flex items-center gap-2 font-display uppercase tracking-[0.2em] text-xs sm:text-sm transition-colors group"
+              style={{ color: p.accent }}
+            >
+              {p.otherCourseLabel}
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </nav>
+
           <Image
             src="/images/federkravmaga-logo.jpg"
             alt="Federkravmaga Italia — Global Defender Putignano"
