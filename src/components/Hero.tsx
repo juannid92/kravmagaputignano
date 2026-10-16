@@ -200,12 +200,18 @@ export function Hero() {
       {/* Content */}
       <div ref={contentRef} className="relative z-20 text-center px-4 max-w-5xl mx-auto">
         {/* Eyebrow */}
-        <div ref={eyebrowRef} className="flex items-center justify-center gap-4 mb-6">
-          <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
-          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-xs tracking-[0.5em] uppercase">
-            Putignano • Puglia
+        <div ref={eyebrowRef} className="flex items-center justify-center gap-3 sm:gap-4 mb-6">
+          <div className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
+          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-[10px] sm:text-xs tracking-[0.35em] sm:tracking-[0.5em] uppercase whitespace-nowrap">
+            Putignano · Conversano
           </span>
-          <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
+          <span className="text-[#D4AF37]/60 font-[family-name:var(--font-display)] text-[10px] sm:text-xs tracking-[0.35em] sm:tracking-[0.5em] uppercase">
+            ·
+          </span>
+          <span className="text-[#D4AF37] font-[family-name:var(--font-display)] text-[10px] sm:text-xs tracking-[0.35em] sm:tracking-[0.5em] uppercase whitespace-nowrap">
+            Puglia
+          </span>
+          <div className="w-8 sm:w-12 h-[1px] bg-gradient-to-l from-transparent to-[#D4AF37]" />
         </div>
 
         {/* Main Title */}

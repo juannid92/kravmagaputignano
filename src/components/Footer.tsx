@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Zap } from "lucide-react";
-import Link from "next/link";
+import { openCookieSettings } from "@/components/CookieConsent";
 
 const sedi = [
   {
@@ -198,10 +199,10 @@ export function Footer() {
       {/* Footer Info Section */}
       <section className="bg-[#0A0A0A] py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12 md:gap-8">
+          <div className="grid md:grid-cols-4 gap-12 md:gap-8">
             {/* Brand */}
-            <div className="footer-content">
-              <Link href="#" className="inline-block mb-6">
+            <div className="footer-content md:col-span-1">
+              <Link href="/" className="inline-block mb-6">
                 <span className="font-display text-3xl text-white tracking-tight">
                   KRAV MAGA
                 </span>
@@ -213,6 +214,13 @@ export function Footer() {
                 Scuola di Krav Maga in provincia di Bari. Corsi per adulti e bambini,
                 tenuti da istruttori certificati KMFD.
               </p>
+
+              {/* Identità legale (placeholder da compilare) */}
+              <div className="mt-5 space-y-0.5 text-[11px] text-white/40 font-body leading-relaxed">
+                <p>[INSERIRE RAGIONE SOCIALE]</p>
+                <p>P.IVA / C.F. [INSERIRE]</p>
+                <p>REA [INSERIRE] — Bari</p>
+              </div>
 
               {/* Social */}
               <div className="flex items-center gap-3 mt-6">
@@ -257,6 +265,56 @@ export function Footer() {
               </div>
             </div>
 
+            {/* Link utili */}
+            <div className="footer-content">
+              <h4 className="font-body text-xs text-[#CC0000] uppercase tracking-[0.2em] mb-6">
+                Link Utili
+              </h4>
+              <ul className="space-y-3 text-sm font-body">
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    className="text-white/60 hover:text-[#CC0000] transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/cookie-policy"
+                    className="text-white/60 hover:text-[#CC0000] transition-colors"
+                  >
+                    Cookie Policy
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={openCookieSettings}
+                    className="text-white/60 hover:text-[#CC0000] transition-colors text-left"
+                  >
+                    Gestisci cookie
+                  </button>
+                </li>
+                <li>
+                  <Link
+                    href="/termini"
+                    className="text-white/60 hover:text-[#CC0000] transition-colors"
+                  >
+                    Termini &amp; Condizioni
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="mailto:[INSERIRE EMAIL]"
+                    className="text-white/60 hover:text-[#CC0000] transition-colors"
+                  >
+                    Reclami e segnalazioni
+                  </a>
+                </li>
+              </ul>
+            </div>
+
             {/* Contatti */}
             <div className="footer-content">
               <h4 className="font-body text-xs text-[#CC0000] uppercase tracking-[0.2em] mb-6">
@@ -288,7 +346,7 @@ export function Footer() {
           {/* Bottom */}
           <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-white/30 text-xs font-body">
-              © {new Date().getFullYear()} Krav Maga Putignano & Conversano
+              © {new Date().getFullYear()} [INSERIRE RAGIONE SOCIALE] — P.IVA [INSERIRE]. Tutti i diritti riservati.
             </p>
             <Button
               variant="outline"

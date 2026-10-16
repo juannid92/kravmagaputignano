@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap-config";
+import { useScrollTriggerRefresh } from "@/lib/useScrollTriggerRefresh";
 
 const concepts = [
   { number: "01", title: "NESSUNA REGOLA", description: "Il Krav Maga non ha arbitri, categorie di peso o tempi regolamentari. Si impara a rispondere a qualsiasi minaccia, in qualsiasi situazione." },
@@ -15,6 +16,9 @@ export function NonSport() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const isFirstRender = useRef(true);
+
+  // Refresh pin when address-bar shows/hides on mobile (parity with desktop).
+  useScrollTriggerRefresh();
 
   useEffect(() => {
     const section = sectionRef.current;

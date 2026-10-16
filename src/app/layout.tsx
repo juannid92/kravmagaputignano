@@ -3,6 +3,7 @@ import "./globals.css";
 import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { CookieConsent } from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
   title: "Krav Maga Putignano | Corsi Difesa Personale - Prenota Lezione Gratuita",
@@ -123,6 +124,7 @@ export default function RootLayout({
         <ScrollProgress />
         <CustomCursor />
         <LenisProvider>{children}</LenisProvider>
+        <CookieConsent />
       </body>
     </html>
   );

@@ -511,7 +511,7 @@ body {
 }
 
 /* Shared scroll stories: same pin/sequence on touch and desktop. */
-.nonsport-section, .gallery-viewport { height: 100svh; }
+.nonsport-section, .gallery-viewport { height: 100vh; height: 100dvh; height: 100svh; }
 .nonsport-stage {
   height: 100%; display: flex; flex-direction: column;
   padding: max(84px, env(safe-area-inset-top)) 24px max(20px, env(safe-area-inset-bottom));

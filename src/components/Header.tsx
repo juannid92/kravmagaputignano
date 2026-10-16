@@ -72,7 +72,7 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            <Link href="#" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2" aria-label="Krav Maga Putignano — torna alla home">
               <span className="font-display text-xl sm:text-2xl tracking-tight">
                 KRAV MAGA
               </span>
@@ -81,27 +81,27 @@ export function Header() {
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center gap-8">
+            <nav className="hidden md:flex items-center gap-8" aria-label="Navigazione principale">
               <Link
-                href="#percorsi"
+                href="/#percorsi"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Corsi
               </Link>
               <Link
-                href="#sedi"
+                href="/#sedi"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Sedi
               </Link>
               <Link
-                href="#istruttore"
+                href="/#istruttore"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Istruttore
               </Link>
               <Link
-                href="#faq"
+                href="/#faq"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 FAQ
@@ -110,8 +110,9 @@ export function Header() {
 
             <div className="flex items-center gap-3">
               <a
-                href="#"
+                href="tel:+393334567890"
                 className="hidden sm:inline-flex items-center gap-2 bg-accent text-white font-semibold text-sm uppercase tracking-wider px-6 py-3 hover:bg-accent/90 transition-colors"
+                aria-label="Chiama per prenotare una lezione gratuita"
               >
                 <Phone className="w-4 h-4" />
                 Prova Gratuita
@@ -119,9 +120,10 @@ export function Header() {
               <button
                 onClick={toggleMenu}
                 className="md:hidden p-2 hover:bg-surface rounded-lg transition-colors"
-                aria-label="Menu"
+                aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
+                aria-expanded={menuOpen}
               >
-                <Menu className="w-6 h-6" />
+                {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
@@ -148,30 +150,30 @@ export function Header() {
           </div>
 
           {/* Links */}
-          <nav className="space-y-2">
+          <nav className="space-y-2" aria-label="Navigazione mobile">
             <Link
-              href="#percorsi"
+              href="/#percorsi"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
               Corsi
             </Link>
             <Link
-              href="#sedi"
+              href="/#sedi"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
               Sedi
             </Link>
             <Link
-              href="#istruttore"
+              href="/#istruttore"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
               Istruttore
             </Link>
             <Link
-              href="#faq"
+              href="/#faq"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
@@ -182,7 +184,7 @@ export function Header() {
           {/* CTA */}
           <div className="mt-10 pt-6 border-t border-surface">
             <a
-              href="#"
+              href="tel:+393334567890"
               onClick={closeMenu}
               className="flex items-center justify-center gap-2 bg-accent text-white font-semibold text-sm uppercase tracking-wider px-6 py-4 hover:bg-accent/90 transition-colors rounded-lg"
             >

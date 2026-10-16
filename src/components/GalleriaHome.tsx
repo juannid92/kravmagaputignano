@@ -6,6 +6,7 @@ import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { StructureManifesto } from "./StructureManifesto";
+import { useScrollTriggerRefresh } from "@/lib/useScrollTriggerRefresh";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +26,9 @@ export function GalleriaHome() {
   const stickyRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const galleryContentRef = useRef<HTMLDivElement>(null);
+
+  // Refresh pin when address-bar shows/hides on mobile (parity with desktop).
+  useScrollTriggerRefresh();
 
   useEffect(() => {
     const section = sectionRef.current;
