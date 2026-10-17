@@ -1,0 +1,4 @@
+{
+  "_note": "Lighthouse cannot run in this environment (no Chrome). Run manually: npx --yes lighthouse http://localhost:3000/ --preset=desktop --output=json --output-path=./lh-desktop-final.json --chrome-flags=\"--headless --no-sandbox\"",
+  "score": null
+}
