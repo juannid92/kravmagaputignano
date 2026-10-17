@@ -124,8 +124,7 @@ export function Maestro() {
           L&apos;Istruttore
         </span>
 
-        <h1
-          aria-label="Saverio Capozza"
+        <h2
           className="maestro-reveal maestro-title font-tactical uppercase text-white"
           style={{
             fontSize: "clamp(3.5rem, 12vw, 9rem)",
@@ -139,7 +138,7 @@ export function Maestro() {
           Saverio
           <br />
           Capozza
-        </h1>
+        </h2>
 
         <div
           aria-hidden
