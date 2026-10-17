@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
@@ -30,4 +31,23 @@ test("legalJsonLd returns SportsActivityLocation with required fields", () => {
   assert.match(legal, /"@type":\s*"SportsActivityLocation"/);
   assert.match(legal, /taxID: LEGAL\.vatId/);
   assert.match(legal, /openingHoursSpecification/);
+});
+
+test("no fake phone 312 345 6789 anywhere in src/", () => {
+  const offenders = [];
+  const srcDir = join(root, "src");
+  function walk(dir) {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      const st = statSync(full);
+      if (st.isDirectory()) {
+        walk(full);
+      } else if (/\.(ts|tsx|js|jsx|mjs)$/.test(name)) {
+        const txt = readFileSync(full, "utf8");
+        if (/3123456789|312 345 6789/.test(txt)) offenders.push(full);
+      }
+    }
+  }
+  walk(srcDir);
+  assert.deepEqual(offenders, [], `fake phone still present in: ${offenders.join(", ")}`);
 });
