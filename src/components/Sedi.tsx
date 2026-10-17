@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
@@ -132,10 +133,12 @@ export function Sedi() {
                   style={{ background: "#141414" }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={sede.foto[0]}
                     alt={`Palestra Krav Maga ${sede.comune}`}
-                    className="absolute inset-0 w-full h-full object-cover scale-[1.02]"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                    className="object-cover scale-[1.02]"
                     loading="lazy"
                   />
                   {/* Subtle bottom-left darken for caption legibility */}

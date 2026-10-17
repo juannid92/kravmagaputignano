@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { LEGAL, LEGAL_LAST_UPDATED } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Krav Maga Putignano",
@@ -24,18 +25,19 @@ export default function PrivacyPolicyPage() {
           PRIVACY POLICY
         </h1>
         <p className="text-white/40 text-xs uppercase tracking-[0.3em] font-display mb-12">
-          Ultimo aggiornamento: 17 ottobre 2026
+          Ultimo aggiornamento: {LEGAL_LAST_UPDATED}
         </p>
 
         <Section title="1. Titolare del trattamento">
           <p>
             Il Titolare del trattamento dei dati personali è{" "}
-            <strong>SSD Global Defender Srl</strong>, con sede legale in{" "}
-            <strong>Via G. Leopardi, 56 — 70017 Putignano (BA)</strong>, C.F. / P.IVA{" "}
-            {/* TODO: compilare con P.IVA reale di SSD Global Defender Srl */}
-            <strong>[INSERIRE CF/P.IVA]</strong>, contatto e-mail{" "}
-            <strong>segreteria@global-defender.com</strong>, telefono{" "}
-            <strong>+39 340 710 6618</strong>.
+            <strong>{LEGAL.legalName}</strong>, con sede legale in{" "}
+            <strong>{LEGAL.registeredOffice}</strong>
+            {LEGAL.vatId || LEGAL.taxId ? (
+              <>, C.F. / P.IVA <strong>{LEGAL.vatId || LEGAL.taxId}</strong></>
+            ) : null}
+            , contatto e-mail <strong>{LEGAL.email}</strong>, telefono{" "}
+            <strong>{LEGAL.phone}</strong>.
           </p>
           <p>
             Eventuale Responsabile della Protezione dei Dati (DPO / RPD):{" "}
@@ -161,7 +163,7 @@ export default function PrivacyPolicyPage() {
           </ul>
           <p>
             Per esercitare questi diritti puoi scrivere a{" "}
-            <strong>segreteria@global-defender.com</strong>. La richiesta verrà
+            <strong>{LEGAL.email}</strong>. La richiesta verrà
             evasa entro 30 giorni dalla ricezione.
           </p>
         </Section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CorsoPage } from "@/components/CorsoPage";
+import { BreadcrumbList } from "@/components/BreadcrumbList";
 
 export const metadata: Metadata = {
   title: "Defensystem Kids 6-12 anni | Krav Maga Putignano",
@@ -12,9 +13,37 @@ export const metadata: Metadata = {
       "Autodifesa e premartialità per bambini 6-12 anni. Sedi a Putignano e Conversano. Prima lezione di prova gratuita.",
     type: "article",
     locale: "it_IT",
+    images: [
+      {
+        url: "https://images.pexels.com/photos/7045585/pexels-photo-7045585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        width: 1200,
+        height: 800,
+        alt: "Krav Maga Kids — allenamento di premartialità per bambini 6-12 anni",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Defensystem Kids 6-12 anni | Krav Maga Putignano",
+    description:
+      "Autodifesa e premartialità per bambini 6-12 anni. Sedi a Putignano e Conversano. Prima lezione di prova gratuita.",
+    images: [
+      "https://images.pexels.com/photos/7045585/pexels-photo-7045585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    ],
   },
 };
 
 export default function CorsiKidsPage() {
-  return <CorsoPage variant="kids" />;
+  return (
+    <>
+      <BreadcrumbList
+        items={[
+          { name: "Home", url: "https://kravmagaputignano.it" },
+          { name: "Corsi", url: "https://kravmagaputignano.it#percorsi" },
+          { name: "Kids", url: "https://kravmagaputignano.it/corsi/kids" },
+        ]}
+      />
+      <CorsoPage variant="kids" />
+    </>
+  );
 }

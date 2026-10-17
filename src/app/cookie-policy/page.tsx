@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { LEGAL_LAST_UPDATED } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Cookie Policy | Krav Maga Putignano",
@@ -24,7 +25,7 @@ export default function CookiePolicyPage() {
           COOKIE POLICY
         </h1>
         <p className="text-white/40 text-xs uppercase tracking-[0.3em] font-display mb-12">
-          Ultimo aggiornamento: 17 ottobre 2026
+          Ultimo aggiornamento: {LEGAL_LAST_UPDATED}
         </p>
 
         <Section title="Cosa sono i cookie">

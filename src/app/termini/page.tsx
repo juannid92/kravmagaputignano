@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LEGAL, LEGAL_LAST_UPDATED } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Termini & Condizioni | Krav Maga Putignano",
@@ -49,9 +50,16 @@ export default function TerminiPage() {
         <Section number="01" title="Titolare del servizio">
           <p>
             Il servizio di insegnamento è erogato da{" "}
-            <strong>[INSERIRE RAGIONE SOCIALE]</strong>, con sede legale in{" "}
-            <strong>[INSERIRE INDIRIZZO]</strong>, P.IVA / C.F.{" "}
-            <strong>[INSERIRE]</strong>, REA <strong>[INSERIRE]</strong> — Bari.
+            <strong>{LEGAL.legalName}</strong>, con sede legale in{" "}
+            <strong>{LEGAL.registeredOffice}</strong>
+            {LEGAL.vatId || LEGAL.taxId ? (
+              <>, P.IVA / C.F. <strong>{LEGAL.vatId || LEGAL.taxId}</strong></>
+            ) : null}
+            {LEGAL.rea ? <> , REA <strong>{LEGAL.rea}</strong> — Bari</> : null}
+            {LEGAL.shareCapital ? (
+              <>, capitale sociale <strong>{LEGAL.shareCapital}</strong></>
+            ) : null}
+            .
           </p>
         </Section>
 
@@ -146,7 +154,7 @@ export default function TerminiPage() {
 
         <div className="mt-16 pt-8 border-t border-white/10 text-center">
           <p className="text-white/40 text-xs font-body">
-            Ultimo aggiornamento: {new Date().toLocaleDateString("it-IT", { month: "long", year: "numeric" })}
+            Ultimo aggiornamento: {LEGAL_LAST_UPDATED}
           </p>
         </div>
       </div>

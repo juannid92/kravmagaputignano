@@ -94,13 +94,13 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-8" aria-label="Navigazione principale">
               <Link
-                href="/#percorsi"
+                href="/corsi/adulti"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Corsi
               </Link>
               <Link
-                href="/#sedi"
+                href="/sedi/putignano"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Sedi
@@ -130,9 +130,10 @@ export function Header() {
               </a>
               <button
                 onClick={toggleMenu}
-                className="md:hidden p-2 hover:bg-surface rounded-lg transition-colors"
+                className="md:hidden p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-surface rounded-lg transition-colors"
                 aria-label={menuOpen ? "Chiudi menu" : "Apri menu"}
                 aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
               >
                 {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -143,9 +144,13 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
+        id="mobile-menu"
         ref={menuRef}
         className="fixed top-0 right-0 w-full sm:w-80 h-full bg-background/95 backdrop-blur-lg z-[60] translate-x-full border-l border-surface"
         style={{ boxShadow: "-20px 0 60px rgba(0,0,0,0.5)" }}
+        role="dialog"
+        aria-modal={menuOpen ? "true" : undefined}
+        aria-label="Menu di navigazione"
       >
         <div className="p-6">
           {/* Header del menu */}
@@ -162,7 +167,7 @@ export function Header() {
             </Link>
             <button
               onClick={closeMenu}
-              className="p-2 hover:bg-surface rounded-lg transition-colors"
+              className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-surface rounded-lg transition-colors"
               aria-label="Chiudi menu"
             >
               <X className="w-6 h-6" />
@@ -172,14 +177,14 @@ export function Header() {
           {/* Links */}
           <nav className="space-y-2" aria-label="Navigazione mobile">
             <Link
-              href="/#percorsi"
+              href="/corsi/adulti"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
               Corsi
             </Link>
             <Link
-              href="/#sedi"
+              href="/sedi/putignano"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >

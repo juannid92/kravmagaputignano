@@ -22,6 +22,7 @@ export interface Sede {
   orariBambini: Orario[];
   foto: string[];
   puntiForti: string[];
+  geo: { latitude: number; longitude: number };
   maestro: {
     nome: string;
     ruolo: string;
@@ -72,6 +73,7 @@ export const sedi: Sede[] = [
       "Spogliatoi uomini e donne separati con docce",
       "Zona riscaldamento e stretching dedicata",
     ],
+    geo: { latitude: 40.8522, longitude: 17.0212 },
     maestro: {
       nome: "Saverio Mauro Capozza",
       ruolo: "Istruttore 4° Livello — Direttore Corsi",
@@ -119,6 +121,7 @@ export const sedi: Sede[] = [
       "Ampio parcheggio interno gratuito",
       "Palestra climatizzata estate e inverno",
     ],
+    geo: { latitude: 40.9667, longitude: 17.1167 },
     maestro: {
       nome: "Saverio Mauro Capozza",
       ruolo: "Istruttore 4° Livello — Direttore Corsi",

@@ -1,0 +1,4 @@
+{
+  "_note": "Lighthouse cannot run in this planning environment (no Chrome installed). Run manually: npx --yes lighthouse http://localhost:3000/ --preset=desktop --output=json --output-path=./lh-desktop-baseline.json --chrome-flags=\"--headless --no-sandbox\"",
+  "score": null
+}

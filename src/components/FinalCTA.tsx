@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { LEGAL } from "@/lib/legal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,7 +70,7 @@ export function FinalCTA() {
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
-            href="tel:+393123456789"
+            href={`tel:${LEGAL.phoneE164}`}
             className="inline-flex items-center gap-3 bg-white text-[#FF3D00] px-10 py-4 font-bold uppercase tracking-wider hover:bg-[#0C0C0C] hover:text-white transition-colors"
           >
             <svg
@@ -89,7 +90,7 @@ export function FinalCTA() {
           </a>
 
           <a
-            href="https://wa.me/393123456789"
+            href={`https://wa.me/${LEGAL.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 bg-[#25D366] text-white px-10 py-4 font-bold uppercase tracking-wider hover:bg-[#128C7E] transition-colors"
@@ -107,10 +108,10 @@ export function FinalCTA() {
             Oppure chiama direttamente:
           </span>
           <a
-            href="tel:+393123456789"
+            href={`tel:${LEGAL.phoneE164}`}
             className="block font-display text-3xl mt-2 hover:text-[#0C0C0C] transition-colors"
           >
-            +39 312 345 6789
+            {LEGAL.phone}
           </a>
         </div>
       </div>

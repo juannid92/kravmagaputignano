@@ -1,9 +1,26 @@
 import type { Metadata } from "next";
+import { Oswald, Marcellus } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieConsent } from "@/components/CookieConsent";
+import { SkipLink } from "@/components/SkipLink";
+import { legalJsonLd } from "@/lib/legal";
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-next-display",
+});
+
+const marcellus = Marcellus({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-next-marcellus",
+});
 
 export const metadata: Metadata = {
   title: "Krav Maga Putignano | Difesa Personale a Putignano e Conversano",
@@ -64,6 +81,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://kravmagaputignano.it",
+    languages: {
+      "it-IT": "https://kravmagaputignano.it",
+      "x-default": "https://kravmagaputignano.it",
+    },
   },
 };
 
@@ -72,77 +93,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SportsActivityLocation",
-    name: "Krav Maga Putignano",
-    description:
-      "Scuola di Krav Maga a Putignano. Corsi per adulti, ragazzi e difesa personale femminile.",
-    url: "https://kravmagaputignano.it",
-    telephone: "+393407106618",
-    email: "segreteria@global-defender.com",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Via G. Leopardi, 56",
-      addressLocality: "Putignano",
-      addressRegion: "BA",
-      postalCode: "70017",
-      addressCountry: "IT",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 40.8522,
-      longitude: 17.0212,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday"],
-        opens: "19:30",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Wednesday"],
-        opens: "17:00",
-        closes: "18:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Thursday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Friday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-    ],
-    sameAs: [
-      "https://facebook.com/kravmagaputignano",
-      "https://instagram.com/kravmagaputignano",
-    ],
-    priceRange: "€€",
-  };
+  // legalJsonLd: see src/lib/legal.ts — SEO agent may extend below.
+  const jsonLd = legalJsonLd();
 
   return (
-    <html lang="it">
-      <body className="antialiased">
+    <html lang="it" className={`${oswald.variable} ${marcellus.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/videos/hero-poster-720p.jpg"
+          fetchPriority="high"
+        />
+        <link rel="preload" as="image" href="/images/federkravmaga-logo.jpg" />
+      </head>
+      <body className={`antialiased ${oswald.className}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SkipLink />
         <ScrollProgress />
         <CustomCursor />
-        <LenisProvider>{children}</LenisProvider>
+        <main id="main-content" tabIndex={-1}>
+          <LenisProvider>{children}</LenisProvider>
+        </main>
         <CookieConsent />
       </body>
     </html>

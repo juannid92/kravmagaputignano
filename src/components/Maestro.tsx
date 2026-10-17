@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
@@ -11,7 +12,7 @@ if (typeof window !== "undefined") {
 }
 
 const maestroImage =
-  "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1920";
+  "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=format&fit=crop&w=1920&q=80";
 
 export function Maestro() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -93,12 +94,13 @@ export function Maestro() {
     >
       {/* Full-bleed photo background */}
       <div className="absolute inset-0 z-0" ref={photoRef}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={maestroImage}
           alt=""
           aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          sizes="100vw"
+          className="object-cover"
           style={{ filter: "grayscale(80%) contrast(1.2) brightness(0.4)" }}
           loading="lazy"
         />
@@ -122,8 +124,7 @@ export function Maestro() {
           L&apos;Istruttore
         </span>
 
-        <h1
-          aria-label="Saverio Capozza"
+        <h2
           className="maestro-reveal maestro-title font-tactical uppercase text-white"
           style={{
             fontSize: "clamp(3.5rem, 12vw, 9rem)",
@@ -137,7 +138,7 @@ export function Maestro() {
           Saverio
           <br />
           Capozza
-        </h1>
+        </h2>
 
         <div
           aria-hidden

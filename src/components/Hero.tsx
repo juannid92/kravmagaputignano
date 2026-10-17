@@ -6,10 +6,9 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Play, Trophy, Users, Shield } from "lucide-react";
+import { VideoHero } from "./VideoHero";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const kravVideo = "https://videos.pexels.com/video-files/5766254/5766254-uhd_2560_1440_25fps.mp4";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -147,18 +146,13 @@ export function Hero() {
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-0 will-change-transform">
-        <video
-          ref={videoRef}
+        <VideoHero
+          videoMp4="/videos/hero-720p.mp4"
+          videoWebm="/videos/hero-720p.webm"
+          poster="/videos/hero-poster-720p.jpg"
+          videoRef={videoRef}
           className="w-full h-full object-cover object-center"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1920"
-        >
-          <source src={kravVideo} type="video/mp4" />
-        </video>
+        />
       </div>
 
       {/* Dark Overlay */}

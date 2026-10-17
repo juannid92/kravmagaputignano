@@ -1,0 +1,8 @@
+{
+  "_note": "Lighthouse cannot run in this planning environment (no Chrome installed). Run manually: npx --yes lighthouse http://localhost:3000/ --form-factor=mobile --throttling-method=simulate --output=json --output-path=./lh-mobile-baseline.json --chrome-flags=\"--headless --no-sandbox\"",
+  "lcp_ms": null,
+  "inp_ms": null,
+  "cls": null,
+  "tbt_ms": null,
+  "score": null
+}

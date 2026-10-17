@@ -8,6 +8,7 @@ import { gsap } from "@/lib/gsap-config";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Zap } from "lucide-react";
 import { openCookieSettings } from "@/components/CookieConsent";
+import { LEGAL, legalCopyrightLine, legalIdentityLines } from "@/lib/legal";
 
 const sedi = [
   {
@@ -225,11 +226,11 @@ export function Footer() {
                 tenuti da istruttori certificati Federkravmaga.
               </p>
 
-              {/* Identità legale (placeholder da compilare) */}
+              {/* Identità legale */}
               <div className="mt-5 space-y-0.5 text-[11px] text-white/40 font-body leading-relaxed">
-                <p>[INSERIRE RAGIONE SOCIALE]</p>
-                <p>P.IVA / C.F. [INSERIRE]</p>
-                <p>REA [INSERIRE] — Bari</p>
+                {legalIdentityLines().map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
               </div>
 
               {/* Social */}
@@ -316,7 +317,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="mailto:segreteria@global-defender.com"
+                    href={`mailto:${LEGAL.complaintsEmail}`}
                     className="text-white/60 hover:text-[#CC0000] transition-colors"
                   >
                     Reclami e segnalazioni
@@ -355,9 +356,7 @@ export function Footer() {
 
           {/* Bottom */}
           <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-white/30 text-xs font-body">
-              © {new Date().getFullYear()} [INSERIRE RAGIONE SOCIALE] — P.IVA [INSERIRE]. Tutti i diritti riservati.
-            </p>
+            <p className="text-white/30 text-xs font-body">{legalCopyrightLine()}</p>
             <Button
               variant="outline"
               size="sm"
