@@ -180,9 +180,9 @@ export function Istruttore() {
             </span>
 
             <h2 className="font-display text-[clamp(2.5rem,5vw,3.5rem)] leading-[1] mb-6">
-              MARCO
+              SAVERIO
               <br />
-              <span className="text-[#FF3D00]">ROSSI</span>
+              <span className="text-[#FF3D00]">CAPOZZA</span>
             </h2>
 
             <p className="text-lg text-[#888] mb-8 leading-relaxed">
@@ -252,7 +252,7 @@ export function Istruttore() {
 
             {/* CTA */}
             <a href="#prova" className="btn-primary mt-8 inline-flex group">
-              Conosci Marco di Persona
+              Conosci Saverio di Persona
               <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

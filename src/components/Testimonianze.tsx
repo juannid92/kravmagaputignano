@@ -22,7 +22,7 @@ const testimonials = [
   {
     name: "Alessandro R.",
     role: "Commerciante, 45 anni",
-    text: "Ho provato tanti corsi martiali. Il Krav Maga è l'unico che ti prepara veramente per situazioni reali. Marco è un istruttore incredibile.",
+    text: "Ho provato tanti corsi martiali. Il Krav Maga è l'unico che ti prepara veramente per situazioni reali. Saverio è un istruttore incredibile.",
     rating: 5,
   },
   {
