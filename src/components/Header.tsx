@@ -94,13 +94,13 @@ export function Header() {
 
             <nav className="hidden md:flex items-center gap-8" aria-label="Navigazione principale">
               <Link
-                href="/#percorsi"
+                href="/corsi/adulti"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Corsi
               </Link>
               <Link
-                href="/#sedi"
+                href="/sedi/putignano"
                 className="text-sm font-medium hover:text-accent transition-colors"
               >
                 Sedi
@@ -172,14 +172,14 @@ export function Header() {
           {/* Links */}
           <nav className="space-y-2" aria-label="Navigazione mobile">
             <Link
-              href="/#percorsi"
+              href="/corsi/adulti"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
               Corsi
             </Link>
             <Link
-              href="/#sedi"
+              href="/sedi/putignano"
               onClick={closeMenu}
               className="block py-3 px-4 text-lg font-medium hover:bg-surface rounded-lg transition-colors"
             >
