@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { readConsent, writeConsent, type ConsentState } from "@/lib/consent";
 import { Cookie, X } from "lucide-react";
@@ -12,6 +12,7 @@ export function CookieConsent() {
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const [show, setShow] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Esponi un evento globale per riaprire il pannello dal footer.
   useEffect(() => {
@@ -52,6 +53,51 @@ export function CookieConsent() {
     };
   }, [show]);
 
+  // Focus trap + Escape handling. WCAG 2.1.2 / 2.4.3 / 4.1.2.
+  // Escape only closes the settings panel — the banner has explicit
+  // Accept/Reject, so users must not be able to dismiss consent by Escape.
+  useEffect(() => {
+    if (!show || !mode) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const heading = dialog.querySelector<HTMLElement>("#cookie-title");
+    heading?.focus();
+
+    function getFocusable(): HTMLElement[] {
+      return Array.from(
+        dialog!.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      );
+    }
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape" && mode === "settings") {
+        e.preventDefault();
+        setShow(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const f = getFocusable();
+      if (f.length === 0) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      previouslyFocused?.focus?.();
+    };
+  }, [show, mode]);
+
   if (!show || !mode) return null;
 
   function acceptAll() {
@@ -80,6 +126,7 @@ export function CookieConsent() {
       style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
     >
       <div
+        ref={dialogRef}
         className="relative w-full md:max-w-md bg-[#0F0F0F] border border-[#CC0000]/30 text-white shadow-2xl"
         style={{
           maxHeight: "100svh",
@@ -90,7 +137,7 @@ export function CookieConsent() {
         <div className="flex items-start justify-between gap-4 p-5 border-b border-white/10">
           <div className="flex items-center gap-3">
             <Cookie className="w-5 h-5 text-[#CC0000] flex-shrink-0 mt-0.5" />
-            <h2 id="cookie-title" className="font-display text-base uppercase tracking-[0.2em] text-white">
+            <h2 id="cookie-title" tabIndex={-1} className="font-display text-base uppercase tracking-[0.2em] text-white">
               {isSettings ? "Gestisci Cookie" : "Cookie & Privacy"}
             </h2>
           </div>
