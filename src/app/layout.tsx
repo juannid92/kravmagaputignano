@@ -5,6 +5,7 @@ import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieConsent } from "@/components/CookieConsent";
+import { SkipLink } from "@/components/SkipLink";
 import { legalJsonLd } from "@/lib/legal";
 
 const oswald = Oswald({
@@ -111,9 +112,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <SkipLink />
         <ScrollProgress />
         <CustomCursor />
-        <LenisProvider>{children}</LenisProvider>
+        <main id="main-content" tabIndex={-1}>
+          <LenisProvider>{children}</LenisProvider>
+        </main>
         <CookieConsent />
       </body>
     </html>
