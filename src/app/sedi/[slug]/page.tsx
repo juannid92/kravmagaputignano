@@ -17,8 +17,11 @@ export async function generateMetadata({
   const sede = getSedeBySlug(slug);
   if (!sede) return { title: "Sede non trovata" };
   return {
-    title: `${sede.comune} — Krav Maga ${sede.comune} & Putignano`,
-    description: sede.introBreve,
+    title: `Sede di ${sede.comune} — Palestra ${sede.nomePalestra} | Krav Maga Putignano`,
+    description: `${sede.introBreve} Scuola ufficiale SSD Global Defender Srl, istruttore Saverio Mauro Capozza, 4° Livello.`,
+    alternates: {
+      canonical: `https://kravmagaputignano.it/sedi/${sede.slug}`,
+    },
   };
 }
 

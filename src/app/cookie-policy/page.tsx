@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Cookie Policy | Krav Maga Putignano",
   description:
-    "Informativa sull'uso dei cookie, redatta in conformità con le Linee guida del Garante per la protezione dei dati personali (10 giugno 2021).",
+    "Informativa sull'uso dei cookie, redatta in conformità con le Linee guida del Garante per la protezione dei dati personali (10 giugno 2021). Tipologie di cookie, finalità e gestione del consenso.",
   robots: { index: true, follow: true },
+  alternates: { canonical: "https://kravmagaputignano.it/cookie-policy" },
 };
 
 export default function CookiePolicyPage() {
@@ -23,7 +24,7 @@ export default function CookiePolicyPage() {
           COOKIE POLICY
         </h1>
         <p className="text-white/40 text-xs uppercase tracking-[0.3em] font-display mb-12">
-          Ultimo aggiornamento: [INSERIRE DATA]
+          Ultimo aggiornamento: 17 ottobre 2026
         </p>
 
         <Section title="Cosa sono i cookie">

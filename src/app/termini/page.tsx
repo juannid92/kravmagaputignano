@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Termini & Condizioni — Krav Maga Putignano & Conversano",
+  title: "Termini & Condizioni | Krav Maga Putignano",
   description:
-    "Termini e condizioni di iscrizione ai corsi di Krav Maga Putignano e Conversano.",
+    "Termini e condizioni di iscrizione ai corsi di Krav Maga Putignano e Conversano: iscrizione, recessi, pagamenti, regole di comportamento e foro competente.",
+  alternates: { canonical: "https://kravmagaputignano.it/termini" },
 };
 
 export default function TerminiPage() {

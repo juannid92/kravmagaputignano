@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | Krav Maga Putignano",
   description:
-    "Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 come modificato dal D.lgs. 101/2018.",
+    "Informativa sul trattamento dei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 come modificato dal D.lgs. 101/2018. Titolare: SSD Global Defender Srl.",
   robots: { index: true, follow: true },
+  alternates: { canonical: "https://kravmagaputignano.it/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {
@@ -23,21 +24,22 @@ export default function PrivacyPolicyPage() {
           PRIVACY POLICY
         </h1>
         <p className="text-white/40 text-xs uppercase tracking-[0.3em] font-display mb-12">
-          Ultimo aggiornamento: [INSERIRE DATA]
+          Ultimo aggiornamento: 17 ottobre 2026
         </p>
 
         <Section title="1. Titolare del trattamento">
           <p>
             Il Titolare del trattamento dei dati personali è{" "}
-            <strong>[INSERIRE RAGIONE SOCIALE]</strong>, con sede legale in{" "}
-            <strong>[INSERIRE INDIRIZZO COMPLETO]</strong>, C.F. / P.IVA{" "}
+            <strong>SSD Global Defender Srl</strong>, con sede legale in{" "}
+            <strong>Via G. Leopardi, 56 — 70017 Putignano (BA)</strong>, C.F. / P.IVA{" "}
+            {/* TODO: compilare con P.IVA reale di SSD Global Defender Srl */}
             <strong>[INSERIRE CF/P.IVA]</strong>, contatto e-mail{" "}
-            <strong>[INSERIRE EMAIL]</strong>, telefono{" "}
-            <strong>[INSERIRE TELEFONO]</strong>.
+            <strong>segreteria@global-defender.com</strong>, telefono{" "}
+            <strong>+39 340 710 6618</strong>.
           </p>
           <p>
             Eventuale Responsabile della Protezione dei Dati (DPO / RPD):{" "}
-            <strong>[INSERIRE NOMINATIVO O &quot;Non nominato&quot;]</strong>.
+            <strong>Non nominato</strong>.
           </p>
         </Section>
 
@@ -159,7 +161,7 @@ export default function PrivacyPolicyPage() {
           </ul>
           <p>
             Per esercitare questi diritti puoi scrivere a{" "}
-            <strong>[INSERIRE EMAIL DEL TITOLARE]</strong>. La richiesta verrà
+            <strong>segreteria@global-defender.com</strong>. La richiesta verrà
             evasa entro 30 giorni dalla ricezione.
           </p>
         </Section>
