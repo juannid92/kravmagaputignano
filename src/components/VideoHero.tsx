@@ -82,8 +82,8 @@ export function VideoHero({
       // DECORATIVE: video has no audio track; no dialog/narration to caption.
       // If narration is added later, supply a WebVTT <track> here.
     >
-      <source src={videoWebm} type="video/webm" />
-      <source src={videoMp4} type="video/mp4" />
+      {videoWebm ? <source src={videoWebm} type="video/webm" /> : null}
+      {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : null}
     </video>
   );
 }

@@ -146,9 +146,10 @@ export function Hero() {
     >
       {/* Background Video */}
       <div className="absolute inset-0 z-0 will-change-transform">
+        {/* Video sources absent: showing poster only. See VideoHero.tsx. */}
         <VideoHero
-          videoMp4="/videos/hero-720p.mp4"
-          videoWebm="/videos/hero-720p.webm"
+          videoMp4=""
+          videoWebm=""
           poster="/videos/hero-poster-720p.jpg"
           videoRef={videoRef}
           className="w-full h-full object-cover object-center"
