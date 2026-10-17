@@ -16,7 +16,7 @@ const sedi = [
   },
   {
     nome: "Conversano",
-    indirizzo: "Via Crocifisso, 45\n70014 Conversano (BA)",
+    indirizzo: "Palestra Imperial Gym · Via M. La Volpe, 32\n70014 Conversano (BA)",
   },
 ];
 

@@ -58,7 +58,7 @@ export default function TerminiPage() {
           <p>
             I presenti termini disciplinano l&apos;iscrizione e la partecipazione
             ai corsi di Krav Maga organizzati dal Titolare presso le sedi di
-            Putignano (Via G. Leopardi, 56 — Palestra Joy Fit) e Conversano (Via Crocifisso, 45).
+            Putignano (Via G. Leopardi, 56 — Palestra Joy Fit) e Conversano (Via M. La Volpe, 32 — Palestra Imperial Gym).
           </p>
         </Section>
 

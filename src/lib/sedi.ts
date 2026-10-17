@@ -86,12 +86,12 @@ export const sedi: Sede[] = [
   {
     slug: "conversano",
     comune: "Conversano",
-    nomePalestra: "Krav Maga Academy Conversano",
-    indirizzo: "Via Crocifisso, 45",
+    nomePalestra: "Palestra Imperial Gym",
+    indirizzo: "Via M. La Volpe, 32",
     CAP: "70014",
     citta: "Conversano",
     provincia: "BA",
-    mapsUrl: "https://maps.google.com/?q=Via+Crocifisso+45+Conversano+BA",
+    mapsUrl: "https://maps.google.com/?q=Via+M.+La+Volpe+32+Conversano+BA",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.5!2d17.1!3d40.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU3JzAwLjAiTiAxN8KwMDYnMDAuMCJF!5e0!3m2!1sit!2sit!4v1234567890",
     whatsapp: "393407106618",
     telefono: "+39 340 710 6618",
@@ -103,7 +103,8 @@ export const sedi: Sede[] = [
       { giorno: "Giovedì", ora: "19:30 - 21:00" },
     ],
     orariBambini: [
-      { giorno: "Sabato", ora: "16:00 - 17:30", note: "6-12 anni" },
+      { giorno: "Martedì", ora: "18:00 - 19:00", note: "6-12 anni — Palestra Imperial Gym" },
+      { giorno: "Giovedì", ora: "18:00 - 19:00", note: "6-12 anni — Palestra Imperial Gym" },
     ],
     foto: [
       "https://images.pexels.com/photos/7045585/pexels-photo-7045585.jpeg?auto=compress&cs=tinysrgb&w=1200",
