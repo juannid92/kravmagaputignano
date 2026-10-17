@@ -71,7 +71,7 @@ export function Chiusura() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="https://wa.me/393334567890"
+            href="https://wa.me/393407106618"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-background text-white font-semibold text-sm uppercase tracking-wider px-8 py-4 hover:bg-white hover:text-accent transition-colors group"
@@ -82,7 +82,7 @@ export function Chiusura() {
           </a>
 
           <a
-            href="tel:+393334567890"
+            href="tel:+393407106618"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 text-white border border-white/50 font-semibold text-sm uppercase tracking-wider px-8 py-4 hover:bg-white hover:text-accent transition-colors"
           >
             <Phone className="w-5 h-5" />

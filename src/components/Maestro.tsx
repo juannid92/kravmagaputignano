@@ -123,7 +123,7 @@ export function Maestro() {
         </span>
 
         <h1
-          aria-label="Marco Santoro"
+          aria-label="Saverio Capozza"
           className="maestro-reveal maestro-title font-tactical uppercase text-white"
           style={{
             fontSize: "clamp(3.5rem, 12vw, 9rem)",
@@ -134,9 +134,9 @@ export function Maestro() {
             fontWeight: 400,
           }}
         >
-          Marco
+          Saverio
           <br />
-          Santoro
+          Capozza
         </h1>
 
         <div
@@ -150,16 +150,16 @@ export function Maestro() {
           className="maestro-reveal mt-5 sm:mt-6 font-display text-xs sm:text-sm tracking-[0.25em] uppercase text-white/80"
           style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9)" }}
         >
-          15+ Anni <span className="text-[#FF0000] mx-3">·</span> 200+ Allievi{" "}
+          19+ Anni <span className="text-[#FF0000] mx-3">·</span> 200+ Allievi{" "}
           <span className="text-[#FF0000] mx-3">·</span> 2 Sedi{" "}
-          <span className="text-[#FF0000] mx-3">·</span> 3° Livello KMFD
+          <span className="text-[#FF0000] mx-3">·</span> 4° Livello · Direttore Corsi
         </p>
 
         <span
           className="maestro-reveal mt-3 sm:mt-4 font-display text-[10px] sm:text-xs tracking-[0.35em] uppercase text-white/55"
           style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9)" }}
         >
-          {maestro.federazione}
+          SSD Global Defender Srl · ENDAS
         </span>
       </div>
 

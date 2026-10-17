@@ -60,11 +60,11 @@ export default function RootLayout({
     description:
       "Scuola di Krav Maga a Putignano. Corsi per adulti, ragazzi e difesa personale femminile.",
     url: "https://kravmagaputignano.it",
-    telephone: "+393123456789",
-    email: "info@kravmagaputignano.it",
+    telephone: "+393407106618",
+    email: "segreteria@global-defender.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Via Roma, 123",
+      streetAddress: "Via G. Leopardi, 56",
       addressLocality: "Putignano",
       addressRegion: "BA",
       postalCode: "70017",

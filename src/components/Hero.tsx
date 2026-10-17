@@ -238,7 +238,7 @@ export function Hero() {
         {/* CTA */}
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="tel:+393334567890"
+            href="tel:+393407106618"
             className="inline-flex items-center bg-[#D32F2F] hover:bg-[#B71C1C] text-white border-2 border-[#D32F2F] shadow-[0_0_30px_rgba(220,38,38,0.4)] hover:shadow-[0_0_50px_rgba(220,38,38,0.6)] transition-all duration-300 font-[family-name:var(--font-display)] tracking-wider px-6 py-3 text-base sm:text-lg"
             aria-label="Chiama per prenotare una lezione di prova gratuita"
           >

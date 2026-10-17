@@ -12,7 +12,7 @@ import { openCookieSettings } from "@/components/CookieConsent";
 const sedi = [
   {
     nome: "Putignano",
-    indirizzo: "Via San Francesco, 28\n70017 Putignano (BA)",
+    indirizzo: "Palestra Joy Fit · Via G. Leopardi, 56\n70017 Putignano (BA)",
   },
   {
     nome: "Conversano",
@@ -125,11 +125,11 @@ export function Footer() {
             {/* Phone CTA */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-12">
               <a
-                href="tel:+393334567890"
+                href="tel:+393407106618"
                 className="flex items-center gap-4 bg-[#0A0A0A] hover:bg-[#0A0A0A]/90 text-white px-8 py-4 transition-all duration-300 hover:scale-105 group"
               >
                 <Phone className="w-6 h-6 text-[#CC0000]" />
-                <span className="font-stencil text-2xl">+39 333 456 7890</span>
+                <span className="font-stencil text-2xl">+39 340 710 6618</span>
               </a>
             </div>
 
@@ -316,7 +316,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="mailto:reclami@kravmagapuglia.it"
+                    href="mailto:segreteria@global-defender.com"
                     className="text-white/60 hover:text-[#CC0000] transition-colors"
                   >
                     Reclami e segnalazioni
@@ -332,18 +332,18 @@ export function Footer() {
               </h4>
               <div className="space-y-4">
                 <a
-                  href="tel:+393334567890"
+                  href="tel:+393407106618"
                   className="flex items-center gap-3 text-white/50 hover:text-[#CC0000] transition-colors group"
                 >
                   <Phone className="w-5 h-5 text-[#CC0000]/60 group-hover:text-[#CC0000]" />
-                  <span className="text-sm font-body">+39 333 456 7890</span>
+                  <span className="text-sm font-body">+39 340 710 6618</span>
                 </a>
                 <a
-                  href="mailto:info@kravmagapuglia.it"
+                  href="mailto:segreteria@global-defender.com"
                   className="flex items-center gap-3 text-white/50 hover:text-[#CC0000] transition-colors group"
                 >
                   <Mail className="w-5 h-5 text-[#CC0000]/60 group-hover:text-[#CC0000]" />
-                  <span className="text-sm font-body">info@kravmagapuglia.it</span>
+                  <span className="text-sm font-body">segreteria@global-defender.com</span>
                 </a>
                 <div className="flex items-center gap-3 text-white/50 pt-2">
                   <MapPin className="w-5 h-5 text-[#CC0000]/60" />

@@ -49,6 +49,9 @@ type Palette = {
   otherCourseLabel: string;
   features: { Icon: typeof Shield; title: string; description: string }[];
   lessonSteps: { label: string; duration: string; description: string }[];
+  courseTopics?: { title: string; description: string }[];
+  courseTopicsHeading?: string;
+  courseTopicsIntro?: string;
 };
 
 const PALETTES: Record<Variant, Palette> = {
@@ -83,10 +86,10 @@ const PALETTES: Record<Variant, Palette> = {
     iconColor: "#FF3D00",
     bgAccentLine: "from-[#FF3D00] to-transparent",
     textOnAccent: "text-white",
-    whatsappLink: "https://wa.me/393334567890",
+    whatsappLink: "https://wa.me/393407106618",
     whatsappMessage: "Ciao, vorrei prenotare una lezione di prova per il corso adulti.",
-    phoneHref: "tel:+393334567890",
-    phoneDisplay: "+39 333 456 7890",
+    phoneHref: "tel:+393407106618",
+    phoneDisplay: "+39 340 710 6618",
     otherCourseHref: "/corsi/kids",
     otherCourseLabel: "Vai al corso Kids",
     features: [
@@ -149,10 +152,10 @@ const PALETTES: Record<Variant, Palette> = {
     iconColor: "#16B863",
     bgAccentLine: "from-[#16B863] to-transparent",
     textOnAccent: "text-[#0A0A0A]",
-    whatsappLink: "https://wa.me/393334567890",
+    whatsappLink: "https://wa.me/393407106618",
     whatsappMessage: "Ciao, vorrei informazioni sul corso per bambini.",
-    phoneHref: "tel:+393334567890",
-    phoneDisplay: "+39 333 456 7890",
+    phoneHref: "tel:+393407106618",
+    phoneDisplay: "+39 340 710 6618",
     otherCourseHref: "/corsi/adulti",
     otherCourseLabel: "Vai al corso Adulti",
     features: [
@@ -179,10 +182,37 @@ const PALETTES: Record<Variant, Palette> = {
     ],
     lessonSteps: [
       { label: "Gioco di riscaldamento", duration: "15 min", description: "Giochi motori a coppie e in gruppo, mobilità, focus." },
-      { label: "Esercitazione tecnica", duration: "30 min", description: "Scenario a difficoltà progressiva, dimostrazione, pratica guidata." },
-      { label: "Giochi di applicazione", duration: "30 min", description: "Situazioni simulate sotto forma di gioco, con regole chiare e supervisione costante." },
+      { label: "Esercitazione tecnica", duration: "30 min", description: "Scenario a difficoltà progressiva, dimostrazione, pratica guidata." },      { label: "Giochi di applicazione", duration: "30 min", description: "Situazioni simulate sotto forma di gioco, con regole chiare e supervisione costante." },
       { label: "Stretching + debrief", duration: "15 min", description: "Defaticamento, restituzione, saluto finale. Spazio per le domande dei bambini." },
     ],
+    courseTopics: [
+      {
+        title: "Allenamento psicomotorio",
+        description: "Coordinazione, equilibrio, reattività: le basi motorie che reggono tutto il resto.",
+      },
+      {
+        title: "Ludico-sportivo",
+        description: "Giochi di movimento a coppie e in gruppo, perché a questa età si impara giocando.",
+      },
+      {
+        title: "Educativo nelle situazioni a rischio",
+        description: "Come riconoscere i contesti pericolosi, chiedere aiuto, fidarsi del proprio istinto.",
+      },
+      {
+        title: "Gestione degli spazi e dell'emotività",
+        description: "Distanze, postura, voce: gli strumenti per gestire ansia, rabbia e paura.",
+      },
+      {
+        title: "Antibullismo",
+        description: "Lavoriamo su riconoscimento, difesa verbale, risposta assertiva. Il bullo non è più grande di te.",
+      },
+      {
+        title: "Cyberbullismo",
+        description: "Cosa fare davanti a un messaggio cattivo, una foto, un'esclusione online. Strumenti e riferimenti.",
+      },
+    ],
+    courseTopicsHeading: "PROGRAMMA E ARGOMENTI",
+    courseTopicsIntro: "Sei aree di lavoro, ritmate e progress. Niente improvvisazione: ogni lezione ha un obiettivo.",
   },
 };
 
@@ -565,6 +595,58 @@ export function CorsoPage({ variant }: { variant: Variant }) {
           </div>
         </div>
       </section>
+
+      {/* PROGRAMMA E ARGOMENTI (solo kids) */}
+      {p.courseTopics && p.courseTopics.length > 0 && (
+        <section className="py-20 sm:py-28 bg-[#0A0A0A] relative border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="corso-reveal text-center mb-14">
+              <span
+                className="font-display text-xs tracking-[0.4em] uppercase block mb-3"
+                style={{ color: p.accent }}
+              >
+                Cosa si lavora in aula
+              </span>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-white mb-4">
+                {p.courseTopicsHeading}
+              </h2>
+              {p.courseTopicsIntro && (
+                <p className="text-white/55 max-w-2xl mx-auto font-body leading-relaxed">
+                  {p.courseTopicsIntro}
+                </p>
+              )}
+              <div
+                aria-hidden
+                className="mx-auto h-[2px] w-20 mt-4"
+                style={{ background: `linear-gradient(90deg, ${p.accent}, transparent)` }}
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+              {p.courseTopics.map((topic, i) => (
+                <div
+                  key={topic.title}
+                  className="corso-reveal bg-gradient-to-b from-[#131318] to-[#0A0A0A] border p-6 sm:p-7"
+                  style={{ borderColor: p.accentBorder }}
+                >
+                  <div
+                    className="font-stencil text-sm tracking-[0.25em] mb-3"
+                    style={{ color: p.accent }}
+                  >
+                    0{i + 1}
+                  </div>
+                  <h3 className="font-display text-white text-lg sm:text-xl mb-3 tracking-wide">
+                    {topic.title}
+                  </h3>
+                  <p className="text-white/55 text-sm font-body leading-relaxed">
+                    {topic.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* SEDI */}
       <section className="py-20 sm:py-28 bg-[#0A0A0A] relative">

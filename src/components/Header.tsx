@@ -121,7 +121,7 @@ export function Header() {
 
             <div className="flex items-center gap-3">
               <a
-                href="tel:+393334567890"
+                href="tel:+393407106618"
                 className="hidden sm:inline-flex items-center gap-2 bg-accent text-white font-semibold text-sm uppercase tracking-wider px-6 py-3 hover:bg-accent/90 transition-colors"
                 aria-label="Chiama per prenotare una lezione gratuita"
               >
@@ -204,7 +204,7 @@ export function Header() {
           {/* CTA */}
           <div className="mt-10 pt-6 border-t border-surface">
             <a
-              href="tel:+393334567890"
+              href="tel:+393407106618"
               onClick={closeMenu}
               className="flex items-center justify-center gap-2 bg-accent text-white font-semibold text-sm uppercase tracking-wider px-6 py-4 hover:bg-accent/90 transition-colors rounded-lg"
             >

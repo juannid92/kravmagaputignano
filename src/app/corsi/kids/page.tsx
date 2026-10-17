@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { CorsoPage } from "@/components/CorsoPage";
 
 export const metadata: Metadata = {
-  title: "Corsi Kids (6-15 anni) — Krav Maga Putignano & Conversano",
+  title: "Defensystem Kids (6-12 anni) — Krav Maga Putignano",
   description:
-    "Corso di Krav Maga per bambini e ragazzi dai 6 ai 15 anni: consapevolezza, fiducia, rispetto. Sabato e domenica, fasce orarie divise per età. Prima lezione gratuita.",
+    "Corso di autodifesa e premartialità per bambini dai 6 ai 12 anni. Mercoledì e venerdì 18.15-19.15 alla Palestra Joy Fit di Putignano. Allenamento fisico, comportamentale, tematiche di antibullismo e cyberbullismo. Direzione Istr. 4° Liv. Saverio Mauro Capozza. Prima lezione di prova gratuita.",
 };
 
 export default function CorsiKidsPage() {

@@ -143,7 +143,7 @@ export function Sede() {
                 <div>
                   <div className="font-medium mb-1">Indirizzo</div>
                   <div className="text-[#888] text-sm">
-                    Via Roma, 123
+                    Via G. Leopardi, 56 — Palestra Joy Fit
                     <br />
                     70017 Putignano (BA)
                   </div>
@@ -199,15 +199,15 @@ export function Sede() {
                 <div>
                   <div className="font-medium mb-1">Contatti</div>
                   <div className="text-[#888] text-sm">
-                    <a href="tel:+393123456789" className="hover:text-[#FF3D00]">
-                      +39 312 345 6789
+                    <a href="tel:+393407106618" className="hover:text-[#FF3D00]">
+                      +39 340 710 6618
                     </a>
                     <br />
                     <a
-                      href="mailto:info@kravmagaputignano.it"
+                      href="mailto:segreteria@global-defender.com"
                       className="hover:text-[#FF3D00]"
                     >
-                      info@kravmagaputignano.it
+                      segreteria@global-defender.com
                     </a>
                   </div>
                 </div>
