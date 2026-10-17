@@ -5,6 +5,7 @@ import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieConsent } from "@/components/CookieConsent";
+import { legalJsonLd } from "@/lib/legal";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -87,66 +88,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SportsActivityLocation",
-    name: "Krav Maga Putignano",
-    description:
-      "Scuola di Krav Maga a Putignano. Corsi per adulti, ragazzi e difesa personale femminile.",
-    url: "https://kravmagaputignano.it",
-    telephone: "+393407106618",
-    email: "segreteria@global-defender.com",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Via G. Leopardi, 56",
-      addressLocality: "Putignano",
-      addressRegion: "BA",
-      postalCode: "70017",
-      addressCountry: "IT",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 40.8522,
-      longitude: 17.0212,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday"],
-        opens: "19:30",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Wednesday"],
-        opens: "17:00",
-        closes: "18:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Thursday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Friday"],
-        opens: "20:00",
-        closes: "21:30",
-      },
-    ],
-    sameAs: [
-      "https://facebook.com/kravmagaputignano",
-      "https://instagram.com/kravmagaputignano",
-    ],
-    priceRange: "€€",
-  };
+  // legalJsonLd: see src/lib/legal.ts — SEO agent may extend below.
+  const jsonLd = legalJsonLd();
 
   return (
     <html lang="it" className={`${oswald.variable} ${marcellus.variable}`}>

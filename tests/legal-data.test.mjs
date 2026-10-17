@@ -24,3 +24,10 @@ test("legal.ts phone matches spec", () => {
   assert.match(legal, /phoneE164:\s*"\+393407106618"/);
   assert.match(legal, /phone:\s*"\+39 340 710 6618"/);
 });
+
+test("legalJsonLd returns SportsActivityLocation with required fields", () => {
+  assert.match(legal, /export function legalJsonLd/);
+  assert.match(legal, /"@type":\s*"SportsActivityLocation"/);
+  assert.match(legal, /taxID: LEGAL\.vatId/);
+  assert.match(legal, /openingHoursSpecification/);
+});
