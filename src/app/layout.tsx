@@ -80,6 +80,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://kravmagaputignano.it",
+    languages: {
+      "it-IT": "https://kravmagaputignano.it",
+      "x-default": "https://kravmagaputignano.it",
+    },
   },
 };
 
