@@ -262,7 +262,7 @@ export function Hero() {
             <Shield className="w-5 h-5 text-[#D4AF37]" />
             <div className="text-left">
               <span className="block text-white text-lg font-[family-name:var(--font-display)]">CERTIFICATO</span>
-              <span className="text-white/40 text-xs tracking-wider">IKMF</span>
+              <span className="text-white/40 text-xs tracking-wider">WKMF · SD Global Defender</span>
             </div>
           </div>
           <div className="w-px h-8 bg-white/20" />
@@ -277,7 +277,7 @@ export function Hero() {
           <div className="flex items-center gap-3">
             <Trophy className="w-5 h-5 text-[#D4AF37]" />
             <div className="text-left">
-              <span className="block text-white text-lg font-[family-name:var(--font-display)]">15+</span>
+              <span className="block text-white text-lg font-[family-name:var(--font-display)]">19+</span>
               <span className="text-white/40 text-xs tracking-wider">ANNI</span>
             </div>
           </div>

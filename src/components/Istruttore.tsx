@@ -210,7 +210,7 @@ export function Istruttore() {
                   </svg>
                 </div>
                 <div>
-                  <div className="font-medium">Certificazione IKMF</div>
+                  <div className="font-medium">Certificazione WKMF · SD Global Defender</div>
                   <div className="text-sm text-[#888]">
                     Istruttore di 1° Livello
                   </div>

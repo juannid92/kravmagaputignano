@@ -56,7 +56,7 @@ export function StructureManifesto() {
       <div className={styles.copy}>
         {[
           {title: "Palestruttura", text: "Attrezzature professionali per l'allenamento funzionale e il combattimento. Spazi dedicati per ogni tipo di esercitazione."},
-          {title: "Istruttori", text: "Maestri certificati IKMF con anni di esperienza nel Krav Maga e nelle arti marziali. Formazione continua e aggiornamento."},
+          {title: "Istruttori", text: "Maestri certificati WKMF (SD Global Defender) con anni di esperienza nel Krav Maga e nelle arti marziali. Formazione continua e aggiornamento."},
           {title: "Sicurezza", text: "Protocolli di sicurezza rigorosi per ogni allenamento. Protezioni adeguate e supervisione costante durante le esercitazioni."},
         ].map(item => (
           <div key={item.title} className={styles.statement} data-testid="structure-feature" data-manifesto-copy>
@@ -68,7 +68,7 @@ export function StructureManifesto() {
         <dt>Studenti attivi</dt><dd>200<span>+</span></dd>
       </dl>
       <dl className={styles.credits}>
-        <div><dt>Anni di esperienza</dt><dd>15+</dd></div>
+        <div><dt>Anni di esperienza</dt><dd>19+</dd></div>
         <div><dt>Sedi operative</dt><dd>2</dd></div>
         <div><dt>Lezioni tenute</dt><dd>500+</dd></div>
       </dl>

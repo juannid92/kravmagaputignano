@@ -8,7 +8,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 export const metadata: Metadata = {
   title: "Krav Maga Putignano | Corsi Difesa Personale - Prenota Lezione Gratuita",
   description:
-    "Scuola di Krav Maga a Putignano (BA). Corsi per adulti, ragazzi e difesa personale femminile. Prenota una lezione di prova gratuita. Istruttore certificato IKMF.",
+    "Scuola di Krav Maga a Putignano (BA). Corsi per adulti, ragazzi e difesa personale femminile. Prenota una lezione di prova gratuita. Istruttore certificato WKMF (SD Global Defender).",
   icons: {
     icon: "/favicon.svg",
   },
