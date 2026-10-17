@@ -1,5 +1,7 @@
 "use client";
 
+// Custom cursor is decorative; native cursor is never hidden.
+
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
@@ -17,8 +19,14 @@ export function CustomCursor() {
 
     if (!cursor || !cursorDot) return;
 
-    // Check if device supports hover (not touch)
-    if (window.matchMedia("(hover: none)").matches) return;
+    // Enable only on capable devices: hover, fine pointer, motion allowed.
+    const supportsHover = window.matchMedia("(hover: hover)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!supportsHover || !finePointer || !motionOk) {
+      setIsVisible(false);
+      return;
+    }
 
     let mouseX = 0;
     let mouseY = 0;
