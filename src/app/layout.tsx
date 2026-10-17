@@ -150,6 +150,15 @@ export default function RootLayout({
 
   return (
     <html lang="it" className={`${oswald.variable} ${marcellus.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/videos/hero-poster-720p.jpg"
+          fetchPriority="high"
+        />
+        <link rel="preload" as="image" href="/images/federkravmaga-logo.jpg" />
+      </head>
       <body className={`antialiased ${oswald.className}`}>
         <script
           type="application/ld+json"
