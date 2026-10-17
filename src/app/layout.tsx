@@ -1,9 +1,24 @@
 import type { Metadata } from "next";
+import { Oswald, Marcellus } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/components/LenisProvider";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CookieConsent } from "@/components/CookieConsent";
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-next-display",
+});
+
+const marcellus = Marcellus({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-next-marcellus",
+});
 
 export const metadata: Metadata = {
   title: "Krav Maga Putignano | Difesa Personale a Putignano e Conversano",
@@ -134,8 +149,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="it">
-      <body className="antialiased">
+    <html lang="it" className={`${oswald.variable} ${marcellus.variable}`}>
+      <body className={`antialiased ${oswald.className}`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
