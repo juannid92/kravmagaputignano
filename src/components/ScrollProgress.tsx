@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getGsap } from "@/lib/gsap-config";
 
-gsap.registerPlugin(ScrollTrigger);
+type GsapContext = { revert: () => void };
 
 export function ScrollProgress() {
   const progressRef = useRef<HTMLDivElement>(null);
+  const ctxRef = useRef<GsapContext | null>(null);
   const [currentSection, setCurrentSection] = useState(1);
   const totalSections = 9;
 
   useEffect(() => {
+    let cancelled = false;
     const sections = Array.from(document.querySelectorAll<HTMLElement>("section[data-section]"));
     let frame = 0;
     const update = () => {
@@ -26,22 +27,29 @@ export function ScrollProgress() {
       setCurrentSection(previous => previous === current ? previous : current);
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
-    const ctx = gsap.context(() => {
-      gsap.to(progressRef.current, {
-        scaleX: 1, ease: "none",
-        scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.3 },
-      });
-    });
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    ScrollTrigger.addEventListener("refresh", schedule);
-    update();
+
+    (async () => {
+      const bundle = await getGsap();
+      if (cancelled || !bundle || !progressRef.current) return;
+      const ctx = bundle.gsap.context(() => {
+        bundle.gsap.to(progressRef.current, {
+          scaleX: 1, ease: "none",
+          scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.3 },
+        });
+      }) as unknown as GsapContext;
+      ctxRef.current = ctx;
+      window.addEventListener("scroll", schedule, { passive: true });
+      window.addEventListener("resize", schedule);
+      bundle.ScrollTrigger.addEventListener("refresh", schedule);
+      update();
+    })();
+
     return () => {
-      ctx.revert();
+      cancelled = true;
+      if (ctxRef.current) ctxRef.current.revert();
       cancelAnimationFrame(frame);
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
-      ScrollTrigger.removeEventListener("refresh", schedule);
     };
   }, []);
 

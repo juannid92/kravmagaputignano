@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
-import { gsap } from "@/lib/gsap-config";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getGsap } from "@/lib/gsap-config";
 import { usePathname } from "next/navigation";
 
 export function LenisProvider({ children }: { children: React.ReactNode }) {
@@ -11,36 +10,52 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    let lenis: Lenis | null = null;
+    let tickerFn: ((time: number) => void) | null = null;
+    let cancelled = false;
+    let gsapTicker: { add: (fn: (time: number) => void) => void; remove: (fn: (time: number) => void) => void } | null = null;
 
-    // Keep touch scrolling native; ScrollTrigger works on both paths.
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
-    if (isMobile || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
+    (async () => {
+      const bundle = await getGsap();
+      if (cancelled || !bundle) return;
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1,
-    });
+      // Keep touch scrolling native; ScrollTrigger works on both paths.
+      const isMobile = window.matchMedia("(pointer: coarse)").matches;
+      if (
+        isMobile ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        return;
+      }
 
-    lenisRef.current = lenis;
+      const { gsap } = bundle;
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        wheelMultiplier: 1,
+      });
 
-    // Integrate Lenis with ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+      lenisRef.current = lenis;
 
-    const tick = (time: number) => lenis.raf(time * 1000);
-    gsap.ticker.add(tick);
+      lenis.on("scroll", bundle.ScrollTrigger.update);
 
-    gsap.ticker.lagSmoothing(0);
+      const tick = (time: number) => lenis!.raf(time * 1000);
+      tickerFn = tick;
+      gsap.ticker.add(tick);
+      gsap.ticker.lagSmoothing(0);
+      gsapTicker = gsap.ticker;
+    })();
 
     return () => {
-      gsap.ticker.remove(tick);
-      lenis.off("scroll", ScrollTrigger.update);
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelled = true;
+      if (gsapTicker && tickerFn) {
+        gsapTicker.remove(tickerFn);
+      }
+      if (lenis) {
+        lenis.destroy();
+        lenisRef.current = null;
+      }
     };
   }, []);
 
@@ -52,8 +67,9 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     }
 
     // Small delay to ensure DOM is painted
-    const id = requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
+    const id = requestAnimationFrame(async () => {
+      const bundle = await getGsap();
+      if (bundle) bundle.ScrollTrigger.refresh();
     });
 
     return () => {
