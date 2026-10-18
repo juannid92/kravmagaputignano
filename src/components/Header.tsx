@@ -75,8 +75,8 @@ export function Header() {
           <div className="flex items-center justify-between h-16 sm:h-20">
             <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Krav Maga Putignano — torna alla home">
               <Image
-                src="/images/federkravmaga-logo.jpg"
-                alt="Federkravmaga Italia — Global Defender Putignano"
+                src="/images/federkravmaga-adulti.jpg"
+                alt="Federkravmaga Italia"
                 width={44}
                 height={44}
                 className="h-9 sm:h-11 w-auto shrink-0"
@@ -157,7 +157,7 @@ export function Header() {
           <div className="flex items-center justify-between mb-10">
             <Link href="/" onClick={closeMenu} className="flex items-center gap-3" aria-label="Krav Maga Putignano — torna alla home">
               <Image
-                src="/images/federkravmaga-logo.jpg"
+                src="/images/federkravmaga-adulti.jpg"
                 alt="Federkravmaga Italia"
                 width={36}
                 height={36}

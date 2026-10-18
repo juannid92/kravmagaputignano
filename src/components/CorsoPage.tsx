@@ -21,6 +21,9 @@ type Palette = {
   pageTitle: string;
   pageKicker: string;
   pageSubtitle: string;
+  pageDescription?: string;
+  federLogo: string;
+  federLogoAlt: string;
   whyHeading: string;
   whyIntro: string;
   scheduleHeading: string;
@@ -62,10 +65,12 @@ const PALETTES: Record<Variant, Palette> = {
     accentBorder: "rgba(255, 61, 0, 0.35)",
     titleGradient: "from-white via-white to-[#FF3D00]",
     eyebrow: "PERCORSO 01",
-    ageLabel: "DAI 16 ANNI IN SU",
+    ageLabel: "DAI 13 ANNI IN SU",
     pageTitle: "ADULTI",
     pageKicker: "Percorso 01",
     pageSubtitle: "Difesa personale reale. Situazioni concrete. Nessuna coreografia.",
+    federLogo: "/images/federkravmaga-adulti.jpg",
+    federLogoAlt: "Federkravmaga Italia — Global Defender SRL Putignano Conversano",
     whyHeading: "PERCHÉ QUESTO PERCORSO",
     whyIntro: "Costruito su scenari reali, pensato per chi vuole strumenti che funzionano davvero.",
     scheduleHeading: "QUANDO CI SI ALLENA",
@@ -128,10 +133,14 @@ const PALETTES: Record<Variant, Palette> = {
     accentBorder: "rgba(22, 184, 99, 0.45)",
     titleGradient: "from-white via-white to-[#22E27E]",
     eyebrow: "PERCORSO 02",
-    ageLabel: "DAI 6 AI 15 ANNI",
+    ageLabel: "DAI 6 AI 14 ANNI",
     pageTitle: "KIDS",
     pageKicker: "Percorso 02",
     pageSubtitle: "Consapevolezza, fiducia, rispetto. Attraverso il gioco, con metodo.",
+    pageDescription:
+      "Defensystem Kids propone un corso per bambini e ragazzi dai 6 ai 12/14 anni. Un approccio alternativo alle arti marziali, focalizzato sui contesti sociali come il bullismo: si lavora sullo studio e sulla valutazione delle situazioni a rischio. Introducendo le tematiche di bullismo e cyberbullismo, il corso lavora anche sulla gestione dell'emotività e sul rafforzamento dell'autostima. Sono le fondamenta della disciplina, che per raggiungere i propri obiettivi ripone importanza nella preparazione psicomotoria e nel divertimento come strumento per imparare. Non proponiamo un corso statico, ma un corso dinamico che comprende gioco, divertimento e disciplina positiva. Non ci sono prerequisiti: è una disciplina per tutti.",
+    federLogo: "/images/defensystem-kids.jpg",
+    federLogoAlt: "Defensystem Kids — Federkravmaga Italia",
     whyHeading: "PERCHÉ QUESTO PERCORSO",
     whyIntro: "I bambini non imparano a combattere: imparano a riconoscere, a fidarsi di sé, a lavorare in gruppo.",
     scheduleHeading: "QUANDO CI SI ALLENA",
@@ -314,11 +323,11 @@ export function CorsoPage({ variant }: { variant: Variant }) {
           </nav>
 
           <Image
-            src="/images/federkravmaga-logo.jpg"
-            alt="Federkravmaga Italia — Global Defender Putignano"
-            width={120}
-            height={120}
-            className="mx-auto mb-6 h-20 sm:h-24 w-auto"
+            src={p.federLogo}
+            alt={p.federLogoAlt}
+            width={160}
+            height={160}
+            className="mx-auto mb-6 h-24 sm:h-28 w-auto"
             priority
           />
 
@@ -344,6 +353,12 @@ export function CorsoPage({ variant }: { variant: Variant }) {
           <p className="text-white/65 text-base sm:text-lg font-body max-w-2xl mx-auto mt-8 leading-relaxed">
             {p.pageSubtitle}
           </p>
+
+          {p.pageDescription && (
+            <p className="text-white/55 text-sm sm:text-base font-body max-w-3xl mx-auto mt-6 leading-relaxed text-left sm:text-center">
+              {p.pageDescription}
+            </p>
+          )}
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
@@ -772,6 +787,38 @@ export function CorsoPage({ variant }: { variant: Variant }) {
             <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5" /> Conosci l'istruttore</li>
             <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5" /> Sessione intera</li>
           </ul>
+        </div>
+      </section>
+
+      {/* AFFILIAZIONE FEDERALE */}
+      <section className="py-16 sm:py-20 bg-[#0A0A0A] border-t border-white/5">
+        <div className="corso-reveal max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="font-display text-[10px] sm:text-xs tracking-[0.4em] uppercase text-white/45 block mb-8">
+            Affiliato a
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            <Image
+              src="/images/federkravmaga-adulti.jpg"
+              alt="Federkravmaga Italia — Global Defender SRL"
+              width={180}
+              height={180}
+              className="h-20 sm:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <Image
+              src="/images/defensystem-kids.jpg"
+              alt="Defensystem Kids — Federkravmaga Italia"
+              width={180}
+              height={180}
+              className="h-20 sm:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <Image
+              src="/images/federkravmaga-oro.jpg"
+              alt="Federkravmaga Italia — Global Defender SRL Sport & Security"
+              width={180}
+              height={180}
+              className="h-20 sm:h-24 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </div>
         </div>
       </section>
     </main>

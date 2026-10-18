@@ -198,6 +198,38 @@ export function Footer() {
         </div>
       </section>
 
+      {/* Affiliation strip */}
+      <section className="bg-[#0A0A0A] border-t border-white/5 py-10 sm:py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="font-display text-[10px] sm:text-xs tracking-[0.4em] uppercase text-white/45 block mb-6">
+            Affiliato a
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            <Image
+              src="/images/federkravmaga-adulti.jpg"
+              alt="Federkravmaga Italia — Global Defender SRL"
+              width={120}
+              height={120}
+              className="h-14 sm:h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <Image
+              src="/images/defensystem-kids.jpg"
+              alt="Defensystem Kids — Federkravmaga Italia"
+              width={120}
+              height={120}
+              className="h-14 sm:h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <Image
+              src="/images/federkravmaga-oro.jpg"
+              alt="Federkravmaga Italia — Sport & Security"
+              width={120}
+              height={120}
+              className="h-14 sm:h-16 w-auto opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Footer Info Section */}
       <section className="bg-[#0A0A0A] py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,8 +238,8 @@ export function Footer() {
             <div className="footer-content md:col-span-1">
               <Link href="/" className="inline-flex items-center gap-3 mb-5" aria-label="Krav Maga Putignano — torna alla home">
                 <Image
-                  src="/images/federkravmaga-logo.jpg"
-                  alt="Federkravmaga Italia — Global Defender Putignano"
+                  src="/images/federkravmaga-adulti.jpg"
+                  alt="Federkravmaga Italia"
                   width={48}
                   height={48}
                   className="h-12 w-auto"

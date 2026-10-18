@@ -5,7 +5,7 @@ import { BreadcrumbList } from "@/components/BreadcrumbList";
 export const metadata: Metadata = {
   title: "Corsi Krav Maga Adulti | Putignano e Conversano",
   description:
-    "Corso di Krav Maga per adulti (dai 16 anni): difesa personale reale, situazioni concrete, metodo progressivo. Sedi a Putignano (Joy Fit) e Conversano (Imperial Gym). Prima lezione gratuita.",
+    "Corso di Krav Maga per adulti (dai 13 anni): difesa personale reale, situazioni concrete, metodo progressivo. Sedi a Putignano (Joy Fit) e Conversano (Imperial Gym). Prima lezione gratuita.",
   alternates: { canonical: "https://kravmagaputignano.it/corsi/adulti" },
   openGraph: {
     title: "Corsi Krav Maga Adulti a Putignano e Conversano",

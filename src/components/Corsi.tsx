@@ -10,7 +10,7 @@ const courses = [
   {
     slug: "adulti",
     title: "KRAV MAGA ADULTI",
-    age: "18+",
+    age: "13+",
     schedule: "Mar, Gio, Ven",
     time: "20:00 - 21:30",
     description:
