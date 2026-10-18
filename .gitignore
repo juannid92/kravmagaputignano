@@ -8,6 +8,10 @@ out/
 test-results/
 playwright-report/
 *.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Lighthouse reports
+lh-*.json
 
 # Wrangler local state
 .wrangler/

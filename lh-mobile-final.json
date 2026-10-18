@@ -1,9 +1,0 @@
-{
-  "_note": "Lighthouse cannot run in this environment (no Chrome). Run manually: npx --yes lighthouse http://localhost:3000/ --form-factor=mobile --throttling-method=simulate --output=json --output-path=./lh-mobile-final.json --chrome-flags=\"--headless --no-sandbox\"",
-  "lcp_ms": null,
-  "inp_ms": null,
-  "cls": null,
-  "tbt_ms": null,
-  "score": null,
-  "pwa_decision": "NO — see docs/perf-pwa-decision.md. PWA introduces cache-invalidation complexity (service worker + a fresh deploy) without clear benefit for a lead-generation site; revisit if user asks for offline support or install prompt."
-}
