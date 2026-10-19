@@ -2,12 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import { useRef, useState } from "react";
 import { gsap } from "@/lib/gsap-config";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ArrowLeft } from "lucide-react";
 
 export function Header() {
+  const pathname = usePathname();
+  const isSubpage = Boolean(pathname && pathname !== "/");
+  const backHref = pathname?.startsWith("/corsi")
+    ? "/#percorsi"
+    : pathname?.startsWith("/sedi")
+    ? "/#sedi"
+    : "/";
   const headerRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,24 +81,45 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Krav Maga Putignano — torna alla home">
-              <Image
-                src="/images/federkravmaga-adulti.jpg"
-                alt="Federkravmaga Italia"
-                width={44}
-                height={44}
-                className="h-9 sm:h-11 w-auto shrink-0"
-                priority
-              />
-              <span className="hidden sm:flex flex-col leading-none">
-                <span className="font-display text-base sm:text-lg tracking-tight text-white">
-                  KRAV MAGA
+            <div className="flex items-center gap-2 sm:gap-3">
+              {isSubpage && (
+                <Link
+                  href={backHref}
+                  onClick={(e) => {
+                    if (typeof window !== "undefined" && window.history.length > 1) {
+                      e.preventDefault();
+                      window.history.back();
+                    }
+                  }}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 text-white/90 hover:text-white transition-all text-xs font-medium min-h-[36px] group"
+                  aria-label="Torna indietro"
+                  title="Torna indietro"
+                >
+                  <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5 text-accent" />
+                  <span className="hidden sm:inline font-display uppercase tracking-wider text-[11px]">
+                    Indietro
+                  </span>
+                </Link>
+              )}
+              <Link href="/" className="flex items-center gap-2 sm:gap-3" aria-label="Krav Maga Putignano — torna alla home">
+                <Image
+                  src="/images/federkravmaga-adulti.jpg"
+                  alt="Federkravmaga Italia"
+                  width={44}
+                  height={44}
+                  className="h-9 sm:h-11 w-auto shrink-0"
+                  priority
+                />
+                <span className="hidden sm:flex flex-col leading-none">
+                  <span className="font-display text-base sm:text-lg tracking-tight text-white">
+                    KRAV MAGA
+                  </span>
+                  <span className="text-foreground/60 text-[10px] sm:text-xs font-body uppercase tracking-wider mt-0.5">
+                    Putignano & Conversano
+                  </span>
                 </span>
-                <span className="text-foreground/60 text-[10px] sm:text-xs font-body uppercase tracking-wider mt-0.5">
-                  Putignano & Conversano
-                </span>
-              </span>
-            </Link>
+              </Link>
+            </div>
 
             <nav className="hidden md:flex items-center gap-8" aria-label="Navigazione principale">
               <Link
@@ -176,6 +205,22 @@ export function Header() {
 
           {/* Links */}
           <nav className="space-y-2" aria-label="Navigazione mobile">
+            {isSubpage && (
+              <Link
+                href={backHref}
+                onClick={(e) => {
+                  closeMenu();
+                  if (typeof window !== "undefined" && window.history.length > 1) {
+                    e.preventDefault();
+                    window.history.back();
+                  }
+                }}
+                className="flex items-center gap-2.5 py-3 px-4 text-base font-semibold text-accent hover:bg-surface rounded-lg transition-colors border border-accent/30 mb-3"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span>Torna indietro</span>
+              </Link>
+            )}
             <Link
               href="/corsi/adulti"
               onClick={closeMenu}

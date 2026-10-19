@@ -17,6 +17,7 @@ import {
   MessageCircle,
   Phone,
   MapPin,
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   Check,
@@ -416,16 +417,41 @@ export function CorsoPage({ variant }: { variant: Variant }) {
         </span>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav aria-label="Percorso di navigazione" className={`${display} flex items-center justify-between gap-4 mb-14 sm:mb-20 text-xs tracking-[0.25em] uppercase`}>
-            <ol className="flex items-center gap-2 text-white/50">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li aria-hidden>/</li>
-              <li><Link href="/#percorsi" className="hover:text-white transition-colors">Corsi</Link></li>
-              <li aria-hidden>/</li>
-              <li className="text-white" aria-current="page">{p.pageTitle}</li>
-            </ol>
-            <Link href={p.otherCourseHref} className="group hidden sm:inline-flex items-center gap-2 transition-colors" style={{ color: p.accent }}>
-              Corso {p.otherCourseTitle}
+          <nav
+            aria-label="Percorso di navigazione"
+            className={`${display} flex flex-wrap items-center justify-between gap-4 mb-12 sm:mb-16`}
+          >
+            <div className="flex items-center gap-3 sm:gap-6">
+              <Link
+                href="/#percorsi"
+                onClick={(e) => {
+                  if (typeof window !== "undefined" && window.history.length > 1) {
+                    e.preventDefault();
+                    window.history.back();
+                  }
+                }}
+                className="inline-flex items-center gap-2.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full border border-white/25 bg-black/60 backdrop-blur-md text-white text-xs sm:text-sm font-semibold tracking-wider uppercase hover:bg-white hover:text-[#0A0A0A] hover:border-white transition-all duration-300 group shadow-lg min-h-[44px]"
+                aria-label="Torna indietro ai corsi"
+              >
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" style={{ color: p.accent }} />
+                <span>Torna indietro</span>
+              </Link>
+
+              <ol className="hidden md:flex items-center gap-2 text-xs tracking-[0.25em] uppercase text-white/50">
+                <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+                <li aria-hidden>/</li>
+                <li><Link href="/#percorsi" className="hover:text-white transition-colors">Corsi</Link></li>
+                <li aria-hidden>/</li>
+                <li className="text-white" aria-current="page">{p.pageTitle}</li>
+              </ol>
+            </div>
+
+            <Link
+              href={p.otherCourseHref}
+              className="group inline-flex items-center gap-2 text-xs sm:text-sm tracking-[0.2em] uppercase font-semibold transition-colors px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:border-white/30 min-h-[44px]"
+              style={{ color: p.accent }}
+            >
+              <span>Corso {p.otherCourseTitle}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </nav>
@@ -877,6 +903,32 @@ export function CorsoPage({ variant }: { variant: Variant }) {
             </span>
           </div>
         </Link>
+      </section>
+
+      {/* ================= BARRA RITORNO AI CORSI ================= */}
+      <section className="border-t border-white/10 bg-[#0A0A0A] py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <Link
+            href="/#percorsi"
+            onClick={(e) => {
+              if (typeof window !== "undefined" && window.history.length > 1) {
+                e.preventDefault();
+                window.history.back();
+              }
+            }}
+            className={`${display} inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-white/25 bg-white/5 hover:bg-white hover:text-[#0A0A0A] hover:border-white text-white text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold transition-all duration-300 group shadow-lg min-h-[44px]`}
+            aria-label="Torna indietro alla panoramica dei corsi"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" style={{ color: p.accent }} />
+            <span>Torna indietro ai corsi</span>
+          </Link>
+          <Link
+            href="/"
+            className={`${display} text-xs tracking-[0.25em] uppercase text-white/50 hover:text-white transition-colors`}
+          >
+            Torna alla Home principale
+          </Link>
+        </div>
       </section>
     </main>
   );
