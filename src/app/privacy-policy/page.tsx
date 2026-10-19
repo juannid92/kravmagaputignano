@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#0A0A0A] text-white">
       <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
         <Link
           href="/"

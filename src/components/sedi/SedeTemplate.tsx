@@ -103,7 +103,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
   };
 
   return (
-    <main ref={sectionRef} className="bg-background">
+    <main id="main-content" tabIndex={-1} ref={sectionRef} className="bg-background">
       {/* Hero */}
       <section className="sede-hero relative h-screen min-h-[600px] overflow-hidden">
         <div className="sede-hero-bg absolute inset-0">
@@ -285,7 +285,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href={`https://wa.me/${sede.whatsapp}?text=${encodeURIComponent(`Ciao, vorrei prenotare una lezione di prova a ${sede.comune}.`)})}`}
+              href={`https://wa.me/${sede.whatsapp}?text=${encodeURIComponent(`Ciao, vorrei prenotare una lezione di prova a ${sede.comune}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold text-sm uppercase tracking-wider px-8 py-4 hover:bg-white hover:text-accent transition-colors"

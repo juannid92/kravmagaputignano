@@ -4,10 +4,10 @@
 Sito web marketing per una scuola di Krav Maga a Putignano (BA), con una seconda sede a Conversano.
 
 ## Utente Tipo
-- **Primario:** Potenziali allievi adulti (18+) che cercano corsi di difesa personale
-- **Secondario:** Genitori interessati a corsi per figli (6-14 anni)
+- **Primario:** Potenziali allievi adulti e ragazzi (13+) che cercano corsi di difesa personale
+- **Secondario:** Genitori interessati a corsi per figli (6-12 anni — Defensystem Kids)
 - **Terziario:** Donne interessate a corsi specifici di autodifesa
-- **Terziario:** Persone in cerca di un istruttore certificato KMFD/IKMF
+- **Terziario:** Persone in cerca di un istruttore certificato Federkravmaga / ENDAS
 
 ## Obiettivo di Business
 Convertire visitatori in allievi attraverso:
@@ -17,10 +17,10 @@ Convertire visitatori in allievi attraverso:
 4. Rendere facile prenotare una lezione gratuita
 
 ## Contenuti Chiave
-- Hero con video immersivo
-- Corsi: Adulti (18+), Ragazzi (6-14), Donne (16+)
-- Due sedi: Putignano e Conversano
-- Istruttore: Marco Santoro (3° Livello KMFD, 15+ anni esperienza)
+- Hero con poster/video immersivo
+- Corsi: Adulti (13+), Defensystem Kids (6-12 anni)
+- Due sedi: Putignano (Palestra Joy Fit) e Conversano (Palestra Imperial Gym)
+- Istruttore: Saverio Mauro Capozza (4° Livello, Direttore Corsi, 19+ anni esperienza)
 - FAQ con obiezioni comuni
 - CTA per prenotazione lezione gratuita
 

@@ -78,7 +78,7 @@ export const sedi: Sede[] = [
       nome: "Saverio Mauro Capozza",
       ruolo: "Istruttore 4° Livello — Direttore Corsi",
       bio: "Ho aperto questa sede nel 2016, quando Putignano non aveva ancora un riferimento serio per la difesa personale. Ogni lezione qui è pensata per essere diretta, senza fronzoli — partiamo da situazioni vere e torniamo a situazioni vere.",
-      bioSeconda: "Che tu abbia 16 o 60 anni, qui trovi un ambiente serio ma non intimidatorio. Il Krav Maga è per tutti quelli che vogliono essere pronti.",
+      bioSeconda: "Che tu abbia 13 o 60 anni, qui trovi un ambiente serio ma non intimidatorio. Il Krav Maga è per tutti quelli che vogliono essere pronti.",
       grado: "Istruttore 4° Livello — Direttore Corsi",
       federazione: "SSD Global Defender Srl · ENDAS",
       anniEsperienza: 19,
@@ -99,7 +99,7 @@ export const sedi: Sede[] = [
     telefono: "+39 340 710 6618",
     email: "segreteria@global-defender.com",
     introBreve:
-      "Aperta nel 2020 per portare il Krav Maga anche nella zona sud di Conversano. Una palestra più raccolta, ideale per chi cerca un ambiente intimo dove lavorare con calma e attenzione. Corsi serali per adulti, sabato pomeriggio per i ragazzi — sempre con lo stesso rigore che ci contraddistingue.",
+      "Aperta nel 2020 per portare il Krav Maga anche nella zona sud di Conversano. Una palestra più raccolta, ideale per chi cerca un ambiente intimo dove lavorare con calma e attenzione. Corsi serali per adulti e pomeridiani per i bambini (martedì e giovedì) — sempre con lo stesso rigore che ci contraddistingue.",
     orariAdulti: [
       { giorno: "Martedì", ora: "19:30 - 21:00" },
       { giorno: "Giovedì", ora: "19:30 - 21:00" },

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TerminiPage() {
   return (
-    <main className="bg-[#0A0A0A] text-white pt-32 sm:pt-40 pb-20 sm:pb-28">
+    <main id="main-content" tabIndex={-1} className="bg-[#0A0A0A] text-white pt-32 sm:pt-40 pb-20 sm:pb-28">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link
           href="/"

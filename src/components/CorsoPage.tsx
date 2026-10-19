@@ -133,20 +133,20 @@ const PALETTES: Record<Variant, Palette> = {
     accentBorder: "rgba(22, 184, 99, 0.45)",
     titleGradient: "from-white via-white to-[#22E27E]",
     eyebrow: "PERCORSO 02",
-    ageLabel: "DAI 6 AI 14 ANNI",
+    ageLabel: "DAI 6 AI 12 ANNI",
     pageTitle: "KIDS",
     pageKicker: "Percorso 02",
     pageSubtitle: "Consapevolezza, fiducia, rispetto. Attraverso il gioco, con metodo.",
     pageDescription:
-      "Defensystem Kids propone un corso per bambini e ragazzi dai 6 ai 12/14 anni. Un approccio alternativo alle arti marziali, focalizzato sui contesti sociali come il bullismo: si lavora sullo studio e sulla valutazione delle situazioni a rischio. Introducendo le tematiche di bullismo e cyberbullismo, il corso lavora anche sulla gestione dell'emotività e sul rafforzamento dell'autostima. Sono le fondamenta della disciplina, che per raggiungere i propri obiettivi ripone importanza nella preparazione psicomotoria e nel divertimento come strumento per imparare. Non proponiamo un corso statico, ma un corso dinamico che comprende gioco, divertimento e disciplina positiva. Non ci sono prerequisiti: è una disciplina per tutti.",
+      "Defensystem Kids propone un corso per bambini e ragazzi dai 6 ai 12 anni. Un approccio alternativo alle arti marziali, focalizzato sui contesti sociali come il bullismo: si lavora sullo studio e sulla valutazione delle situazioni a rischio. Introducendo le tematiche di bullismo e cyberbullismo, il corso lavora anche sulla gestione dell'emotività e sul rafforzamento dell'autostima. Sono le fondamenta della disciplina, che per raggiungere i propri obiettivi ripone importanza nella preparazione psicomotoria e nel divertimento come strumento per imparare. Non proponiamo un corso statico, ma un corso dinamico che comprende gioco, divertimento e disciplina positiva. Non ci sono prerequisiti: è una disciplina per tutti.",
     federLogo: "/images/defensystem-kids.jpg",
     federLogoAlt: "Defensystem Kids — Federkravmaga Italia",
     whyHeading: "PERCHÉ QUESTO PERCORSO",
     whyIntro: "I bambini non imparano a combattere: imparano a riconoscere, a fidarsi di sé, a lavorare in gruppo.",
     scheduleHeading: "QUANDO CI SI ALLENA",
-    scheduleIntro: "Sabato e domenica, in fasce orarie divise per età. Un allenamento ogni settimana, costante.",
+    scheduleIntro: "Mercoledì e venerdì a Putignano (18:15 - 19:15), martedì e giovedì a Conversano (18:00 - 19:00). Due appuntamenti a settimana per crescere con costanza.",
     lessonHeading: "COME SI SVOLGE UNA LEZIONE",
-    lessonIntro: "Un'ora e mezza di gioco strutturato. Niente contatto agonistico, massima supervisione.",
+    lessonIntro: "Un'ora di gioco strutturato. Niente contatto agonistico, massima supervisione.",
     ctaHeading: "LA PRIMA LEZIONE È GRATUITA",
     ctaSubtitle: "Vieni con tuo figlio, conosci l'istruttore, prova una sessione intera.",
     ctaBg: "bg-[#16B863]",
@@ -190,9 +190,10 @@ const PALETTES: Record<Variant, Palette> = {
       },
     ],
     lessonSteps: [
-      { label: "Gioco di riscaldamento", duration: "15 min", description: "Giochi motori a coppie e in gruppo, mobilità, focus." },
-      { label: "Esercitazione tecnica", duration: "30 min", description: "Scenario a difficoltà progressiva, dimostrazione, pratica guidata." },      { label: "Giochi di applicazione", duration: "30 min", description: "Situazioni simulate sotto forma di gioco, con regole chiare e supervisione costante." },
-      { label: "Stretching + debrief", duration: "15 min", description: "Defaticamento, restituzione, saluto finale. Spazio per le domande dei bambini." },
+      { label: "Gioco di riscaldamento", duration: "10 min", description: "Giochi motori a coppie e in gruppo, mobilità, focus." },
+      { label: "Esercitazione tecnica", duration: "20 min", description: "Scenario a difficoltà progressiva, dimostrazione, pratica guidata." },
+      { label: "Giochi di applicazione", duration: "20 min", description: "Situazioni simulate sotto forma di gioco, con regole chiare e supervisione costante." },
+      { label: "Stretching + debrief", duration: "10 min", description: "Defaticamento, restituzione, saluto finale. Spazio per le domande dei bambini." },
     ],
     courseTopics: [
       {
@@ -221,7 +222,7 @@ const PALETTES: Record<Variant, Palette> = {
       },
     ],
     courseTopicsHeading: "PROGRAMMA E ARGOMENTI",
-    courseTopicsIntro: "Sei aree di lavoro, ritmate e progress. Niente improvvisazione: ogni lezione ha un obiettivo.",
+    courseTopicsIntro: "Sei aree di lavoro, ritmate e progressive. Niente improvvisazione: ogni lezione ha un obiettivo.",
   },
 };
 
@@ -287,7 +288,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
   );
 
   return (
-    <main ref={sectionRef} className="bg-[#0A0A0A] text-white">
+    <main id="main-content" tabIndex={-1} ref={sectionRef} className="bg-[#0A0A0A] text-white">
       {/* HERO */}
       <section className="corso-hero relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
         {/* Background glow */}

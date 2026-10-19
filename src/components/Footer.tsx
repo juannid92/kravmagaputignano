@@ -3,10 +3,8 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "@/lib/gsap-config";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Instagram, Facebook, ArrowRight, Zap } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram, Facebook, ArrowUp } from "lucide-react";
 import { openCookieSettings } from "@/components/CookieConsent";
 import { LEGAL, legalCopyrightLine, legalIdentityLines } from "@/lib/legal";
 
@@ -24,130 +22,8 @@ const sedi = [
 export function Footer() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      if (prefersReducedMotion) {
-        gsap.set(".footer-content", { y: 0, opacity: 1 });
-        return;
-      }
-
-      // CTA Section animation
-      gsap.fromTo(
-        ".footer-cta-content > *",
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      // Background glow pulse
-      gsap.to(".footer-glow", {
-        scale: 1.05,
-        opacity: 0.4,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    },
-    { scope: sectionRef }
-  );
-
   return (
     <footer ref={sectionRef} className="relative">
-      {/* CTA Section - Full Width Red/Black */}
-      <section className="relative bg-[#CC0000] overflow-hidden">
-        {/* Background effects */}
-        <div className="footer-glow absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, transparent 70%)',
-          }}
-        />
-
-        {/* Diagonal stripes */}
-        <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <pattern id="stripes" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="10" stroke="black" strokeWidth="0.5" />
-            </pattern>
-            <rect width="100" height="100" fill="url(#stripes)" />
-          </svg>
-        </div>
-
-        {/* Noise texture */}
-        <div className="absolute inset-0 opacity-5">
-          <svg className="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <filter id="noise">
-              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noise)" />
-          </svg>
-        </div>
-
-        {/* Content */}
-        <div className="footer-cta-content relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-          {/* Top accent */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-[#0A0A0A]" />
-
-          <div className="text-center">
-            {/* Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#0A0A0A] rounded-full mb-8">
-              <Zap className="w-8 h-8 text-[#CC0000]" />
-            </div>
-
-            {/* Heading */}
-            <h2 className="font-stencil text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight tracking-wider">
-              INIZIA ORA
-            </h2>
-
-            {/* Red line */}
-            <div className="w-32 h-[3px] bg-[#0A0A0A] mx-auto mb-8" />
-
-            {/* Subtext */}
-            <p className="text-white/90 text-lg sm:text-xl max-w-2xl mx-auto mb-12 font-body">
-              La prima lezione è gratuita e senza impegno.
-              <br />
-              <span className="font-medium">Contattaci e prenota oggi.</span>
-            </p>
-
-            {/* Phone CTA */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-12">
-              <a
-                href="tel:+393407106618"
-                className="flex items-center gap-4 bg-[#0A0A0A] hover:bg-[#0A0A0A]/90 text-white px-8 py-4 transition-all duration-300 hover:scale-105 group"
-              >
-                <Phone className="w-6 h-6 text-[#CC0000]" />
-                <span className="font-stencil text-2xl">+39 340 710 6618</span>
-              </a>
-            </div>
-
-            {/* Form hint */}
-            <div className="flex items-center justify-center gap-2 text-white/70 text-sm">
-              <span>Oppure</span>
-              <button className="text-white underline hover:text-white/80 transition-colors">
-                scrivici un messaggio
-              </button>
-            </div>
-          </div>
-
-          {/* Bottom accent */}
-          <div className="absolute bottom-0 left-0 right-0 h-2 bg-[#0A0A0A]" />
-        </div>
-      </section>
-
       {/* Mappa Section */}
       <section className="bg-[#0A0A0A] py-16 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -254,7 +130,7 @@ export function Footer() {
                 </span>
               </Link>
               <p className="text-white/50 text-sm font-body leading-relaxed max-w-xs">
-                Scuola di Krav Maga in provincia di Bari. Corsi per adulti e bambini,
+                Scuola di Krav Maga in provincia di Bari. Corsi per adulti (dai 13 anni) e bambini (6-12 anni),
                 tenuti da istruttori certificati Federkravmaga.
               </p>
 
@@ -268,7 +144,7 @@ export function Footer() {
               {/* Social */}
               <div className="flex items-center gap-3 mt-6">
                 <a
-                  href="https://instagram.com"
+                  href="https://instagram.com/kravmagaputignano"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 border border-[#CC0000]/30 flex items-center justify-center hover:border-[#CC0000] hover:bg-[#CC0000]/10 transition-colors"
@@ -277,7 +153,7 @@ export function Footer() {
                   <Instagram className="w-4 h-4 text-white/50 hover:text-[#CC0000]" />
                 </a>
                 <a
-                  href="https://facebook.com"
+                  href="https://facebook.com/kravmagaputignano"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 border border-[#CC0000]/30 flex items-center justify-center hover:border-[#CC0000] hover:bg-[#CC0000]/10 transition-colors"
@@ -390,12 +266,14 @@ export function Footer() {
           <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-white/30 text-xs font-body">{legalCopyrightLine()}</p>
             <Button
+              type="button"
               variant="outline"
               size="sm"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="border-[#CC0000]/30 text-white/50 hover:text-white hover:border-[#CC0000] hover:bg-[#CC0000]/10 transition-all duration-300"
             >
               Torna su
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowUp className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </div>

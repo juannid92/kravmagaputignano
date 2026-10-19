@@ -355,7 +355,7 @@ function PhotoCanvas({ imageSrc, palette }: { imageSrc: string; palette: Palette
 
 const adultiContent = {
   title: "ADULTI",
-  age: "DAI 16 ANNI IN SU",
+  age: "DAI 13 ANNI IN SU",
   description:
     "Un percorso costruito su situazioni reali. Impari a riconoscere il pericolo, a reagire sotto pressione, a proteggere ciò che conta. Nessuna coreografia, nessun trofeo — solo strumenti che funzionano.",
   features: [
@@ -368,7 +368,7 @@ const adultiContent = {
 
 const bambiniContent = {
   title: "KIDS",
-  age: "DAI 6 AI 15 ANNI",
+  age: "DAI 6 AI 12 ANNI",
   description:
     "Consapevolezza, fiducia, rispetto. Attraverso il gioco, i più piccoli imparano a riconoscere le situazioni di rischio, a fidarsi del proprio istinto, a lavorare in gruppo. Nessuna pressione, solo crescita.",
   features: [

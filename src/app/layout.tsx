@@ -105,7 +105,7 @@ export default function RootLayout({
           href="/videos/hero-poster-720p.jpg"
           fetchPriority="high"
         />
-        <link rel="preload" as="image" href="/images/federkravmaga-logo.jpg" />
+        <link rel="preload" as="image" href="/images/federkravmaga-adulti.jpg" />
       </head>
       <body className={`antialiased ${oswald.className}`}>
         <script
@@ -115,9 +115,7 @@ export default function RootLayout({
         <SkipLink />
         <ScrollProgress />
         <CustomCursor />
-        <main id="main-content" tabIndex={-1}>
-          <LenisProvider>{children}</LenisProvider>
-        </main>
+        <LenisProvider>{children}</LenisProvider>
         <CookieConsent />
       </body>
     </html>
