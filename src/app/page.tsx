@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { NonSport } from "@/components/NonSport";
+import { Pilastri } from "@/components/Pilastri";
 import { GalleriaHome } from "@/components/GalleriaHome";
 import { VideoShowcase } from "@/components/VideoShowcase";
 import { Percorsi } from "@/components/Percorsi";
@@ -33,6 +34,7 @@ export default function Home() {
       <main id="main-content" tabIndex={-1}>
         <Hero />
         <NonSport />
+        <Pilastri />
         <GalleriaHome />
         <VideoShowcase />
         <Percorsi />

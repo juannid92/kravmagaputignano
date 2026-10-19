@@ -76,8 +76,8 @@ export function legalJsonLd() {
       { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday"],    opens: "18:15", closes: "20:30" },
     ],
     sameAs: [
-      "https://facebook.com/kravmagaputignano",
-      "https://instagram.com/kravmagaputignano",
+      "https://www.facebook.com/kravmagaputignano2",
+      "https://www.instagram.com/krav_maga_putignano_conversano",
     ],
     priceRange: "€€",
     ...(LEGAL.vatId ? { taxID: LEGAL.vatId } : {}),

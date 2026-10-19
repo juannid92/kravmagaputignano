@@ -144,7 +144,7 @@ export function Footer() {
               {/* Social */}
               <div className="flex items-center gap-3 mt-6">
                 <a
-                  href="https://instagram.com/kravmagaputignano"
+                  href="https://www.instagram.com/krav_maga_putignano_conversano"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 border border-[#CC0000]/30 flex items-center justify-center hover:border-[#CC0000] hover:bg-[#CC0000]/10 transition-colors"
@@ -153,7 +153,7 @@ export function Footer() {
                   <Instagram className="w-4 h-4 text-white/50 hover:text-[#CC0000]" />
                 </a>
                 <a
-                  href="https://facebook.com/kravmagaputignano"
+                  href="https://www.facebook.com/kravmagaputignano2"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 border border-[#CC0000]/30 flex items-center justify-center hover:border-[#CC0000] hover:bg-[#CC0000]/10 transition-colors"
