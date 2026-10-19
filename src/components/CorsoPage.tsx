@@ -180,7 +180,7 @@ const PALETTES: Record<Variant, Palette> = {
     marquee: ["Fiducia in sé", "Antibullismo", "Rispetto", "Gioco strutturato", "Consapevolezza", "Spirito di gruppo"],
     images: {
       hero: "/images/kids-diplomi.jpg",
-      intro: "/images/kids-diplomi.jpg",
+      intro: "/images/kids-lezione-joyfit.jpg",
       quote: "/images/maestro-saverio.jpg",
       other: "/images/adulti-gruppo.jpg",
     },
@@ -524,7 +524,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
-                style={{ filter: "grayscale(30%) contrast(1.05)" }}
+                style={variant === "kids" ? { filter: "contrast(1.04)" } : { filter: "grayscale(25%) contrast(1.05)" }}
               />
               <div aria-hidden className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%)" }} />
             </div>
