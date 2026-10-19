@@ -13,12 +13,12 @@ if (typeof window !== "undefined") {
 }
 
 const kravGalleryImages = [
-  { src: "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Allenamento Krav Maga - Tecniche di difesa" },
-  { src: "https://images.pexels.com/photos/6455245/pexels-photo-6455245.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Sessione di combattimento" },
-  { src: "https://images.pexels.com/photos/7045661/pexels-photo-7045661.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Esercizi di potenza" },
-  { src: "https://images.pexels.com/photos/6295757/pexels-photo-6295757.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Allenamento funzionale" },
-  { src: "https://images.pexels.com/photos/6295767/pexels-photo-6295767.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Tecniche di combattimento" },
-  { src: "https://images.pexels.com/photos/6296035/pexels-photo-6296035.jpeg?auto=compress&cs=tinysrgb&w=800", alt: "Preparazione fisica" },
+  { src: "/images/hero-istruttori.jpg", alt: "Team Istruttori — Krav Maga Putignano e Conversano" },
+  { src: "/images/adulti-gruppo.jpg", alt: "Corso Adulti — Gruppo allievi" },
+  { src: "/images/kids-diplomi.jpg", alt: "Defensystem Kids — Diplomi e cinture" },
+  { src: "/images/maestro-diploma.jpg", alt: "Maestro Saverio Mauro Capozza — Diploma 4° Livello" },
+  { src: "/images/pilastro-1-sicurezza.jpg", alt: "Tecniche di difesa e sicurezza personale" },
+  { src: "/images/pilastro-2-duro-lavoro.jpg", alt: "Preparazione atletica e potenziamento" },
 ];
 
 export function GalleriaHome() {

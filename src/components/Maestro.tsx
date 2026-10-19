@@ -11,8 +11,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const maestroImage =
-  "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=format&fit=crop&w=1920&q=80";
+const maestroImage = "/images/maestro-diploma.jpg";
 
 export function Maestro() {
   const sectionRef = useRef<HTMLElement>(null);

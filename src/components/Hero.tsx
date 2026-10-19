@@ -150,7 +150,7 @@ export function Hero() {
         <VideoHero
           videoMp4=""
           videoWebm=""
-          poster="/videos/hero-poster-720p.jpg"
+          poster="/images/hero-istruttori.jpg"
           videoRef={videoRef}
           className="w-full h-full object-cover object-center"
         />

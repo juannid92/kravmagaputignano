@@ -1,29 +1,35 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const pilastri = [
   {
     number: "01",
     title: "SICUREZZA",
+    image: "/images/pilastro-1-sicurezza.jpg",
     text: "Acquisire sicurezza in se stessi non significa diventare invincibili. Lavorare continuamente sui propri limiti è un ottimo modo per mettersi in discussione e scoprire la propria capacità di far fronte alle difficoltà che la vita ci presenta: che siano un'aggressione o i problemi di tutti i giorni, la chiave è la tenacia.",
   },
   {
     number: "02",
     title: "DURO LAVORO",
+    image: "/images/pilastro-2-duro-lavoro.jpg",
     text: "Non sono richiesti particolari requisiti fisici per iniziare, ma il potenziamento è parte fondamentale del percorso. È un vantaggio nel combattimento e un buon corso di difesa personale non può prescindere da una preparazione atletica completa.",
   },
   {
     number: "03",
     title: "CONFRONTO",
+    image: "/images/pilastro-3-confronto.jpg",
     text: "Il lavoro con compagni differenti stimola e fa scoprire diversi aspetti della stessa pratica. Ciascuno di noi ha punti di forza e debolezza: il confronto è fondamentale per crescere insieme.",
   },
   {
     number: "04",
     title: "SIDE SKILLS",
+    image: "/images/pilastro-4-side-skills.jpg",
     text: "Avere conoscenza di difesa personale è essenziale per la sicurezza quotidiana e professionale. Il Krav Maga offre preparazione sia fisica sia psichica, con tecniche semplici, intuitive ed efficaci per qualsiasi corporatura.",
   },
   {
     number: "05",
     title: "SU MISURA",
+    image: "/images/pilastro-5-su-misura.jpg",
     text: "Le arti marziali e la difesa personale non sono un pacchetto preconfezionato, ma abilità da esplorare e fare proprie in base a necessità, interesse e sensibilità. Un modo concreto ed efficace di avvicinarsi a se stessi.",
   },
 ];
@@ -91,20 +97,33 @@ export function Pilastri() {
                 {item.number}
               </span>
 
-              <div className="relative z-10">
-                {/* Number & Title */}
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="font-display text-sm tracking-[0.3em] text-[#D4AF37]">
-                    {item.number}
-                  </span>
-                  <span className="text-white/20 text-xs">—</span>
-                  <h3 className="font-display text-xl sm:text-2xl text-white tracking-wider uppercase">
-                    {item.title}
-                  </h3>
-                </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div>
+                  {/* Photo graphic card from the school */}
+                  <div className="relative w-full aspect-square mb-6 overflow-hidden border border-white/10 group-hover:border-[#CC0000]/40 transition-colors">
+                    <Image
+                      src={item.image}
+                      alt={`${item.number} — ${item.title}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
 
-                {/* Accent line */}
-                <div className="w-12 h-[2px] bg-gradient-to-r from-[#CC0000] to-transparent mb-5 group-hover:w-20 transition-all duration-300" />
+                  {/* Number & Title */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="font-display text-sm tracking-[0.3em] text-[#D4AF37]">
+                      {item.number}
+                    </span>
+                    <span className="text-white/20 text-xs">—</span>
+                    <h3 className="font-display text-xl sm:text-2xl text-white tracking-wider uppercase">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* Accent line */}
+                  <div className="w-12 h-[2px] bg-gradient-to-r from-[#CC0000] to-transparent mb-5 group-hover:w-20 transition-all duration-300" />
+                </div>
 
                 {/* Official school quote text */}
                 <p className="text-white/80 text-sm sm:text-base leading-relaxed font-body">

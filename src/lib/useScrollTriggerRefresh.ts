@@ -27,6 +27,7 @@ export function useScrollTriggerRefresh() {
 
     window.addEventListener("resize", refresh, { passive: true });
     window.addEventListener("orientationchange", refresh, { passive: true });
+    window.addEventListener("load", refresh, { passive: true });
 
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", refresh);
@@ -39,6 +40,7 @@ export function useScrollTriggerRefresh() {
     return () => {
       window.removeEventListener("resize", refresh);
       window.removeEventListener("orientationchange", refresh);
+      window.removeEventListener("load", refresh);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener("resize", refresh);
       }

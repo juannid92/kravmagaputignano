@@ -18,8 +18,8 @@ if (typeof window !== "undefined") {
 }
 
 const percorsiImages = {
-  adulti: "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  bambini: "https://images.pexels.com/photos/7045661/pexels-photo-7045661.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  adulti: "/images/adulti-gruppo.jpg",
+  bambini: "/images/kids-diplomi.jpg",
 };
 
 type TabKey = "adulti" | "bambini";

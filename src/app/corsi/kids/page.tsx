@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     locale: "it_IT",
     images: [
       {
-        url: "https://images.pexels.com/photos/7045585/pexels-photo-7045585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        url: "https://kravmagaputignano.it/images/kids-diplomi.jpg",
         width: 1200,
         height: 800,
         alt: "Krav Maga Kids — allenamento di premartialità per bambini 6-12 anni",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description:
       "Autodifesa e premartialità per bambini 6-12 anni. Sedi a Putignano e Conversano. Prima lezione di prova gratuita.",
     images: [
-      "https://images.pexels.com/photos/7045585/pexels-photo-7045585.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://kravmagaputignano.it/images/kids-diplomi.jpg",
     ],
   },
 };

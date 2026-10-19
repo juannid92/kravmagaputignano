@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     locale: "it_IT",
     images: [
       {
-        url: "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        url: "https://kravmagaputignano.it/images/adulti-gruppo.jpg",
         width: 1200,
         height: 800,
         alt: "Krav Maga Adulti — allenamento di difesa personale a Putignano",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description:
       "Difesa personale reale per adulti. Sedi a Putignano e Conversano. Prima lezione gratuita.",
     images: [
-      "https://images.pexels.com/photos/7045757/pexels-photo-7045757.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://kravmagaputignano.it/images/adulti-gruppo.jpg",
     ],
   },
 };
