@@ -13,13 +13,13 @@ if (typeof window !== "undefined") {
 }
 
 const kravGalleryImages = [
-  { src: "/images/hero-istruttori.jpg", alt: "Team Istruttori — Krav Maga Putignano e Conversano" },
-  { src: "/images/maestro-saverio.jpg", alt: "Maestro Saverio Mauro Capozza — Direttore Corsi" },
+  { src: "/images/allenamento-sparring.jpg", alt: "Sparring e combattimento con protezioni — Palestra Joyfit" },
   { src: "/images/adulti-gruppo.jpg", alt: "Corso Adulti — Gruppo allievi" },
-  { src: "/images/kids-diplomi.jpg", alt: "Defensystem Kids — Diplomi e cinture" },
-  { src: "/images/maestro-diploma.jpg", alt: "Maestro Saverio Mauro Capozza — Diploma 4° Livello" },
-  { src: "/images/pilastro-1-sicurezza.jpg", alt: "Tecniche di difesa e sicurezza personale" },
-  { src: "/images/pilastro-2-duro-lavoro.jpg", alt: "Preparazione atletica e potenziamento" },
+  { src: "/images/kids-diplomi.jpg", alt: "Defensystem Kids — Attestati diplomi e cinture" },
+  { src: "/images/maestro-diploma.jpg", alt: "Maestro Saverio Mauro Capozza — Attestato Diploma 4° Livello" },
+  { src: "/images/allenamento-aperto-difesa.jpg", alt: "Tecniche di guardia e difesa personale all'aperto" },
+  { src: "/images/allenamento-maestro-guida.jpg", alt: "Dimostrazione tecnica con il Maestro Saverio Capozza" },
+  { src: "/images/allenamento-giornate-sport.jpg", alt: "Difesa da aggressione — Le Giornate dello Sport Putignano" },
 ];
 
 export function GalleriaHome() {
@@ -73,12 +73,12 @@ export function GalleriaHome() {
           className="gallery-viewport relative flex items-center overflow-hidden bg-[#0A0A0A]"
         >
           {/* Title */}
-          <div className="gallery-heading absolute left-6 md:left-8 z-20">
+          <div className="gallery-heading absolute left-6 md:left-8 z-20 max-w-[280px] sm:max-w-md">
             <span className="text-[#D4AF37] font-display text-xs tracking-[0.4em] uppercase mb-2 block">
               Galleria
             </span>
-            <h2 className="font-display text-2xl md:text-3xl text-white">
-              I NOSTRI ALLENAMENTI
+            <h2 className="font-display text-2xl md:text-3xl text-white leading-tight">
+              I NOSTRI ALLENAMENTI E ATTESTATI
             </h2>
           </div>
 
