@@ -604,3 +604,9 @@ body {
   .gallery-track { width: 100%; flex-wrap: wrap; justify-content: center; padding: 0 24px; transform: none !important; }
   .gallery-img-wrap { max-width: 100%; }
 }
+
+/* Corsi: banda di parole scorrevole */
+@keyframes corso-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

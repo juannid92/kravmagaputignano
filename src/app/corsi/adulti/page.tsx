@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { CorsoPage } from "@/components/CorsoPage";
 import { BreadcrumbList } from "@/components/BreadcrumbList";
 
@@ -43,7 +45,9 @@ export default function CorsiAdultiPage() {
           { name: "Adulti", url: "https://kravmagaputignano.it/corsi/adulti" },
         ]}
       />
+      <Header />
       <CorsoPage variant="adulti" />
+      <Footer />
     </>
   );
 }
