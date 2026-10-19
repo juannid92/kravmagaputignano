@@ -15,7 +15,7 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const subtitleRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -213,22 +213,24 @@ export function Hero() {
         <div className="relative mb-4">
           <h1
             ref={titleRef}
-            className="relative font-[family-name:var(--font-display)] text-white mb-2 leading-[0.85]"
-            style={{ fontSize: "clamp(4rem, 14vw, 12rem)", letterSpacing: "0.02em" }}
+            className="relative font-[family-name:var(--font-display)] text-white mb-2 leading-[0.88]"
+            style={{ fontSize: "clamp(2.6rem, 10.5vw, 9.5rem)", letterSpacing: "0.02em" }}
           >
-            KRAV MAGA
+            FEDERKRAVMAGA
           </h1>
           {/* Gold accent underline */}
           <div className="gold-line w-40 h-[3px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-2 origin-center" />
         </div>
 
         {/* Subtitle */}
-        <p ref={subtitleRef} className="text-lg sm:text-xl md:text-2xl text-white/80 mb-10 max-w-xl mx-auto font-[family-name:var(--font-display)] tracking-wide">
-          DIFESA PERSONALE
-          <span className="block text-[#D4AF37] text-sm mt-2 tracking-[0.3em]">
-            SCUOLA UFFICIALE
-          </span>
-        </p>
+        <div ref={subtitleRef} className="mb-10 max-w-2xl mx-auto font-[family-name:var(--font-display)]">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 tracking-[0.2em] uppercase">
+            DIFESA PERSONALE
+          </p>
+          <p className="text-[#D4AF37] text-xs sm:text-sm mt-2 tracking-[0.22em] sm:tracking-[0.3em] uppercase">
+            SSD GLOBAL DEFENDER SRL SPORT E SECURITY
+          </p>
+        </div>
 
         {/* CTA */}
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-4">
