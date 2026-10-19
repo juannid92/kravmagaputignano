@@ -105,7 +105,7 @@ const PALETTES: Record<Variant, Palette> = {
     images: {
       hero: "/images/adulti-gruppo.jpg",
       intro: "/images/hero-istruttori.jpg",
-      quote: "/images/maestro-diploma.jpg",
+      quote: "/images/maestro-saverio.jpg",
       other: "/images/kids-diplomi.jpg",
     },
     federLogo: "/images/federkravmaga-adulti.jpg",
@@ -181,7 +181,7 @@ const PALETTES: Record<Variant, Palette> = {
     images: {
       hero: "/images/kids-diplomi.jpg",
       intro: "/images/kids-diplomi.jpg",
-      quote: "/images/maestro-diploma.jpg",
+      quote: "/images/maestro-saverio.jpg",
       other: "/images/adulti-gruppo.jpg",
     },
     federLogo: "/images/defensystem-kids.jpg",

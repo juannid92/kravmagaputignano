@@ -14,6 +14,7 @@ if (typeof window !== "undefined") {
 
 const kravGalleryImages = [
   { src: "/images/hero-istruttori.jpg", alt: "Team Istruttori — Krav Maga Putignano e Conversano" },
+  { src: "/images/maestro-saverio.jpg", alt: "Maestro Saverio Mauro Capozza — Direttore Corsi" },
   { src: "/images/adulti-gruppo.jpg", alt: "Corso Adulti — Gruppo allievi" },
   { src: "/images/kids-diplomi.jpg", alt: "Defensystem Kids — Diplomi e cinture" },
   { src: "/images/maestro-diploma.jpg", alt: "Maestro Saverio Mauro Capozza — Diploma 4° Livello" },

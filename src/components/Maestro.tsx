@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const maestroImage = "/images/maestro-diploma.jpg";
+const maestroImage = "/images/maestro-saverio.jpg";
 
 export function Maestro() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -95,12 +95,12 @@ export function Maestro() {
       <div className="absolute inset-0 z-0" ref={photoRef}>
         <Image
           src={maestroImage}
-          alt=""
+          alt="Maestro Saverio Mauro Capozza — Direttore Corsi Federkravmaga"
           aria-hidden
           fill
           sizes="100vw"
-          className="object-cover"
-          style={{ filter: "grayscale(80%) contrast(1.2) brightness(0.4)" }}
+          className="object-cover object-top sm:object-[center_20%]"
+          style={{ filter: "grayscale(60%) contrast(1.15) brightness(0.45)" }}
           loading="lazy"
         />
         {/* Single dark gradient for legibility */}

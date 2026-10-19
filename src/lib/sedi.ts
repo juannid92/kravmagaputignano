@@ -63,6 +63,7 @@ export const sedi: Sede[] = [
     foto: [
       "/images/hero-istruttori.jpg",
       "/images/adulti-gruppo.jpg",
+      "/images/maestro-saverio.jpg",
       "/images/maestro-diploma.jpg",
       "/images/pilastro-1-sicurezza.jpg",
       "/images/pilastro-2-duro-lavoro.jpg",
@@ -112,6 +113,7 @@ export const sedi: Sede[] = [
       "/images/kids-diplomi.jpg",
       "/images/adulti-gruppo.jpg",
       "/images/hero-istruttori.jpg",
+      "/images/maestro-saverio.jpg",
       "/images/maestro-diploma.jpg",
       "/images/pilastro-4-side-skills.jpg",
       "/images/pilastro-5-su-misura.jpg",
