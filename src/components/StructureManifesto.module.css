@@ -189,19 +189,38 @@
   .credits dt { max-width: 90px; }
   .mainStat { right: 5%; bottom: 220px; }
 }
+
+/* Mobile: stessa composizione del desktop (foto a tutto sfondo con velo scuro,
+   slash rosso, titolo grande sopra la foto, numeri in rosso/bianco).
+   Cambia solo la scala: i blocchi vanno uno sotto l'altro perche lo spazio e stretto. */
 @media (max-width: 767px) {
   .manifesto {
-    padding: 32px 20px 48px;
+    padding: 40px 20px 56px;
     min-height: 0;
     display: flex;
     flex-direction: column;
   }
+  .photoWindow {
+    inset: 0;
+  }
+  .image {
+    object-position: 62% 50%;
+  }
+  .shade {
+    background:
+      linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.82) 22%, rgba(10, 10, 10, 0.55) 50%, rgba(10, 10, 10, 0.9) 82%, #0a0a0a 100%),
+      linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.3) 70%, transparent 100%);
+  }
+  .slash {
+    right: 6%;
+    top: 12%;
+    width: 8px;
+    height: 34%;
+  }
   .meta {
-    order: 1;
     font-size: 10px;
     letter-spacing: 0.12em;
     gap: 12px;
-    margin-bottom: 20px;
   }
   .meta span:last-child {
     text-align: right;
@@ -212,86 +231,13 @@
     height: 6px;
   }
   .title {
-    order: 2;
-    position: relative;
-    margin-top: 0;
+    margin-top: 32px;
     font-size: clamp(38px, 11vw, 56px);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    margin-bottom: 24px;
-  }
-  .title .secondLine {
-    font-size: 1em;
-    margin-top: 4px;
-  }
-  .photoWindow {
-    order: 3;
-    position: relative;
-    inset: auto;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    max-height: 380px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-  .photo {
-    position: absolute;
-    inset: 0;
-    transform: none;
-  }
-  .image {
-    object-position: center center;
-    filter: contrast(1.05) brightness(0.96);
-  }
-  .shade {
-    display: none;
-  }
-  .slash {
-    display: none;
   }
   .copy {
-    order: 4;
-    position: relative;
     width: 100%;
     max-width: 100%;
-    margin-top: 0;
-  }
-  .mainStat {
-    order: 5;
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 36px;
-    margin-bottom: 24px;
-  }
-  .mainStat dd {
-    font-size: 72px;
-    line-height: 0.9;
-  }
-  .mainStat dt {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-  }
-  .credits {
-    order: 6;
-    position: relative;
-    right: auto;
-    bottom: auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 12px 0 0;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .credits dd {
-    font-size: 28px;
-  }
-  .credits dt {
-    font-size: 10px;
-    letter-spacing: 0.06em;
+    margin-top: 40px;
   }
   .statement + .statement {
     margin-top: 28px;
@@ -303,6 +249,37 @@
   .statement p {
     font-size: 14px;
     line-height: 1.6;
+    color: #d8d4cc;
+  }
+  .mainStat {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 44px;
+    margin-bottom: 28px;
+  }
+  .mainStat dd {
+    font-size: clamp(84px, 24vw, 110px);
+  }
+  .mainStat dt {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+  .credits {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .credits dd {
+    font-size: 30px;
+  }
+  .credits dt {
+    font-size: 10px;
+    letter-spacing: 0.06em;
   }
 }
 @media (prefers-reduced-motion: reduce) {
