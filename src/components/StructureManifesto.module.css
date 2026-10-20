@@ -189,19 +189,36 @@
   .credits dt { max-width: 90px; }
   .mainStat { right: 5%; bottom: 220px; }
 }
+
+/* Mobile: STESSA composizione del desktop, in scala.
+   Dati e titolo a sinistra, foto a destra che sfuma nel nero, slash rosso,
+   numero grande in basso a destra, tre numeri in fondo. Nessun riquadro sopra la foto. */
 @media (max-width: 767px) {
   .manifesto {
-    padding: 32px 20px 48px;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    padding: 36px 20px 0;
+    min-height: 1000px;
+  }
+  .photoWindow {
+    inset: 0 0 0 30%;
+  }
+  .image {
+    object-position: 60% 50%;
+  }
+  .shade {
+    background:
+      linear-gradient(90deg, #0a0a0a 32%, rgba(10, 10, 10, 0.88) 50%, rgba(10, 10, 10, 0.4) 78%, transparent 100%),
+      linear-gradient(0deg, #0a0a0a 0%, transparent 28%, rgba(10, 10, 10, 0.12) 76%, #0a0a0a 100%);
+  }
+  .slash {
+    right: 4%;
+    top: 17%;
+    width: 8px;
+    height: 52%;
   }
   .meta {
-    order: 1;
     font-size: 10px;
     letter-spacing: 0.12em;
     gap: 12px;
-    margin-bottom: 20px;
   }
   .meta span:last-child {
     text-align: right;
@@ -212,79 +229,42 @@
     height: 6px;
   }
   .title {
-    order: 2;
-    position: relative;
-    margin-top: 0;
-    font-size: clamp(38px, 11vw, 56px);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    margin-bottom: 24px;
-  }
-  .title .secondLine {
-    font-size: 1em;
-    margin-top: 4px;
-  }
-  .photoWindow {
-    order: 3;
-    position: relative;
-    inset: auto;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    max-height: 380px;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-  .photo {
-    position: absolute;
-    inset: 0;
-    transform: none;
-  }
-  .image {
-    object-position: center center;
-    filter: contrast(1.05) brightness(0.96);
-  }
-  .shade {
-    display: none;
-  }
-  .slash {
-    display: none;
+    margin-top: 28px;
+    font-size: clamp(36px, 11vw, 52px);
   }
   .copy {
-    order: 4;
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 0;
+    width: 64%;
+    max-width: 300px;
+    margin-top: 40px;
+  }
+  .statement + .statement {
+    margin-top: 28px;
+  }
+  .statement h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .statement p {
+    font-size: 13px;
+    line-height: 1.55;
   }
   .mainStat {
-    order: 5;
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 36px;
-    margin-bottom: 24px;
-  }
-  .mainStat dd {
-    font-size: 72px;
-    line-height: 0.9;
+    right: 20px;
+    bottom: 130px;
   }
   .mainStat dt {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.2em;
   }
+  .mainStat dd {
+    font-size: 80px;
+  }
   .credits {
-    order: 6;
-    position: relative;
-    right: auto;
-    bottom: auto;
-    display: flex;
+    left: 20px;
+    right: 20px;
+    bottom: 32px;
     justify-content: space-between;
     gap: 12px;
-    margin: 12px 0 0;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .credits dd {
     font-size: 28px;
@@ -292,17 +272,6 @@
   .credits dt {
     font-size: 10px;
     letter-spacing: 0.06em;
-  }
-  .statement + .statement {
-    margin-top: 28px;
-  }
-  .statement h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-  .statement p {
-    font-size: 14px;
-    line-height: 1.6;
   }
 }
 @media (prefers-reduced-motion: reduce) {
