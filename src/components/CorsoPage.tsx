@@ -593,23 +593,32 @@ export function CorsoPage({ variant }: { variant: Variant }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-14 lg:gap-16 items-center">
           <div className="lg:col-span-5 relative">
             <div aria-hidden className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 w-full h-full border-2" style={{ borderColor: p.accentBorder }} />
-            <div className="corso-intro-img relative aspect-[4/5] overflow-hidden bg-[#141414]">
+            <div className="corso-intro-img relative aspect-[4/5] overflow-hidden bg-[#141414] flex items-center justify-center">
               {p.video ? (
-                <video
-                  src={p.video}
-                  poster={p.images.intro}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  className="w-full h-full object-cover"
-                  style={{
-                    objectPosition: "top center",
-                    transform: "scale(1.8)",
-                    transformOrigin: "top center",
-                  }}
-                />
+                <>
+                  {/* Sfondo d'atmosfera sfuocato per riempire armoniosamente il riquadro */}
+                  <video
+                    src={p.video}
+                    aria-hidden
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+                  />
+                  {/* Video principale perfettamente adattato in scala al riquadro senza tagli */}
+                  <video
+                    src={p.video}
+                    poster={p.images.intro}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    className="relative z-[1] max-w-full max-h-full w-full h-full object-contain"
+                  />
+                </>
               ) : (
                 <Image
                   src={p.images.intro}

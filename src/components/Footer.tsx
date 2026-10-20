@@ -44,11 +44,11 @@ export function Footer() {
               <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#CC0000] z-10" />
               <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#CC0000] z-10" />
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.5!2d17.0!3d40.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDUxJzAwLjAiTiAxN8KwMDAnMDAuMCJF!5e0!3m2!1sit!2sit!4v1600000000000!5m2!1sit!2sit"
+                src="https://maps.google.com/maps?q=Palestra+Joy+Fit,+Via+G.+Leopardi+56,+70017+Putignano+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 className="w-full h-full border-0 grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Mappa Putignano"
+                title="Mappa Putignano - Palestra Joy Fit"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent h-12 pointer-events-none" />
               <span className="absolute top-3 left-3 military-id text-white/50">LOC: PUT-01</span>
@@ -61,11 +61,11 @@ export function Footer() {
               <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#CC0000] z-10" />
               <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#CC0000] z-10" />
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.5!2d17.1!3d40.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU4JzA2LjAiTiAxN8KwMDYnMDAuMCJF!5e0!3m2!1sit!2sit!4v1600000000000!5m2!1sit!2sit"
+                src="https://maps.google.com/maps?q=Palestra+Imperial+Gym,+Via+M.+La+Volpe+32,+70014+Conversano+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 className="w-full h-full border-0 grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Mappa Conversano"
+                title="Mappa Conversano - Palestra Imperial Gym"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent h-12 pointer-events-none" />
               <span className="absolute top-3 left-3 military-id text-white/50">LOC: CON-02</span>

@@ -217,7 +217,7 @@ export function Sede() {
             {/* CTA */}
             <div className="flex flex-wrap gap-4">
               <a
-                href="https://maps.google.com"
+                href="https://www.google.com/maps/search/?api=1&query=Palestra+Joy+Fit+Via+G.+Leopardi+56+Putignano+BA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary"

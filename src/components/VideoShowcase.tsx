@@ -10,6 +10,7 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { FilmPass } from "three/addons/postprocessing/FilmPass.js";
 import { GammaCorrectionShader } from "three/addons/shaders/GammaCorrectionShader.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { Play, Pause, Volume2, VolumeX, SkipForward, SkipBack, X, RefreshCw } from "lucide-react";
 
 // --- Cinematic backdrop shader: scanlines, vignette, grain drift --------------------
 const CinematicShader = {
@@ -282,12 +283,77 @@ function useTickingClock() {
   return time;
 }
 
+const SHOWCASE_PLAYLIST = [
+  { id: 1, src: "/videos/showcase/showcase-1.mp4", label: "Clip 01" },
+  { id: 2, src: "/videos/showcase/showcase-2.mp4", label: "Clip 02" },
+  { id: 3, src: "/videos/showcase/showcase-3.mp4", label: "Clip 03" },
+  { id: 4, src: "/videos/showcase/showcase-4.mp4", label: "Clip 04" },
+  { id: 5, src: "/videos/showcase/showcase-5.mp4", label: "Clip 05" },
+];
+
 export function VideoShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentClipIndex, setCurrentClipIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoPlayerRef = useRef<HTMLVideoElement>(null);
   const tickingClock = useTickingClock();
+
+  const activeClip = SHOWCASE_PLAYLIST[currentClipIndex];
+
+  // Auto-play when clip changes or player is started
+  useEffect(() => {
+    if (!isPlaying) return;
+    const v = videoPlayerRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    const playPromise = v.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback: browser audio policy requires muted autoplay
+        v.muted = true;
+        setIsMuted(true);
+        v.play().catch(() => {});
+      });
+    }
+  }, [isPlaying, currentClipIndex]);
+
+  const handleNextClip = () => {
+    setCurrentClipIndex((prev) => (prev + 1) % SHOWCASE_PLAYLIST.length);
+  };
+
+  const handlePrevClip = () => {
+    setCurrentClipIndex((prev) => (prev - 1 + SHOWCASE_PLAYLIST.length) % SHOWCASE_PLAYLIST.length);
+  };
+
+  const togglePlayPause = () => {
+    const v = videoPlayerRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setIsPaused(false);
+    } else {
+      v.pause();
+      setIsPaused(true);
+    }
+  };
+
+  const toggleMute = () => {
+    const v = videoPlayerRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setIsMuted(v.muted);
+  };
+
+  const handleClose = () => {
+    setIsPlaying(false);
+    setIsPaused(false);
+    const v = videoPlayerRef.current;
+    if (v) v.pause();
+  };
 
   useGSAP(
     () => {
@@ -469,23 +535,138 @@ export function VideoShowcase() {
               </button>
             )}
 
-            {/* Playing overlay (mock) */}
+            {/* Interactive Video Playlist Player */}
             {isPlaying && (
-              <div className="absolute inset-0 z-40 flex items-center justify-center bg-black">
-                <div className="text-center px-6">
-                  <div className="font-stencil text-2xl sm:text-3xl text-white tracking-[0.3em] mb-3">
-                    ANTEPRIMA IN ARRIVO
-                  </div>
-                  <div className="text-white/60 text-sm tracking-widest mb-6">
-                    Nuove riprese in fase di montaggio
-                  </div>
+              <div className="absolute inset-0 z-40 bg-black flex flex-col justify-between overflow-hidden select-none">
+                {/* Ambient blurred backdrop for seamless box filling */}
+                <video
+                  key={`ambient-${activeClip.src}`}
+                  src={activeClip.src}
+                  aria-hidden
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+                />
+
+                {/* Main sharp video */}
+                <video
+                  ref={videoPlayerRef}
+                  key={`main-${activeClip.src}`}
+                  src={activeClip.src}
+                  autoPlay
+                  playsInline
+                  muted={isMuted}
+                  onEnded={handleNextClip}
+                  onPlay={() => setIsPaused(false)}
+                  onPause={() => setIsPaused(true)}
+                  onClick={togglePlayPause}
+                  className="relative z-10 w-full h-full object-contain cursor-pointer"
+                />
+
+                {/* Pause overlay icon if paused */}
+                {isPaused && (
                   <button
                     type="button"
-                    onClick={() => setIsPlaying(false)}
-                    className="font-stencil text-xs tracking-[0.3em] text-white/80 border border-white/30 px-5 py-2 hover:bg-white/10 transition-colors"
+                    onClick={togglePlayPause}
+                    aria-label="Riprendi riproduzione"
+                    className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-opacity cursor-pointer"
                   >
-                    CHIUDI
+                    <span className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FF3D00]/90 flex items-center justify-center shadow-[0_0_30px_rgba(255,61,0,0.6)]">
+                      <Play className="w-8 h-8 sm:w-10 sm:h-10 text-white ml-1 fill-white" />
+                    </span>
                   </button>
+                )}
+
+                {/* HUD Top Bar */}
+                <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-3 sm:p-4 bg-gradient-to-b from-black/80 via-black/40 to-transparent">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-[#FF3D00] opacity-75 animate-ping" />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF3D00]" />
+                    </span>
+                    <span className="font-stencil text-xs sm:text-sm tracking-[0.25em] text-white/90">
+                      LIVE CLIP {currentClipIndex + 1}/{SHOWCASE_PLAYLIST.length}
+                    </span>
+                    <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-stencil tracking-[0.2em] text-[#FF3D00] bg-[#FF3D00]/15 px-2 py-0.5 border border-[#FF3D00]/30 rounded-sm">
+                      <RefreshCw className="w-2.5 h-2.5 animate-spin" style={{ animationDuration: "6s" }} /> LOOP ATTIVO
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleClose}
+                    className="flex items-center gap-1.5 font-stencil text-xs tracking-[0.25em] text-white/90 bg-black/60 border border-white/20 hover:border-[#FF3D00] hover:text-[#FF3D00] px-3 py-1.5 rounded-sm transition-colors"
+                    aria-label="Chiudi video"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    <span>CHIUDI</span>
+                  </button>
+                </div>
+
+                {/* HUD Bottom Bar */}
+                <div className="absolute bottom-0 left-0 right-0 z-30 p-3 sm:p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col gap-2">
+                  {/* Clip selector bar */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      {SHOWCASE_PLAYLIST.map((clip, idx) => (
+                        <button
+                          key={clip.id}
+                          type="button"
+                          onClick={() => setCurrentClipIndex(idx)}
+                          className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                            idx === currentClipIndex
+                              ? "w-8 sm:w-12 bg-[#FF3D00] shadow-[0_0_8px_#FF3D00]"
+                              : "w-4 sm:w-6 bg-white/30 hover:bg-white/60"
+                          }`}
+                          aria-label={`Vai al clip ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {/* Prev */}
+                      <button
+                        type="button"
+                        onClick={handlePrevClip}
+                        className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-sm transition-colors"
+                        aria-label="Clip precedente"
+                      >
+                        <SkipBack className="w-4 h-4" />
+                      </button>
+
+                      {/* Play/Pause */}
+                      <button
+                        type="button"
+                        onClick={togglePlayPause}
+                        className="p-1.5 text-white/90 hover:text-white hover:bg-white/10 rounded-sm transition-colors"
+                        aria-label={isPaused ? "Play" : "Pausa"}
+                      >
+                        {isPaused ? <Play className="w-4 h-4 fill-white" /> : <Pause className="w-4 h-4 fill-white" />}
+                      </button>
+
+                      {/* Next */}
+                      <button
+                        type="button"
+                        onClick={handleNextClip}
+                        className="p-1.5 text-white/70 hover:text-white hover:bg-white/10 rounded-sm transition-colors"
+                        aria-label="Clip successivo"
+                      >
+                        <SkipForward className="w-4 h-4" />
+                      </button>
+
+                      {/* Audio mute/unmute */}
+                      <button
+                        type="button"
+                        onClick={toggleMute}
+                        className="p-1.5 text-white/80 hover:text-[#FF3D00] hover:bg-white/10 rounded-sm transition-colors ml-1"
+                        aria-label={isMuted ? "Attiva audio" : "Disattiva audio"}
+                      >
+                        {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

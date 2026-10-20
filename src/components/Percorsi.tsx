@@ -621,7 +621,20 @@ export function Percorsi() {
               isReversed ? "lg:order-2" : "lg:order-1"
             } order-1 bg-[#0A0A0A]`}
           >
-            <div ref={imageContainerRef} className="absolute inset-0">
+            <div ref={imageContainerRef} className="absolute inset-0 overflow-hidden bg-black flex items-center justify-center">
+              {/* Sfondo d'atmosfera sfuocato per riempire armoniosamente il riquadro */}
+              <video
+                key={`bg-${activeTab}`}
+                src={percorsiVideos[activeTab]}
+                aria-hidden
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+              />
+              {/* Video principale perfettamente adattato in scala al riquadro senza tagli */}
               <video
                 key={activeTab}
                 src={percorsiVideos[activeTab]}
@@ -631,12 +644,7 @@ export function Percorsi() {
                 loop
                 playsInline
                 preload="auto"
-                className="w-full h-full object-cover"
-                style={{
-                  objectPosition: "top center",
-                  transform: "scale(1.8)",
-                  transformOrigin: "top center",
-                }}
+                className="relative z-[1] max-w-full max-h-full w-full h-full object-contain"
               />
             </div>
 
