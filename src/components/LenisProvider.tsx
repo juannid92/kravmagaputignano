@@ -15,6 +15,13 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false;
     let gsapTicker: { add: (fn: (time: number) => void) => void; remove: (fn: (time: number) => void) => void } | null = null;
 
+    // `html { scroll-behavior: smooth }` (globals.css) anima ogni scrollTo nativo:
+    // ScrollTrigger lo usa durante i refresh/pin e Lenis lo usa per ogni frame,
+    // quindi la pagina "rimbalza" su e giu. Lo forziamo ad auto (vale anche su touch).
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";
+
     (async () => {
       const bundle = await getGsap();
       if (cancelled || !bundle) return;
@@ -49,6 +56,7 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       cancelled = true;
+      root.style.scrollBehavior = previousScrollBehavior;
       if (gsapTicker && tickerFn) {
         gsapTicker.remove(tickerFn);
       }
