@@ -190,30 +190,47 @@
   .mainStat { right: 5%; bottom: 220px; }
 }
 
-/* Mobile: STESSA composizione del desktop, in scala.
-   Dati e titolo a sinistra, foto a destra che sfuma nel nero, slash rosso,
-   numero grande in basso a destra, tre numeri in fondo. Nessun riquadro sopra la foto. */
+/* Mobile: stessa idea del desktop (titolo e dati a sinistra, foto che sfuma nel nero,
+   slash rosso, numero grande), ma la foto e una fascia a larghezza piena di 340px
+   (non piu una striscia alta 1000px che la ingrandiva a dismisura). I blocchi di testo
+   scorrono uno dopo l'altro senza sovrapporsi. */
 @media (max-width: 767px) {
   .manifesto {
-    padding: 36px 20px 0;
-    min-height: 1000px;
+    padding: 36px 20px 48px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
   .photoWindow {
-    inset: 0 0 0 30%;
+    inset: auto;
+    top: 120px;
+    left: 0;
+    right: 0;
+    height: 340px;
+  }
+  .photo {
+    inset: 0;
   }
   .image {
-    object-position: 60% 50%;
+    object-position: 50% 40%;
+    filter: contrast(1.05) brightness(0.95);
   }
   .shade {
+    inset: auto;
+    top: 120px;
+    left: 0;
+    right: 0;
+    height: 340px;
     background:
-      linear-gradient(90deg, #0a0a0a 32%, rgba(10, 10, 10, 0.88) 50%, rgba(10, 10, 10, 0.4) 78%, transparent 100%),
-      linear-gradient(0deg, #0a0a0a 0%, transparent 28%, rgba(10, 10, 10, 0.12) 76%, #0a0a0a 100%);
+      linear-gradient(0deg, #0a0a0a 0%, rgba(10, 10, 10, 0) 38%),
+      linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0) 26%),
+      linear-gradient(90deg, #0a0a0a 0%, rgba(10, 10, 10, 0.5) 18%, rgba(10, 10, 10, 0) 48%);
   }
   .slash {
-    right: 4%;
-    top: 17%;
+    right: 6%;
+    top: 110px;
     width: 8px;
-    height: 52%;
+    height: 280px;
   }
   .meta {
     font-size: 10px;
@@ -233,38 +250,44 @@
     font-size: clamp(36px, 11vw, 52px);
   }
   .copy {
-    width: 64%;
-    max-width: 300px;
-    margin-top: 40px;
+    width: 100%;
+    max-width: none;
+    margin-top: 315px;
   }
   .statement + .statement {
     margin-top: 28px;
   }
   .statement h3 {
-    font-size: 18px;
+    font-size: 19px;
     margin-bottom: 8px;
   }
   .statement p {
-    font-size: 13px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.6;
   }
   .mainStat {
-    right: 20px;
-    bottom: 130px;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: flex-end;
+    margin-top: 36px;
   }
   .mainStat dt {
     font-size: 10px;
     letter-spacing: 0.2em;
   }
   .mainStat dd {
-    font-size: 80px;
+    font-size: 84px;
   }
   .credits {
-    left: 20px;
-    right: 20px;
-    bottom: 32px;
+    position: relative;
+    right: auto;
+    bottom: auto;
     justify-content: space-between;
     gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .credits dd {
     font-size: 28px;
