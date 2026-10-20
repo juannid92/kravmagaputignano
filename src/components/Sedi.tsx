@@ -56,8 +56,9 @@ export function Sedi() {
             ease: "power4.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 78%",
-              toggleActions: "play none none reverse",
+              start: "top 85%",
+              toggleActions: "play none none none",
+              once: true,
             },
           }
         );
@@ -73,8 +74,9 @@ export function Sedi() {
             ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 72%",
-              toggleActions: "play none none reverse",
+              start: "top 80%",
+              toggleActions: "play none none none",
+              once: true,
             },
           }
         );

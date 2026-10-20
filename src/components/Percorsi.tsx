@@ -612,10 +612,9 @@ export function Percorsi() {
         >
           {/* PHOTO PANEL */}
           <div
-            className={`relative lg:col-span-7 overflow-hidden rounded-sm ${
+            className={`relative lg:col-span-7 overflow-hidden rounded-sm aspect-[4/3] sm:aspect-video lg:aspect-auto lg:min-h-[580px] ${
               isReversed ? "lg:order-2" : "lg:order-1"
             } order-1`}
-            style={{ minHeight: "min(72vh, 640px)" }}
           >
             <div ref={imageContainerRef} className="absolute inset-0">
               <PhotoCanvas

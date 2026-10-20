@@ -35,8 +35,9 @@ export function FAQ() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );
@@ -44,18 +45,19 @@ export function FAQ() {
       // Items stagger animation
       gsap.fromTo(
         ".faq-item",
-        { y: 40, opacity: 0, scale: 0.98 },
+        { y: 30, opacity: 0, scale: 0.98 },
         {
           y: 0,
           opacity: 1,
           scale: 1,
           duration: 0.6,
-          stagger: 0.1,
+          stagger: 0.08,
           ease: "power3.out",
           scrollTrigger: {
             trigger: ".faq-list",
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );

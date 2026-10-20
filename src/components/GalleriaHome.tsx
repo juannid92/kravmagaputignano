@@ -104,8 +104,8 @@ export function GalleriaHome() {
                   borderRadius: "1rem",
                 }}
               >
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Bottom subtle shadow for caption legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 opacity-90 transition-opacity duration-300 pointer-events-none" />
 
                 {/* Image */}
                 <div className="gallery-img-inner absolute inset-0 will-change-transform rounded-xl overflow-hidden">
@@ -113,6 +113,7 @@ export function GalleriaHome() {
                     src={img.src}
                     alt={img.alt}
                     fill
+                    loading="eager"
                     className="object-cover"
                     quality={85}
                     sizes="(max-width: 768px) 80vw, 30vw"
@@ -120,7 +121,7 @@ export function GalleriaHome() {
                 </div>
 
                 {/* Image info overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 z-20 transform translate-y-0 md:translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
                   <p className="text-white text-sm font-display tracking-wide">
                     {img.alt}
                   </p>

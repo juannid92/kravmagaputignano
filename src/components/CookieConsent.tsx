@@ -41,17 +41,15 @@ export function CookieConsent() {
     }
   }, []);
 
-  // Blocca lo scroll della pagina solo quando il banner copre il viewport mobile.
+  // Blocca lo scroll della pagina solo quando il pannello impostazioni è aperto a tutto schermo.
   useEffect(() => {
-    if (!show) return;
+    if (!show || mode !== "settings") return;
     const original = document.body.style.overflow;
-    if (window.innerWidth < 768) {
-      document.body.style.overflow = "hidden";
-    }
+    document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = original;
     };
-  }, [show]);
+  }, [show, mode]);
 
   // Focus trap + Escape handling. WCAG 2.1.2 / 2.4.3 / 4.1.2.
   // Escape only closes the settings panel — the banner has explicit
@@ -120,16 +118,19 @@ export function CookieConsent() {
   return (
     <div
       role="dialog"
-      aria-modal="true"
+      aria-modal={isSettings ? "true" : undefined}
       aria-labelledby="cookie-title"
-      className="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:justify-end p-0 md:p-6"
-      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+      className={
+        isSettings
+          ? "fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          : "fixed bottom-0 left-0 right-0 md:bottom-6 md:right-6 md:left-auto z-[100] p-3 sm:p-4 md:p-0 pointer-events-none"
+      }
     >
       <div
         ref={dialogRef}
-        className="relative w-full md:max-w-md bg-[#0F0F0F] border border-[#CC0000]/30 text-white shadow-2xl"
+        className="pointer-events-auto relative w-full md:max-w-md bg-[#0F0F0F] border border-[#CC0000]/40 text-white shadow-2xl rounded-lg overflow-hidden"
         style={{
-          maxHeight: "100svh",
+          maxHeight: isSettings ? "90svh" : "80svh",
           overflowY: "auto",
         }}
       >

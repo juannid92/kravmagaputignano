@@ -58,8 +58,9 @@ export function Maestro() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 65%",
-            toggleActions: "play none none reverse",
+            start: "top 75%",
+            toggleActions: "play none none none",
+            once: true,
           },
         }
       );

@@ -24,6 +24,7 @@ import {
   Quote,
 } from "lucide-react";
 import { sedi } from "@/lib/sedi";
+import { useScrollTriggerRefresh } from "@/lib/useScrollTriggerRefresh";
 
 type Variant = "adulti" | "kids";
 
@@ -281,6 +282,8 @@ export function CorsoPage({ variant }: { variant: Variant }) {
   const activeDays = WEEK.filter((d) => slots.some((s) => s.giorno === d));
   const sedeColor = (i: number) => SEDE_COLORS[i] ?? p.accent;
 
+  useScrollTriggerRefresh();
+
   useGSAP(
     () => {
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -310,46 +313,53 @@ export function CorsoPage({ variant }: { variant: Variant }) {
 
       gsap.fromTo(
         ".corso-intro-img",
-        { clipPath: "inset(0 0 100% 0)" },
+        { opacity: 0, y: 30 },
         {
-          clipPath: "inset(0 0 0% 0)",
-          duration: 1.2,
-          ease: "power4.out",
-          scrollTrigger: { trigger: ".corso-intro", start: "top 75%" },
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: "power3.out",
+          scrollTrigger: { trigger: ".corso-intro", start: "top 85%", toggleActions: "play none none none", once: true },
         }
       );
 
       gsap.utils.toArray<HTMLElement>(".corso-reveal").forEach((el) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 85%" } }
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none", once: true },
+          }
         );
       });
 
       gsap.fromTo(
         ".corso-why-row",
-        { opacity: 0, x: 40 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
-          x: 0,
-          duration: 0.7,
-          stagger: 0.12,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".corso-why-list", start: "top 80%" },
+          scrollTrigger: { trigger: ".corso-why-list", start: "top 85%", toggleActions: "play none none none", once: true },
         }
       );
 
       gsap.fromTo(
         ".corso-day",
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
           duration: 0.6,
           stagger: 0.08,
           ease: "power2.out",
-          scrollTrigger: { trigger: ".corso-week", start: "top 80%" },
+          scrollTrigger: { trigger: ".corso-week", start: "top 85%", toggleActions: "play none none none", once: true },
         }
       );
 
@@ -361,7 +371,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
           duration: 0.8,
           stagger: 0.15,
           ease: "power2.out",
-          scrollTrigger: { trigger: ".corso-bar", start: "top 85%" },
+          scrollTrigger: { trigger: ".corso-bar", start: "top 90%", toggleActions: "play none none none", once: true },
         }
       );
 

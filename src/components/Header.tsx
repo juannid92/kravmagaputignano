@@ -56,17 +56,12 @@ export function Header() {
     () => {
       gsap.fromTo(
         headerRef.current,
-        { y: -100, opacity: 0 },
+        { y: -80, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top top",
-            toggleActions: "play none none reverse",
-          },
+          duration: 0.6,
+          ease: "power2.out",
         }
       );
     },
@@ -107,14 +102,14 @@ export function Header() {
                   alt="Federkravmaga Italia"
                   width={44}
                   height={44}
-                  className="h-9 sm:h-11 w-auto shrink-0"
+                  className="h-8 sm:h-11 w-auto shrink-0"
                   priority
                 />
-                <span className="hidden sm:flex flex-col leading-none">
-                  <span className="font-display text-base sm:text-lg tracking-tight text-white">
+                <span className="flex flex-col leading-none">
+                  <span className="font-display text-sm sm:text-lg tracking-tight text-white whitespace-nowrap">
                     KRAV MAGA
                   </span>
-                  <span className="text-foreground/60 text-[10px] sm:text-xs font-body uppercase tracking-wider mt-0.5">
+                  <span className="text-foreground/60 text-[9px] sm:text-xs font-body uppercase tracking-wider mt-0.5 whitespace-nowrap">
                     Putignano & Conversano
                   </span>
                 </span>
@@ -148,14 +143,15 @@ export function Header() {
               </Link>
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <a
                 href="tel:+393407106618"
-                className="hidden sm:inline-flex items-center gap-2 bg-accent text-white font-semibold text-sm uppercase tracking-wider px-6 py-3 hover:bg-accent/90 transition-colors"
+                className="inline-flex items-center gap-1.5 sm:gap-2 bg-accent text-white font-semibold text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-6 py-2 sm:py-3 hover:bg-accent/90 transition-colors shrink-0"
                 aria-label="Chiama per prenotare una lezione gratuita"
               >
-                <Phone className="w-4 h-4" />
-                Prova Gratuita
+                <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden xs:inline sm:inline">Prova Gratuita</span>
+                <span className="xs:hidden sm:hidden">Prova</span>
               </a>
               <button
                 onClick={toggleMenu}
