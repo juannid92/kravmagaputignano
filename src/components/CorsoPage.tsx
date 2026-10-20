@@ -80,6 +80,7 @@ type Palette = {
   galleryKicker?: string;
   galleryHeading?: string;
   galleryIntro?: string;
+  video?: string;
 };
 
 const WHATSAPP = "https://wa.me/393407106618";
@@ -120,6 +121,7 @@ const PALETTES: Record<Variant, Palette> = {
       quote: "/images/maestro-saverio.jpg",
       other: "/images/kids-diplomi.jpg",
     },
+    video: "/videos/corsi-adulti.mp4",
     galleryKicker: "Pratica in palestra",
     galleryHeading: "Tecniche e situazioni reali",
     galleryIntro:
@@ -223,6 +225,7 @@ const PALETTES: Record<Variant, Palette> = {
       quote: "/images/maestro-saverio.jpg",
       other: "/images/adulti-gruppo.jpg",
     },
+    video: "/videos/corsi-kids.mp4",
     federLogo: "/images/defensystem-kids.jpg",
     federLogoAlt: "Defensystem Kids — Federkravmaga Italia",
     whyHeading: "Perché questo percorso",
@@ -591,15 +594,50 @@ export function CorsoPage({ variant }: { variant: Variant }) {
           <div className="lg:col-span-5 relative">
             <div aria-hidden className="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 w-full h-full border-2" style={{ borderColor: p.accentBorder }} />
             <div className="corso-intro-img relative aspect-[4/5] overflow-hidden bg-[#141414]">
-              <Image
-                src={p.images.intro}
-                alt={`Allenamento corso ${p.pageTitle}`}
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-                style={{ filter: "contrast(1.04) brightness(0.98)" }}
+              {p.video ? (
+                <video
+                  src={p.video}
+                  poster={p.images.intro}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-cover"
+                  style={{
+                    objectPosition: "top center",
+                    transform: "scale(1.8)",
+                    transformOrigin: "top center",
+                  }}
+                />
+              ) : (
+                <Image
+                  src={p.images.intro}
+                  alt={`Allenamento corso ${p.pageTitle}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover"
+                  style={{ filter: "contrast(1.04) brightness(0.98)" }}
+                />
+              )}
+              {/* Filtro colore opaco al 20% (fa l'effetto ma non disturba il video) */}
+              <div
+                aria-hidden
+                className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
+                style={{
+                  background: p.accent,
+                  opacity: 0.20,
+                  mixBlendMode: "color",
+                }}
               />
-              <div aria-hidden className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%)" }} />
+              <div
+                aria-hidden
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  background: "linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%)",
+                  opacity: 0.20,
+                }}
+              />
             </div>
             <div
               className="absolute -bottom-6 right-4 sm:-right-6 px-6 py-5 shadow-2xl"

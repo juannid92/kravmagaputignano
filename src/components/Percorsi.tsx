@@ -22,6 +22,11 @@ const percorsiImages = {
   bambini: "/images/kids-diplomi.jpg",
 };
 
+const percorsiVideos = {
+  adulti: "/videos/corsi-adulti.mp4",
+  bambini: "/videos/corsi-kids.mp4",
+};
+
 type TabKey = "adulti" | "bambini";
 
 // Color matrix shader: shifts hue/saturation/contrast/brightness, then tints toward an accent color.
@@ -610,27 +615,50 @@ export function Percorsi() {
         <div
           className={`percorso-card relative grid lg:grid-cols-12 gap-6 lg:gap-10 items-stretch transition-all duration-700`}
         >
-          {/* PHOTO PANEL */}
+          {/* VIDEO / PHOTO PANEL */}
           <div
             className={`relative lg:col-span-7 overflow-hidden rounded-sm aspect-[4/3] sm:aspect-video lg:aspect-auto lg:min-h-[580px] ${
               isReversed ? "lg:order-2" : "lg:order-1"
-            } order-1`}
+            } order-1 bg-[#0A0A0A]`}
           >
             <div ref={imageContainerRef} className="absolute inset-0">
-              <PhotoCanvas
+              <video
                 key={activeTab}
-                imageSrc={activeTab === "adulti" ? percorsiImages.adulti : percorsiImages.bambini}
-                palette={palette}
+                src={percorsiVideos[activeTab]}
+                poster={percorsiImages[activeTab]}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover"
+                style={{
+                  objectPosition: "top center",
+                  transform: "scale(1.8)",
+                  transformOrigin: "top center",
+                }}
               />
             </div>
 
-            {/* Tonal overlay toward the side where the text lives, for legibility */}
+            {/* Filtro d'accento colore opaco al 20% (fa l'effetto ma non disturba il video) */}
+            <div
+              aria-hidden
+              className="absolute inset-0 z-10 pointer-events-none transition-colors duration-500"
+              style={{
+                backgroundColor: palette.accent,
+                opacity: 0.20,
+                mixBlendMode: "color",
+              }}
+            />
+
+            {/* Tonal overlay attenuato al 20% */}
             <div
               className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-500"
               style={{
                 background: isReversed
                   ? "linear-gradient(to right, rgba(10,10,10,0.0) 0%, rgba(10,10,10,0.0) 35%, rgba(10,10,10,0.85) 100%)"
                   : "linear-gradient(to right, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.0) 65%, rgba(10,10,10,0.0) 100%)",
+                opacity: 0.20,
               }}
             />
 
