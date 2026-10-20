@@ -190,32 +190,30 @@
   .mainStat { right: 5%; bottom: 220px; }
 }
 
-/* Mobile: stessa composizione del desktop (foto a tutto sfondo con velo scuro,
-   slash rosso, titolo grande sopra la foto, numeri in rosso/bianco).
-   Cambia solo la scala: i blocchi vanno uno sotto l'altro perche lo spazio e stretto. */
+/* Mobile: STESSA composizione del desktop, in scala.
+   Dati e titolo a sinistra, foto a destra che sfuma nel nero, slash rosso,
+   numero grande in basso a destra, tre numeri in fondo. Nessun riquadro sopra la foto. */
 @media (max-width: 767px) {
   .manifesto {
-    padding: 40px 20px 56px;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    padding: 36px 20px 0;
+    min-height: 1000px;
   }
   .photoWindow {
-    inset: 0;
+    inset: 0 0 0 30%;
   }
   .image {
-    object-position: 62% 50%;
+    object-position: 60% 50%;
   }
   .shade {
     background:
-      linear-gradient(180deg, #0a0a0a 0%, rgba(10, 10, 10, 0.82) 22%, rgba(10, 10, 10, 0.55) 50%, rgba(10, 10, 10, 0.9) 82%, #0a0a0a 100%),
-      linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.3) 70%, transparent 100%);
+      linear-gradient(90deg, #0a0a0a 32%, rgba(10, 10, 10, 0.88) 50%, rgba(10, 10, 10, 0.4) 78%, transparent 100%),
+      linear-gradient(0deg, #0a0a0a 0%, transparent 28%, rgba(10, 10, 10, 0.12) 76%, #0a0a0a 100%);
   }
   .slash {
-    right: 6%;
-    top: 12%;
+    right: 4%;
+    top: 17%;
     width: 8px;
-    height: 34%;
+    height: 52%;
   }
   .meta {
     font-size: 10px;
@@ -231,51 +229,45 @@
     height: 6px;
   }
   .title {
-    margin-top: 32px;
-    font-size: clamp(38px, 11vw, 56px);
+    margin-top: 28px;
+    font-size: clamp(36px, 11vw, 52px);
   }
   .copy {
-    width: 100%;
-    max-width: 100%;
+    width: 64%;
+    max-width: 300px;
     margin-top: 40px;
   }
   .statement + .statement {
     margin-top: 28px;
   }
   .statement h3 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 8px;
   }
   .statement p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #d8d4cc;
+    font-size: 13px;
+    line-height: 1.55;
   }
   .mainStat {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 44px;
-    margin-bottom: 28px;
-  }
-  .mainStat dd {
-    font-size: clamp(84px, 24vw, 110px);
+    right: 20px;
+    bottom: 130px;
   }
   .mainStat dt {
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.2em;
   }
+  .mainStat dd {
+    font-size: 80px;
+  }
   .credits {
-    position: relative;
-    right: auto;
-    bottom: auto;
+    left: 20px;
+    right: 20px;
+    bottom: 32px;
     justify-content: space-between;
     gap: 12px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
   .credits dd {
-    font-size: 30px;
+    font-size: 28px;
   }
   .credits dt {
     font-size: 10px;
