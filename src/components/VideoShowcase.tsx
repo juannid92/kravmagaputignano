@@ -289,6 +289,7 @@ const SHOWCASE_PLAYLIST = [
   { id: 3, src: "/videos/showcase/showcase-3.mp4", label: "Clip 03" },
   { id: 4, src: "/videos/showcase/showcase-4.mp4", label: "Clip 04" },
   { id: 5, src: "/videos/showcase/showcase-5.mp4", label: "Clip 05" },
+  { id: 6, src: "/videos/showcase/showcase-6.mp4", label: "Clip 06" },
 ];
 
 export function VideoShowcase() {
