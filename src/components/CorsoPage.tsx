@@ -70,6 +70,16 @@ type Palette = {
   courseTopics?: { title: string; description: string }[];
   courseTopicsHeading?: string;
   courseTopicsIntro?: string;
+  gallery?: {
+    src: string;
+    alt: string;
+    tag: string;
+    title: string;
+    caption: string;
+  }[];
+  galleryKicker?: string;
+  galleryHeading?: string;
+  galleryIntro?: string;
 };
 
 const WHATSAPP = "https://wa.me/393407106618";
@@ -106,10 +116,37 @@ const PALETTES: Record<Variant, Palette> = {
     marquee: ["Difesa reale", "Gestione dello stress", "Prese e strangolamenti", "Aggressioni multiple", "Oggetti comuni", "Consapevolezza"],
     images: {
       hero: "/images/adulti-gruppo.jpg",
-      intro: "/images/hero-istruttori.jpg",
+      intro: "/images/adulti-tecniche-disarmo.jpg",
       quote: "/images/maestro-saverio.jpg",
       other: "/images/kids-diplomi.jpg",
     },
+    galleryKicker: "Pratica in palestra",
+    galleryHeading: "Tecniche e situazioni reali",
+    galleryIntro:
+      "Dalle prese e strangolamenti alle difese da minaccia con coltello e gestione a terra: ogni tecnica viene studiata, provata e affinata in totale sicurezza sotto la guida dell'istruttore.",
+    gallery: [
+      {
+        src: "/images/adulti-tecniche-difesa-1.jpg",
+        alt: "Krav Maga Adulti — uscite da prese, strangolamenti e controllo a terra",
+        tag: "Prese & Controllo",
+        title: "Prese e controllo a terra",
+        caption: "Uscite da strangolamento frontale e posteriore, leve articolari e immobilizzazione controllata dell'aggressore a terra.",
+      },
+      {
+        src: "/images/adulti-tecniche-difesa-2.jpg",
+        alt: "Krav Maga Adulti — reazioni istintive, deviazioni e colpi di arresto",
+        tag: "Reazione Istintiva",
+        title: "Deviazioni e arresto",
+        caption: "Reazione rapida a tentativi di presa improvvisi, deviazione della traiettoria d'attacco ed esecuzione di colpi di arresto.",
+      },
+      {
+        src: "/images/adulti-tecniche-disarmo.jpg",
+        alt: "Krav Maga Adulti — difesa da minaccia con coltello e neutralizzazione",
+        tag: "Disarmo da Lama",
+        title: "Difesa da armi da taglio",
+        caption: "Gestione delle distanze ravvicinate, deviazione della linea di minaccia, controllo del braccio armato e disarmo completo.",
+      },
+    ],
     federLogo: "/images/federkravmaga-adulti.jpg",
     federLogoAlt: "Federkravmaga Italia — Global Defender SRL Putignano Conversano",
     whyHeading: "Perché questo percorso",
@@ -560,7 +597,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
-                style={variant === "kids" ? { filter: "contrast(1.04)" } : { filter: "grayscale(25%) contrast(1.05)" }}
+                style={{ filter: "contrast(1.04) brightness(0.98)" }}
               />
               <div aria-hidden className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.85) 100%)" }} />
             </div>
@@ -798,6 +835,69 @@ export function CorsoPage({ variant }: { variant: Variant }) {
                   <span aria-hidden className="block h-1 w-10 mb-6" style={{ background: p.accent }} />
                   <h3 className={`${display} relative uppercase text-xl sm:text-2xl text-white mb-3`}>{topic.title}</h3>
                   <p className="relative text-white/55 text-sm leading-relaxed">{topic.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ================= GALLERIA TECNICHE ================= */}
+      {p.gallery && p.gallery.length > 0 && (
+        <section className="relative py-24 sm:py-32 border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="corso-reveal max-w-2xl mb-12 sm:mb-16">
+              <Kicker color={p.accent}>{p.galleryKicker || "Pratica in palestra"}</Kicker>
+              <h2 className={`${display} uppercase text-4xl sm:text-5xl lg:text-6xl leading-[0.95] text-white mb-5`}>
+                {p.galleryHeading || "Tecniche e situazioni reali"}
+              </h2>
+              {p.galleryIntro && <p className="text-white/60 text-base sm:text-lg leading-relaxed">{p.galleryIntro}</p>}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              {p.gallery.map((item, idx) => (
+                <div
+                  key={item.src}
+                  className="corso-reveal group relative flex flex-col bg-[#111111] border border-white/10 overflow-hidden hover:border-white/25 transition-all duration-300"
+                >
+                  <div className="relative aspect-square w-full overflow-hidden bg-[#181818]">
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      style={{ filter: "contrast(1.04) brightness(0.98)" }}
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent opacity-70"
+                    />
+                    <span
+                      className={`${display} absolute top-4 left-4 px-3 py-1 text-xs tracking-[0.2em] uppercase font-bold text-white shadow-md`}
+                      style={{ background: p.accent }}
+                    >
+                      {item.tag}
+                    </span>
+                    <span
+                      aria-hidden
+                      className={`${display} absolute bottom-3 right-4 text-3xl font-bold opacity-30 select-none`}
+                      style={{ WebkitTextStroke: `1px ${p.accent}`, color: "transparent" }}
+                    >
+                      0{idx + 1}
+                    </span>
+                  </div>
+
+                  <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className={`${display} text-xl sm:text-2xl uppercase text-white font-semibold mb-2 tracking-wide`}>
+                        {item.title}
+                      </h3>
+                      <p className="text-white/65 text-sm leading-relaxed">
+                        {item.caption}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

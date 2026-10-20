@@ -62,6 +62,9 @@ export const sedi: Sede[] = [
     ],
     foto: [
       "/images/hero-istruttori.jpg",
+      "/images/adulti-tecniche-disarmo.jpg",
+      "/images/adulti-tecniche-difesa-1.jpg",
+      "/images/adulti-tecniche-difesa-2.jpg",
       "/images/kids-lezione-joyfit.jpg",
       "/images/adulti-gruppo.jpg",
       "/images/maestro-saverio.jpg",
@@ -111,6 +114,9 @@ export const sedi: Sede[] = [
       { giorno: "Giovedì", ora: "18:00 - 19:00", note: "6-12 anni — Palestra Imperial Gym" },
     ],
     foto: [
+      "/images/adulti-tecniche-disarmo.jpg",
+      "/images/adulti-tecniche-difesa-1.jpg",
+      "/images/adulti-tecniche-difesa-2.jpg",
       "/images/kids-diplomi.jpg",
       "/images/adulti-gruppo.jpg",
       "/images/hero-istruttori.jpg",
