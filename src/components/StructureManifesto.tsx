@@ -37,8 +37,8 @@ export function StructureManifesto() {
       <div className={styles.photoWindow} aria-hidden="true">
         <div className={styles.photo} data-manifesto-photo>
           <Image
-            src="/images/hero-istruttori.jpg"
-            alt="La nostra palestra e team istruttori" fill sizes="(max-width: 767px) 100vw, 68vw"
+            src="/images/struttura-passione-dedizione.jpg"
+            alt="Allenamento e tecniche di difesa personale Krav Maga" fill sizes="(max-width: 767px) 100vw, 68vw"
             className={styles.image}
           />
         </div>
