@@ -20,7 +20,11 @@ const sedi = [
   },
 ];
 
-const mappe = [
+const MAPS_EMBED_BASE = "https://maps.google.com/maps?q=";
+const MAPS_EMBED_TAIL = "&t=&z=16&ie=UTF8&iwloc=&output=embed";
+const MAPS_LINK_BASE = "https://www.google.com/maps/search/?api=1&query=";
+
+const mappeBase = [
   {
     id: "LOC: PUT-01",
     title: "Mappa Putignano - Palestra Joy Fit",
@@ -31,10 +35,13 @@ const mappe = [
     title: "Mappa Conversano - Palestra Imperial Gym",
     query: "Palestra Imperial Gym, Via M. La Volpe 32, 70014 Conversano BA",
   },
-].map((m) => ({
-  ...m,
-  src: `https://maps.google.com/maps?q=${encodeURIComponent(m.query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`,
-  mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.query)}`,
+];
+
+const mappe = mappeBase.map((m) => ({
+  id: m.id,
+  title: m.title,
+  src: MAPS_EMBED_BASE + encodeURIComponent(m.query) + MAPS_EMBED_TAIL,
+  mapsUrl: MAPS_LINK_BASE + encodeURIComponent(m.query),
 }));
 
 export function Footer() {
@@ -58,7 +65,7 @@ export function Footer() {
             {mappe.map((m) => (
               <div
                 key={m.id}
-                className="relative h-[300px] sm:h-[300px] bg-[#0D0D0D] overflow-hidden military-badge"
+                className="relative h-[300px] bg-[#0D0D0D] overflow-hidden military-badge"
               >
                 <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#CC0000] z-10 pointer-events-none" />
                 <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#CC0000] z-10 pointer-events-none" />
@@ -228,7 +235,7 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href={`mailto:${LEGAL.complaintsEmail}`}
+                    href={"mailto:" + LEGAL.complaintsEmail}
                     className="text-white/60 hover:text-[#CC0000] transition-colors"
                   >
                     Reclami e segnalazioni
