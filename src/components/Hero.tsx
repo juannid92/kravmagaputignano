@@ -142,24 +142,27 @@ export function Hero() {
     <section
       ref={sectionRef}
       data-section="1"
-      className="relative min-h-[100svh] py-28 sm:py-32 flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] pt-16 pb-16 sm:py-32 flex flex-col sm:flex-row items-center justify-start sm:justify-center overflow-hidden"
     >
-      {/* Background Video */}
-      <div className="absolute inset-0 z-0 will-change-transform">
+      {/* Background Video.
+          Mobile: la foto sta in alto a larghezza piena e si vede INTERA (altezza automatica),
+          con dissolvenza nel nero verso il testo. Da sm in su e lo sfondo a tutta sezione. */}
+      <div className="relative w-full z-0 will-change-transform sm:absolute sm:inset-0">
         {/* Video sources absent: showing poster only. See VideoHero.tsx. */}
         <VideoHero
           videoMp4=""
           videoWebm=""
           poster="/images/hero-istruttori.jpg"
           videoRef={videoRef}
-          className="w-full h-full object-cover object-center"
+          className="block w-full h-auto sm:h-full object-cover object-center"
         />
+        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#0A0A0A] to-transparent sm:hidden" />
       </div>
 
       {/* Dark Overlay */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 z-[2] bg-gradient-to-b from-black/60 via-black/50 to-black/85 will-change-opacity"
+        className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-black/45 to-black/85 sm:from-black/60 sm:via-black/50 sm:to-black/85 will-change-opacity"
       />
 
       {/* Accent Glow - Red */}
@@ -193,7 +196,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-20 text-center px-4 max-w-5xl mx-auto">
+      <div ref={contentRef} className="relative z-20 text-center px-4 max-w-5xl mx-auto w-full -mt-12 sm:mt-0">
         {/* Eyebrow */}
         <div ref={eyebrowRef} className="flex items-center justify-center gap-3 sm:gap-4 mb-6">
           <div className="w-8 sm:w-12 h-[1px] bg-gradient-to-r from-transparent to-[#D4AF37]" />
