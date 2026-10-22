@@ -7,24 +7,22 @@ import { Cookie, X } from "lucide-react";
 
 type Mode = "banner" | "settings";
 
+// Tutti i pulsanti di scelta hanno lo stesso stile e la stessa evidenza
+// (Linee guida Garante Privacy 10/06/2021 ed EDPB): nessun "dark pattern".
+const BTN =
+  "w-full min-h-[44px] border border-white/60 bg-white/5 hover:bg-white hover:text-black text-white font-display text-[11px] tracking-[0.15em] uppercase py-3 px-2 transition-colors";
+
 export function CookieConsent() {
   const [mode, setMode] = useState<Mode | null>(null);
-  const [analytics, setAnalytics] = useState(false);
-  const [marketing, setMarketing] = useState(false);
+  const [thirdParty, setThirdParty] = useState(false);
   const [show, setShow] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  // Esponi un evento globale per riaprire il pannello dal footer.
+  // Evento globale per riaprire il pannello dal footer / dalle pagine legali.
   useEffect(() => {
     function openSettings() {
       const c = readConsent();
-      if (c) {
-        setAnalytics(c.analytics);
-        setMarketing(c.marketing);
-      } else {
-        setAnalytics(false);
-        setMarketing(false);
-      }
+      setThirdParty(c ? c.thirdParty : false);
       setMode("settings");
       setShow(true);
     }
@@ -32,7 +30,7 @@ export function CookieConsent() {
     return () => window.removeEventListener("km:open-cookie-settings", openSettings);
   }, []);
 
-  // Mostra il banner al primo mount se non c'è consenso salvato.
+  // Mostra il banner se non c'e' una scelta valida (assente o scaduta dopo 6 mesi).
   useEffect(() => {
     const c = readConsent();
     if (!c) {
@@ -41,7 +39,7 @@ export function CookieConsent() {
     }
   }, []);
 
-  // Blocca lo scroll della pagina solo quando il pannello impostazioni è aperto a tutto schermo.
+  // Blocca lo scroll solo quando il pannello impostazioni e' aperto a tutto schermo.
   useEffect(() => {
     if (!show || mode !== "settings") return;
     const original = document.body.style.overflow;
@@ -51,9 +49,7 @@ export function CookieConsent() {
     };
   }, [show, mode]);
 
-  // Focus trap + Escape handling. WCAG 2.1.2 / 2.4.3 / 4.1.2.
-  // Escape only closes the settings panel — the banner has explicit
-  // Accept/Reject, so users must not be able to dismiss consent by Escape.
+  // Focus trap + Escape. Nel banner Escape non fa nulla: scelta esplicita richiesta.
   useEffect(() => {
     if (!show || !mode) return;
     const dialog = dialogRef.current;
@@ -99,17 +95,17 @@ export function CookieConsent() {
   if (!show || !mode) return null;
 
   function acceptAll() {
-    writeConsent({ analytics: true, marketing: true });
+    writeConsent({ thirdParty: true });
     setShow(false);
   }
 
   function rejectAll() {
-    writeConsent({ analytics: false, marketing: false });
+    writeConsent({ thirdParty: false });
     setShow(false);
   }
 
   function saveCustom() {
-    writeConsent({ analytics, marketing });
+    writeConsent({ thirdParty });
     setShow(false);
   }
 
@@ -142,115 +138,77 @@ export function CookieConsent() {
               {isSettings ? "Gestisci Cookie" : "Cookie & Privacy"}
             </h2>
           </div>
-          {isSettings && (
-            <button
-              type="button"
-              onClick={() => setShow(false)}
-              aria-label="Chiudi"
-              className="text-white/50 hover:text-white transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          )}
+          {/* X: nel banner equivale a "continua senza accettare" (= rifiuta); nelle impostazioni chiude senza salvare. */}
+          <button
+            type="button"
+            onClick={isSettings ? () => setShow(false) : rejectAll}
+            aria-label={isSettings ? "Chiudi" : "Chiudi e continua senza accettare"}
+            className="text-white/60 hover:text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Body */}
         <div className="p-5 space-y-4 text-sm font-body text-white/75 leading-relaxed">
           <p>
-            Utilizziamo cookie tecnici necessari al funzionamento del sito e, previo tuo
-            consenso, cookie analitici e di marketing per migliorare l&apos;esperienza e
-            misurare le prestazioni. Puoi accettare, rifiutare o personalizzare la scelta
-            in qualsiasi momento. Per dettagli leggi la{" "}
-            <Link href="/cookie-policy" className="text-[#CC0000] hover:underline">
+            Questo sito usa solo cookie e strumenti tecnici necessari. Per mostrare le
+            mappe di Google (contenuti di terze parti, che possono installare cookie)
+            serve il tuo consenso. Puoi accettare, rifiutare o personalizzare la scelta;
+            chiudendo il banner con la X continui senza accettare. Puoi cambiare idea
+            in qualsiasi momento da &ldquo;Gestisci cookie&rdquo; nel footer. Dettagli:{" "}
+            <Link href="/cookie-policy" className="text-[#FF4D4D] underline hover:text-white">
               Cookie Policy
             </Link>{" "}
-            e la{" "}
-            <Link href="/privacy-policy" className="text-[#CC0000] hover:underline">
+            e{" "}
+            <Link href="/privacy-policy" className="text-[#FF4D4D] underline hover:text-white">
               Privacy Policy
             </Link>
             .
           </p>
 
-          <ConsentRow
-            title="Necessari"
-            description="Indispensabili per il funzionamento del sito (es. memorizzazione del consenso). Non profilano."
-            checked
-            disabled
-            onChange={() => {}}
-          />
-          <ConsentRow
-            title="Analitici"
-            description="Aiutano a capire come viene usato il sito in forma aggregata. Attivi solo con il tuo consenso."
-            checked={analytics}
-            disabled={false}
-            onChange={setAnalytics}
-            visible={isSettings}
-          />
-          <ConsentRow
-            title="Marketing"
-            description="Per mostrare contenuti pertinenti e misurare campagne. Attivi solo con il tuo consenso."
-            checked={marketing}
-            disabled={false}
-            onChange={setMarketing}
-            visible={isSettings}
-          />
-        </div>
-
-        {/* Footer */}
-        <div className="p-5 border-t border-white/10 flex flex-col gap-2">
-          {isSettings ? (
+          {isSettings && (
             <>
-              <button
-                type="button"
-                onClick={saveCustom}
-                className="w-full bg-[#CC0000] hover:bg-[#FF0000] text-white font-display text-sm tracking-[0.2em] uppercase py-3 transition-colors"
-              >
-                Salva preferenze
-              </button>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={rejectAll}
-                  className="flex-1 border border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display text-xs tracking-[0.2em] uppercase py-3 transition-colors"
-                >
-                  Rifiuta tutto
-                </button>
-                <button
-                  type="button"
-                  onClick={acceptAll}
-                  className="flex-1 border border-[#CC0000] text-[#FF0000] hover:bg-[#CC0000] hover:text-white font-display text-xs tracking-[0.2em] uppercase py-3 transition-colors"
-                >
-                  Accetta tutto
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={acceptAll}
-                className="w-full bg-[#CC0000] hover:bg-[#FF0000] text-white font-display text-sm tracking-[0.2em] uppercase py-3 transition-colors"
-              >
-                Accetta tutto
-              </button>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={rejectAll}
-                  className="flex-1 border border-white/20 hover:border-white/40 text-white/80 hover:text-white font-display text-xs tracking-[0.2em] uppercase py-3 transition-colors"
-                >
-                  Rifiuta tutto
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMode("settings")}
-                  className="flex-1 border border-[#CC0000] text-[#FF0000] hover:bg-[#CC0000] hover:text-white font-display text-xs tracking-[0.2em] uppercase py-3 transition-colors"
-                >
-                  Personalizza
-                </button>
-              </div>
+              <ConsentRow
+                title="Necessari"
+                description="Indispensabili per il funzionamento del sito e per ricordare la tua scelta. Non profilano."
+                checked
+                disabled
+                onChange={() => {}}
+              />
+              <ConsentRow
+                title="Contenuti di terze parti (Google Maps)"
+                description="Mappe incorporate di Google: Google puo' installare cookie e trattare il tuo IP. Attivi solo con il tuo consenso."
+                checked={thirdParty}
+                disabled={false}
+                onChange={setThirdParty}
+              />
+              <p className="text-xs text-white/50">
+                Non usiamo cookie analitici ne' di marketing/profilazione.
+              </p>
             </>
           )}
+        </div>
+
+        {/* Footer: pulsanti di pari evidenza */}
+        <div className="p-5 border-t border-white/10">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-2">
+            <button type="button" onClick={rejectAll} className={BTN}>
+              Rifiuta tutto
+            </button>
+            <button type="button" onClick={acceptAll} className={BTN}>
+              Accetta tutto
+            </button>
+            {isSettings ? (
+              <button type="button" onClick={saveCustom} className={BTN}>
+                Salva scelta
+              </button>
+            ) : (
+              <button type="button" onClick={() => setMode("settings")} className={BTN}>
+                Personalizza
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -263,29 +221,13 @@ function ConsentRow({
   checked,
   disabled,
   onChange,
-  visible = true,
 }: {
   title: string;
   description: string;
   checked: boolean;
   disabled: boolean;
   onChange: (v: boolean) => void;
-  visible?: boolean;
 }) {
-  if (!visible) {
-    return (
-      <div className="border-t border-white/5 pt-3">
-        <div className="flex items-center justify-between mb-1">
-          <span className="font-display text-sm uppercase tracking-wider text-white/90">{title}</span>
-          <span className="text-[10px] uppercase tracking-widest text-white/40">
-            {checked ? "Attivo" : "Disattivato"}
-          </span>
-        </div>
-        <p className="text-xs text-white/50">{description}</p>
-      </div>
-    );
-  }
-
   return (
     <label
       className={`flex items-start gap-3 border-t border-white/5 pt-3 ${
@@ -303,7 +245,7 @@ function ConsentRow({
         <span className="block font-display text-sm uppercase tracking-wider text-white/90">
           {title}
         </span>
-        <span className="block text-xs text-white/50 mt-0.5">{description}</span>
+        <span className="block text-xs text-white/60 mt-0.5">{description}</span>
       </span>
     </label>
   );
