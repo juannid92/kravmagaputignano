@@ -6,10 +6,11 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MapPin, Clock, MessageCircle, Navigation, Phone, ArrowRight, ChevronRight } from "lucide-react";
+import { MapPin, MessageCircle, Navigation, Phone, ArrowRight } from "lucide-react";
 import { Sede } from "@/lib/sedi";
 import { GrigliaFoto } from "./GrigliaFoto";
 import { Lightbox } from "./Lightbox";
+import { MapEmbed } from "@/components/MapEmbed";
 import { useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -101,6 +102,9 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
+
+  const waText = "Ciao, vorrei prenotare una lezione di prova a " + sede.comune + ".";
+  const waHref = "https://wa.me/" + sede.whatsapp + "?text=" + encodeURIComponent(waText);
 
   return (
     <main id="main-content" tabIndex={-1} ref={sectionRef} className="bg-background">
@@ -241,16 +245,11 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
           </h2>
           <div className="rounded-2xl overflow-hidden bg-surface">
             <div className="aspect-video w-full">
-              <iframe
+              <MapEmbed
                 src={sede.mapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={`Mappa ${sede.nomePalestra}`}
-                className="grayscale"
+                title={"Mappa " + sede.nomePalestra}
+                mapsUrl={sede.mapsUrl}
+                className="w-full h-full border-0 grayscale"
               />
             </div>
             <div className="p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -285,7 +284,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href={`https://wa.me/${sede.whatsapp}?text=${encodeURIComponent(`Ciao, vorrei prenotare una lezione di prova a ${sede.comune}.`)}`}
+              href={waHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold text-sm uppercase tracking-wider px-8 py-4 hover:bg-white hover:text-accent transition-colors"
@@ -294,7 +293,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
               Scrivici su WhatsApp
             </a>
             <a
-              href={`tel:${sede.telefono}`}
+              href={"tel:" + sede.telefono}
               className="inline-flex items-center gap-2 text-white hover:bg-white/10 border border-white/30 font-semibold text-sm uppercase tracking-wider px-8 py-4 transition-colors"
             >
               <Phone className="w-5 h-5" />
@@ -312,7 +311,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
               Sei più vicino a {altraSede?.comune}?
             </p>
             <Link
-              href={`/sedi/${altraSede.slug}`}
+              href={"/sedi/" + altraSede.slug}
               className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors group"
             >
               <span className="font-display text-xl sm:text-2xl">
