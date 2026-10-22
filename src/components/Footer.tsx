@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Instagram, Facebook, ArrowUp } from "lucide-react";
 import { openCookieSettings } from "@/components/CookieConsent";
+import { MapEmbed } from "@/components/MapEmbed";
 import { LEGAL, legalCopyrightLine, legalIdentityLines } from "@/lib/legal";
 
 const sedi = [
@@ -18,6 +19,23 @@ const sedi = [
     indirizzo: "Palestra Imperial Gym · Via M. La Volpe, 32\n70014 Conversano (BA)",
   },
 ];
+
+const mappe = [
+  {
+    id: "LOC: PUT-01",
+    title: "Mappa Putignano - Palestra Joy Fit",
+    query: "Palestra Joy Fit, Via G. Leopardi 56, 70017 Putignano BA",
+  },
+  {
+    id: "LOC: CON-02",
+    title: "Mappa Conversano - Palestra Imperial Gym",
+    query: "Palestra Imperial Gym, Via M. La Volpe 32, 70014 Conversano BA",
+  },
+].map((m) => ({
+  ...m,
+  src: `https://maps.google.com/maps?q=${encodeURIComponent(m.query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`,
+  mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(m.query)}`,
+}));
 
 export function Footer() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -37,39 +55,24 @@ export function Footer() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Mappa Putignano */}
-            <div className="relative h-[300px] bg-[#0D0D0D] overflow-hidden military-badge">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#CC0000] z-10" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#CC0000] z-10" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#CC0000] z-10" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#CC0000] z-10" />
-              <iframe
-                src="https://maps.google.com/maps?q=Palestra+Joy+Fit,+Via+G.+Leopardi+56,+70017+Putignano+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                className="w-full h-full border-0 grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mappa Putignano - Palestra Joy Fit"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent h-12 pointer-events-none" />
-              <span className="absolute top-3 left-3 military-id text-white/50">LOC: PUT-01</span>
-            </div>
-
-            {/* Mappa Conversano */}
-            <div className="relative h-[300px] bg-[#0D0D0D] overflow-hidden military-badge">
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#CC0000] z-10" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#CC0000] z-10" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#CC0000] z-10" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#CC0000] z-10" />
-              <iframe
-                src="https://maps.google.com/maps?q=Palestra+Imperial+Gym,+Via+M.+La+Volpe+32,+70014+Conversano+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                className="w-full h-full border-0 grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mappa Conversano - Palestra Imperial Gym"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent h-12 pointer-events-none" />
-              <span className="absolute top-3 left-3 military-id text-white/50">LOC: CON-02</span>
-            </div>
+            {mappe.map((m) => (
+              <div
+                key={m.id}
+                className="relative h-[300px] sm:h-[300px] bg-[#0D0D0D] overflow-hidden military-badge"
+              >
+                <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-[#CC0000] z-10 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#CC0000] z-10 pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-[#CC0000] z-10 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-[#CC0000] z-10 pointer-events-none" />
+                <MapEmbed
+                  src={m.src}
+                  title={m.title}
+                  mapsUrl={m.mapsUrl}
+                  className="w-full h-full border-0 grayscale contrast-125 opacity-80 hover:opacity-100 transition-opacity"
+                />
+                <span className="absolute top-3 left-3 military-id text-white/50 pointer-events-none">{m.id}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
