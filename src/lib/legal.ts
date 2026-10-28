@@ -69,11 +69,9 @@ export function legalJsonLd() {
       longitude: 17.0212,
     },
     openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday"],    opens: "19:00", closes: "20:30" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Tuesday"],   opens: "18:00", closes: "21:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Wednesday"], opens: "18:15", closes: "20:30" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Thursday"],  opens: "18:00", closes: "21:00" },
-      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday"],    opens: "18:15", closes: "20:30" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday"],    opens: "20:00", closes: "21:30" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Wednesday"], opens: "18:15", closes: "21:30" },
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Friday"],    opens: "18:15", closes: "19:15" },
     ],
     sameAs: [
       "https://www.facebook.com/kravmagaputignano2",

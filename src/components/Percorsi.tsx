@@ -362,8 +362,9 @@ const adultiContent = {
   title: "ADULTI",
   age: "DAI 13 ANNI IN SU",
   description:
-    "Un percorso costruito su situazioni reali. Impari a riconoscere il pericolo, a reagire sotto pressione, a proteggere ciò che conta. Nessuna coreografia, nessun trofeo — solo strumenti che funzionano.",
+    "Si parte dalla gestione dell'aggressione: dall'approccio iniziale impari a gestire le emozioni e a leggere l'ambiente. Poi riconoscere il pericolo, reagire sotto pressione, proteggere ciò che conta. Nessuna coreografia, nessun trofeo — solo strumenti che funzionano.",
   features: [
+    { text: "Gestione dell'aggressione, dal primo approccio", Icon: Eye },
     { text: "Difesa da prese, strangolamenti e aggressioni", Icon: Shield },
     { text: "Gestione di attacchi multipli e disarmati", Icon: Users },
     { text: "Oggetti comuni come strumenti di difesa", Icon: Zap },

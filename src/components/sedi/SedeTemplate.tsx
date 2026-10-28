@@ -280,7 +280,7 @@ export function SedeTemplate({ sede, altraSede }: SedeTemplateProps) {
             VUOI PROVARE?
           </h2>
           <p className="text-white/80 text-lg font-body mb-10">
-            La prima lezione è gratuita. Contattaci e prenota il tuo posto a {sede.comune}.
+            Le prime due lezioni sono gratuite, per adulti e bambini. Contattaci e prenota il tuo posto a {sede.comune}.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

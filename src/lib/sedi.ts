@@ -52,9 +52,8 @@ export const sedi: Sede[] = [
     introBreve:
       "La nostra sede principale, aperta nel 2016. Un locale attrezzato nel centro storico di Putignano, a pochi passi dalla famosa Basilica di San Domenico. Qui cresciamo ogni settimana centinaia di allievi — adulti e bambini — con la stessa dedizione che ci ha fatto diventare punto di riferimento per tutto il territorio sud-est barese.",
     orariAdulti: [
-      { giorno: "Lunedì", ora: "19:00 - 20:30" },
-      { giorno: "Mercoledì", ora: "19:00 - 20:30" },
-      { giorno: "Venerdì", ora: "19:00 - 20:30" },
+      { giorno: "Lunedì", ora: "20:00 - 21:30" },
+      { giorno: "Mercoledì", ora: "20:00 - 21:30" },
     ],
     orariBambini: [
       { giorno: "Mercoledì", ora: "18:15 - 19:15", note: "6-12 anni — Palestra Joy Fit" },
@@ -106,8 +105,8 @@ export const sedi: Sede[] = [
     introBreve:
       "Aperta nel 2020 per portare il Krav Maga anche nella zona sud di Conversano. Una palestra più raccolta, ideale per chi cerca un ambiente intimo dove lavorare con calma e attenzione. Corsi serali per adulti e pomeridiani per i bambini (martedì e giovedì) — sempre con lo stesso rigore che ci contraddistingue.",
     orariAdulti: [
-      { giorno: "Martedì", ora: "19:30 - 21:00" },
-      { giorno: "Giovedì", ora: "19:30 - 21:00" },
+      { giorno: "Martedì", ora: "20:00 - 21:30" },
+      { giorno: "Giovedì", ora: "20:00 - 21:30" },
     ],
     orariBambini: [
       { giorno: "Martedì", ora: "18:00 - 19:00", note: "6-12 anni — Palestra Imperial Gym" },
