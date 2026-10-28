@@ -48,7 +48,7 @@ export function Chiusura() {
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -59,15 +59,15 @@ export function Chiusura() {
         <div className="w-16 h-[2px] bg-background/30 mx-auto mb-8" />
 
         <h2 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white mb-8 leading-[0.9]">
-          LA PRIMA
+          LE PRIME DUE
           <br />
-          <span className="text-background/80">LEZIONE È</span>
+          <span className="text-background/80">LEZIONI SONO</span>
           <br />
-          <span className="bg-background text-white px-4">GRATUITA</span>
+          <span className="bg-background text-white px-4">GRATUITE</span>
         </h2>
 
         <p className="text-white/70 text-base sm:text-lg font-body max-w-xl mx-auto mb-12">
-          Nessun impegno. Vieni a provare, conosci il maestro e senti se il Krav Maga fa per te.
+          Nessun impegno, per adulti e bambini. Vieni a provare, conosci il maestro e senti se il Krav Maga fa per te.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

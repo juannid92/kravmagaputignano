@@ -32,7 +32,6 @@ export const faqs: FaqItem[] = [
   {
     question: "Posso provare prima di iscrivermi?",
     answer:
-      "Certo. La prima lezione è sempre gratuita e senza impegno. Vieni a provare, conosci l'istruttore, senti l'ambiente e poi decidi. Non ci sono pressioni commerciali: il nostro obiettivo è che tu ti trovi bene, non che tu firmi subito.",
+      "Certo. Le prime due lezioni sono gratuite e senza impegno, sia per gli adulti che per i bambini. Vieni a provare, conosci l'istruttore, senti l'ambiente e poi decidi. Non ci sono pressioni commerciali: il nostro obiettivo è che tu ti trovi bene, non che tu firmi subito.",
   },
 ];
-
