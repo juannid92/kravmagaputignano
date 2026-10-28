@@ -6,14 +6,6 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-config";
 import {
-  Shield,
-  Users,
-  Zap,
-  Heart,
-  Eye,
-  Target,
-  Star,
-  Award,
   MessageCircle,
   Phone,
   MapPin,
@@ -25,263 +17,11 @@ import {
 } from "lucide-react";
 import { sedi } from "@/lib/sedi";
 import { useScrollTriggerRefresh } from "@/lib/useScrollTriggerRefresh";
-
-type Variant = "adulti" | "kids";
-
-type Palette = {
-  accent: string;
-  accentSoft: string;
-  accentBorder: string;
-  /** Testo leggibile sopra il colore accent (bianco per adulti, nero per kids). */
-  onAccent: string;
-  indexNumber: string;
-  eyebrow: string;
-  ageLabel: string;
-  pageTitle: string;
-  pageSubtitle: string;
-  introKicker: string;
-  introHeading: string;
-  pageDescription: string;
-  highlights: string[];
-  facts: { label: string; value: string }[];
-  marquee: string[];
-  /**
-   * Foto provvisorie (stock). Sostituire con le foto reali della scuola
-   * appena disponibili, ad es. "/images/corsi/adulti-hero.jpg".
-   */
-  images: { hero: string; intro: string; quote: string; other: string };
-  federLogo: string;
-  federLogoAlt: string;
-  whyHeading: string;
-  whyIntro: string;
-  scheduleHeading: string;
-  scheduleIntro: string;
-  lessonHeading: string;
-  lessonIntro: string;
-  quote: string;
-  ctaHeading: string;
-  ctaSubtitle: string;
-  whatsappMessage: string;
-  otherCourseHref: string;
-  otherCourseTitle: string;
-  otherCourseAge: string;
-  features: { Icon: typeof Shield; title: string; description: string }[];
-  lessonSteps: { label: string; minutes: number; description: string }[];
-  courseTopics?: { title: string; description: string }[];
-  courseTopicsHeading?: string;
-  courseTopicsIntro?: string;
-  gallery?: {
-    src: string;
-    alt: string;
-    tag: string;
-    title: string;
-    caption: string;
-  }[];
-  galleryKicker?: string;
-  galleryHeading?: string;
-  galleryIntro?: string;
-  video?: string;
-};
+import { PALETTES, GOLD, type Variant } from "@/lib/corsiData";
 
 const WHATSAPP = "https://wa.me/393407106618";
 const PHONE_HREF = "tel:+393407106618";
 const PHONE_DISPLAY = "+39 340 710 6618";
-const GOLD = "#D4AF37";
-
-const PALETTES: Record<Variant, Palette> = {
-  adulti: {
-    accent: "#FF3D00",
-    accentSoft: "rgba(255, 61, 0, 0.14)",
-    accentBorder: "rgba(255, 61, 0, 0.35)",
-    onAccent: "#FFFFFF",
-    indexNumber: "01",
-    eyebrow: "Percorso 01",
-    ageLabel: "Dai 13 anni in su",
-    pageTitle: "Adulti",
-    pageSubtitle: "Difesa personale reale. Situazioni concrete. Nessuna coreografia.",
-    introKicker: "Il corso",
-    introHeading: "Strumenti che funzionano quando serve davvero",
-    pageDescription:
-      "Il corso adulti segue il programma Federkravmaga: si parte dalle basi — postura, distanze, colpi — e si arriva a gestire prese, strangolamenti, aggressioni multiple e oggetti. Ogni tecnica viene provata sotto pressione crescente, sempre in sicurezza, perché sotto stress il corpo fa solo ciò che ha allenato.",
-    highlights: [
-      "Nessun requisito fisico di partenza",
-      "Programma a livelli con esami federali",
-      "Gruppi seguiti direttamente dall'istruttore",
-    ],
-    facts: [
-      { label: "Età", value: "13+" },
-      { label: "Durata lezione", value: "90 min" },
-      { label: "Frequenza", value: "2-3 / sett." },
-      { label: "Sedi", value: "2" },
-    ],
-    marquee: ["Difesa reale", "Gestione dello stress", "Prese e strangolamenti", "Aggressioni multiple", "Oggetti comuni", "Consapevolezza"],
-    images: {
-      hero: "/images/adulti-gruppo.jpg",
-      intro: "/images/adulti-tecniche-disarmo.jpg",
-      quote: "/images/maestro-saverio.jpg",
-      other: "/images/kids-diplomi.jpg",
-    },
-    video: "/videos/corsi-adulti.mp4",
-    galleryKicker: "Pratica in palestra",
-    galleryHeading: "Tecniche e situazioni reali",
-    galleryIntro:
-      "Dalle prese e strangolamenti alle difese da minaccia con coltello e gestione a terra: ogni tecnica viene studiata, provata e affinata in totale sicurezza sotto la guida dell'istruttore.",
-    gallery: [
-      {
-        src: "/images/adulti-tecniche-difesa-1.jpg",
-        alt: "Krav Maga Adulti — uscite da prese, strangolamenti e controllo a terra",
-        tag: "Prese & Controllo",
-        title: "Prese e controllo a terra",
-        caption: "Uscite da strangolamento frontale e posteriore, leve articolari e immobilizzazione controllata dell'aggressore a terra.",
-      },
-      {
-        src: "/images/adulti-tecniche-difesa-2.jpg",
-        alt: "Krav Maga Adulti — reazioni istintive, deviazioni e colpi di arresto",
-        tag: "Reazione Istintiva",
-        title: "Deviazioni e arresto",
-        caption: "Reazione rapida a tentativi di presa improvvisi, deviazione della traiettoria d'attacco ed esecuzione di colpi di arresto.",
-      },
-      {
-        src: "/images/adulti-tecniche-disarmo.jpg",
-        alt: "Krav Maga Adulti — difesa da minaccia con coltello e neutralizzazione",
-        tag: "Disarmo da Lama",
-        title: "Difesa da armi da taglio",
-        caption: "Gestione delle distanze ravvicinate, deviazione della linea di minaccia, controllo del braccio armato e disarmo completo.",
-      },
-    ],
-    federLogo: "/images/federkravmaga-adulti.jpg",
-    federLogoAlt: "Federkravmaga Italia — Global Defender SRL Putignano Conversano",
-    whyHeading: "Perché questo percorso",
-    whyIntro: "Costruito su scenari reali, pensato per chi vuole strumenti che funzionano davvero.",
-    scheduleHeading: "Quando ci si allena",
-    scheduleIntro: "Due sedi, cinque serate a settimana. Scegli quella che si incastra nella tua agenda — puoi anche alternarle.",
-    lessonHeading: "Come si svolge una lezione",
-    lessonIntro: "Un'ora e mezza di lavoro ritmato e progressivo. Sempre diversa, sempre concreta.",
-    quote: sedi[0].maestro.bioSeconda,
-    ctaHeading: "La prima lezione è gratuita",
-    ctaSubtitle: "Vieni a conoscere il maestro, prova una sessione intera, decidi dopo.",
-    whatsappMessage: "Ciao, vorrei prenotare una lezione di prova per il corso adulti.",
-    otherCourseHref: "/corsi/kids",
-    otherCourseTitle: "Kids",
-    otherCourseAge: "6 - 12 anni",
-    features: [
-      {
-        Icon: Shield,
-        title: "Difesa da prese e strangolamenti",
-        description: "Le situazioni più comuni in aggressione fisica: prese al collo, da dietro, da davanti. Impari a uscire e a metterti in salvo.",
-      },
-      {
-        Icon: Users,
-        title: "Attacchi multipli e disarmati",
-        description: "Scenario a due o più aggressori. Impari a gestire il caos, a usare il movimento e l'ambiente a tuo vantaggio.",
-      },
-      {
-        Icon: Zap,
-        title: "Oggetti comuni come strumenti",
-        description: "Borsa, chiavi, cintura, bottiglia. Impari a trasformare ciò che hai in mano in un'estensione della difesa.",
-      },
-      {
-        Icon: Heart,
-        title: "Controllo dello stress reale",
-        description: "Adrenalina, paura, freeze. Impari a riconoscere le reazioni del tuo corpo e a non restare bloccato.",
-      },
-    ],
-    lessonSteps: [
-      { label: "Warm-up", minutes: 15, description: "Riscaldamento dinamico, mobilità articolare, cardio a intensità progressiva." },
-      { label: "Tecnica", minutes: 35, description: "Scenario della settimana: difese, attacchi, combinazioni. Dimostrazione, pratica, drill." },
-      { label: "Sparring / drill", minutes: 30, description: "Applicazione controllata. Situazioni simulate a pressione crescente, con protezioni." },
-      { label: "Stretching + debrief", minutes: 10, description: "Defaticamento, risposte alle domande, feedback individuale." },
-    ],
-  },
-  kids: {
-    accent: "#16B863",
-    accentSoft: "rgba(22, 184, 99, 0.14)",
-    accentBorder: "rgba(22, 184, 99, 0.4)",
-    onAccent: "#0A0A0A",
-    indexNumber: "02",
-    eyebrow: "Percorso 02 · Defensystem Kids",
-    ageLabel: "Dai 6 ai 12 anni",
-    pageTitle: "Kids",
-    pageSubtitle: "Consapevolezza, fiducia, rispetto. Attraverso il gioco, con metodo.",
-    introKicker: "Defensystem Kids",
-    introHeading: "Non insegniamo a combattere: insegniamo a sentirsi sicuri",
-    pageDescription:
-      "Defensystem Kids è un approccio alternativo alle arti marziali, focalizzato sui contesti sociali come il bullismo e il cyberbullismo. Si lavora sulla valutazione delle situazioni a rischio, sulla gestione dell'emotività e sul rafforzamento dell'autostima, con la preparazione psicomotoria e il divertimento come strumenti per imparare. Un corso dinamico fatto di gioco, disciplina positiva e nessun prerequisito.",
-    highlights: [
-      "Nessun contatto agonistico",
-      "Programma antibullismo e cyberbullismo",
-      "Supervisione costante dell'istruttore",
-    ],
-    facts: [
-      { label: "Età", value: "6-12" },
-      { label: "Durata lezione", value: "60 min" },
-      { label: "Frequenza", value: "2 / sett." },
-      { label: "Sedi", value: "2" },
-    ],
-    marquee: ["Fiducia in sé", "Antibullismo", "Rispetto", "Gioco strutturato", "Consapevolezza", "Spirito di gruppo"],
-    images: {
-      hero: "/images/kids-diplomi.jpg",
-      intro: "/images/kids-lezione-joyfit.jpg",
-      quote: "/images/maestro-saverio.jpg",
-      other: "/images/adulti-gruppo.jpg",
-    },
-    video: "/videos/corsi-kids.mp4",
-    federLogo: "/images/defensystem-kids.jpg",
-    federLogoAlt: "Defensystem Kids — Federkravmaga Italia",
-    whyHeading: "Perché questo percorso",
-    whyIntro: "I bambini non imparano a combattere: imparano a riconoscere, a fidarsi di sé, a lavorare in gruppo.",
-    scheduleHeading: "Quando ci si allena",
-    scheduleIntro: "Mercoledì e venerdì a Putignano, martedì e giovedì a Conversano. Due appuntamenti a settimana per crescere con costanza.",
-    lessonHeading: "Come si svolge una lezione",
-    lessonIntro: "Un'ora di gioco strutturato. Niente contatto agonistico, massima supervisione.",
-    quote:
-      "Un bambino che si sente sicuro di sé cammina in modo diverso, parla in modo diverso, sceglie in modo diverso. È questo che portiamo fuori dalla palestra.",
-    ctaHeading: "La prima lezione è gratuita",
-    ctaSubtitle: "Vieni con tuo figlio, conosci l'istruttore, prova una sessione intera.",
-    whatsappMessage: "Ciao, vorrei informazioni sul corso per bambini.",
-    otherCourseHref: "/corsi/adulti",
-    otherCourseTitle: "Adulti",
-    otherCourseAge: "Dai 13 anni",
-    features: [
-      {
-        Icon: Eye,
-        title: "Riconoscimento del pericolo",
-        description: "Impariamo a leggere i segnali: posture, sguardi, distanze, contesti. Prima ancora di qualsiasi tecnica.",
-      },
-      {
-        Icon: Target,
-        title: "Tecniche calibrate sull'età",
-        description: "Ogni fascia d'età ha il suo programma. Niente contatto pieno, niente gesti traumatici, tutto supervisionato.",
-      },
-      {
-        Icon: Star,
-        title: "Costruzione della fiducia in sé",
-        description: "Ogni lezione è una sfida calibrata che il bambino può vincere. Questo costruisce autostima reale.",
-      },
-      {
-        Icon: Award,
-        title: "Rispetto, disciplina, gruppo",
-        description: "L'ambiente insegna le regole del vivere insieme: ascolto, turni, rispetto dell'altro. Valori che restano fuori dalla palestra.",
-      },
-    ],
-    lessonSteps: [
-      { label: "Gioco di riscaldamento", minutes: 10, description: "Giochi motori a coppie e in gruppo, mobilità, focus." },
-      { label: "Esercitazione tecnica", minutes: 20, description: "Scenario a difficoltà progressiva, dimostrazione, pratica guidata." },
-      { label: "Giochi di applicazione", minutes: 20, description: "Situazioni simulate sotto forma di gioco, con regole chiare e supervisione costante." },
-      { label: "Stretching + debrief", minutes: 10, description: "Defaticamento, restituzione, saluto finale. Spazio per le domande dei bambini." },
-    ],
-    courseTopics: [
-      { title: "Allenamento psicomotorio", description: "Coordinazione, equilibrio, reattività: le basi motorie che reggono tutto il resto." },
-      { title: "Ludico-sportivo", description: "Giochi di movimento a coppie e in gruppo, perché a questa età si impara giocando." },
-      { title: "Educativo nelle situazioni a rischio", description: "Come riconoscere i contesti pericolosi, chiedere aiuto, fidarsi del proprio istinto." },
-      { title: "Gestione degli spazi e dell'emotività", description: "Distanze, postura, voce: gli strumenti per gestire ansia, rabbia e paura." },
-      { title: "Antibullismo", description: "Lavoriamo su riconoscimento, difesa verbale, risposta assertiva. Il bullo non è più grande di te." },
-      { title: "Cyberbullismo", description: "Cosa fare davanti a un messaggio cattivo, una foto, un'esclusione online. Strumenti e riferimenti." },
-    ],
-    courseTopicsHeading: "Programma e argomenti",
-    courseTopicsIntro: "Sei aree di lavoro, ritmate e progressive. Niente improvvisazione: ogni lezione ha un obiettivo.",
-  },
-};
 
 const WEEK = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
 const DAY_COLS: Record<number, string> = {
@@ -309,7 +49,7 @@ function Kicker({ children, color }: { children: React.ReactNode; color: string 
 export function CorsoPage({ variant }: { variant: Variant }) {
   const sectionRef = useRef<HTMLElement>(null);
   const p = PALETTES[variant];
-  const waHref = `${WHATSAPP}?text=${encodeURIComponent(p.whatsappMessage)}`;
+  const waHref = WHATSAPP + "?text=" + encodeURIComponent(p.whatsappMessage);
   const totalMinutes = p.lessonSteps.reduce((sum, s) => sum + s.minutes, 0);
 
   const slots = sedi.flatMap((sede, sedeIndex) =>
@@ -622,7 +362,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
               ) : (
                 <Image
                   src={p.images.intro}
-                  alt={`Allenamento corso ${p.pageTitle}`}
+                  alt={"Allenamento corso " + p.pageTitle}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover"
@@ -652,7 +392,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
               className="absolute -bottom-6 right-4 sm:-right-6 px-6 py-5 shadow-2xl"
               style={{ background: p.accent, color: p.onAccent }}
             >
-              <span className={`${display} block text-[10px] tracking-[0.35em] uppercase opacity-80`}>Prima lezione</span>
+              <span className={`${display} block text-[10px] tracking-[0.35em] uppercase opacity-80`}>Prime 2 lezioni</span>
               <span className={`${display} block text-3xl font-bold uppercase leading-none mt-1`}>Gratis</span>
             </div>
           </div>
@@ -765,8 +505,8 @@ export function CorsoPage({ variant }: { variant: Variant }) {
                     .filter((s) => s.giorno === day)
                     .map((s) => (
                       <Link
-                        key={`${day}-${s.sede.slug}`}
-                        href={`/sedi/${s.sede.slug}`}
+                        key={day + "-" + s.sede.slug}
+                        href={"/sedi/" + s.sede.slug}
                         className="group block pl-4 py-2 border-l-2 hover:bg-white/[0.03] transition-colors"
                         style={{ borderColor: s.color }}
                       >
@@ -788,7 +528,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
             {sedi.map((sede, i) => (
               <Link
                 key={sede.slug}
-                href={`/sedi/${sede.slug}`}
+                href={"/sedi/" + sede.slug}
                 className="corso-reveal group relative flex items-center justify-between gap-6 overflow-hidden bg-[#111111] border border-white/[0.07] p-6 sm:p-8 hover:border-white/20 transition-colors"
               >
                 <span aria-hidden className="absolute inset-y-0 left-0 w-1" style={{ background: sedeColor(i) }} />
@@ -1000,7 +740,7 @@ export function CorsoPage({ variant }: { variant: Variant }) {
             <h2 className={`${display} uppercase font-bold text-5xl sm:text-6xl lg:text-7xl leading-[0.9] mb-6`}>{p.ctaHeading}</h2>
             <p className="text-lg sm:text-xl max-w-xl opacity-85">{p.ctaSubtitle}</p>
             <ul className={`${display} mt-8 flex flex-wrap gap-x-8 gap-y-3 text-xs sm:text-sm uppercase tracking-[0.2em] opacity-90`}>
-              {["Nessun impegno", "Conosci l'istruttore", "Sessione intera"].map((t) => (
+              {["Nessun impegno", "Conosci l'istruttore", "Due sessioni intere"].map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <Check className="w-4 h-4" /> {t}
                 </li>
