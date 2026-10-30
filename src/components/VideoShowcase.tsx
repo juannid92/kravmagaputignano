@@ -284,12 +284,12 @@ function useTickingClock() {
 }
 
 const SHOWCASE_PLAYLIST = [
-  { id: 1, src: "/videos/showcase/showcase-1.mp4", label: "Clip 01" },
-  { id: 2, src: "/videos/showcase/showcase-2.mp4", label: "Clip 02" },
-  { id: 3, src: "/videos/showcase/showcase-3.mp4", label: "Clip 03" },
-  { id: 4, src: "/videos/showcase/showcase-4.mp4", label: "Clip 04" },
-  { id: 5, src: "/videos/showcase/showcase-5.mp4", label: "Clip 05" },
-  { id: 6, src: "/videos/showcase/showcase-6.mp4", label: "Clip 06" },
+  { id: 1, src: "/videos/showcase/showcase-1.mp4?v=range-20261030", label: "Clip 01" },
+  { id: 2, src: "/videos/showcase/showcase-2.mp4?v=range-20261030", label: "Clip 02" },
+  { id: 3, src: "/videos/showcase/showcase-3.mp4?v=range-20261030", label: "Clip 03" },
+  { id: 4, src: "/videos/showcase/showcase-4.mp4?v=range-20261030", label: "Clip 04" },
+  { id: 5, src: "/videos/showcase/showcase-5.mp4?v=range-20261030", label: "Clip 05" },
+  { id: 6, src: "/videos/showcase/showcase-6.mp4?v=range-20261030", label: "Clip 06" },
 ];
 
 export function VideoShowcase() {
@@ -300,34 +300,42 @@ export function VideoShowcase() {
   const [currentClipIndex, setCurrentClipIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [clipError, setClipError] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const videoPlayerRef = useRef<HTMLVideoElement>(null);
   const tickingClock = useTickingClock();
 
   const activeClip = SHOWCASE_PLAYLIST[currentClipIndex];
 
-  // Auto-play when clip changes or player is started
+  // Advance only after a clip actually finishes. Playback failures stay on
+  // the same clip and offer a retry rather than silently skipping it.
   useEffect(() => {
     if (!isPlaying) return;
-    const v = videoPlayerRef.current;
-    if (!v) return;
-    v.currentTime = 0;
-    const playPromise = v.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Fallback: browser audio policy requires muted autoplay
-        v.muted = true;
-        setIsMuted(true);
-        v.play().catch(() => {});
-      });
-    }
-  }, [isPlaying, currentClipIndex]);
+    const video = videoPlayerRef.current;
+    if (!video) return;
+    let active = true;
+    video.play().catch(() => {
+      if (!active) return;
+      video.muted = true;
+      setIsMuted(true);
+      video.play().catch(() => { if (active) setIsPaused(true); });
+    });
+    return () => { active = false; };
+  }, [isPlaying, currentClipIndex, retryCount]);
 
-  const handleNextClip = () => {
-    setCurrentClipIndex((prev) => (prev + 1) % SHOWCASE_PLAYLIST.length);
+  const selectClip = (index: number) => {
+    setClipError(false);
+    setIsPaused(false);
+    if (index === currentClipIndex) setRetryCount((count) => count + 1);
+    else setCurrentClipIndex(index);
   };
 
-  const handlePrevClip = () => {
-    setCurrentClipIndex((prev) => (prev - 1 + SHOWCASE_PLAYLIST.length) % SHOWCASE_PLAYLIST.length);
+  const handleNextClip = () => selectClip((currentClipIndex + 1) % SHOWCASE_PLAYLIST.length);
+  const handlePrevClip = () => selectClip((currentClipIndex - 1 + SHOWCASE_PLAYLIST.length) % SHOWCASE_PLAYLIST.length);
+  const retryClip = () => {
+    setClipError(false);
+    setIsPaused(false);
+    setRetryCount((count) => count + 1);
   };
 
   const togglePlayPause = () => {
@@ -349,20 +357,12 @@ export function VideoShowcase() {
     setIsMuted(v.muted);
   };
 
-  const clipErrors = useRef(0);
-
-  const handleClipError = () => {
-    clipErrors.current += 1;
-    if (clipErrors.current >= SHOWCASE_PLAYLIST.length) return;
-    setCurrentClipIndex((prev) => (prev + 1) % SHOWCASE_PLAYLIST.length);
-  };
-
   const handleClose = () => {
     setIsPlaying(false);
     setIsPaused(false);
-    clipErrors.current = 0;
-    const v = videoPlayerRef.current;
-    if (v) v.pause();
+    setClipError(false);
+    const video = videoPlayerRef.current;
+    if (video) video.pause();
   };
 
   useGSAP(
@@ -548,7 +548,7 @@ export function VideoShowcase() {
             {/* Interactive Video Playlist Player */}
             {isPlaying && (
               <div className="absolute inset-0 z-40 bg-black flex flex-col justify-between overflow-hidden select-none">
-                {/* Un solo decoder: su iPhone due video insieme (sfondo + clip) fanno sparire i file più pesanti. */}
+                {/* Use one video decoder at a time to reduce resource use. */}
                 <div
                   aria-hidden
                   className="absolute inset-0"
@@ -561,22 +561,29 @@ export function VideoShowcase() {
                 {/* Main sharp video */}
                 <video
                   ref={videoPlayerRef}
-                  key={`main-${activeClip.src}`}
+                  key={`main-${activeClip.src}-${retryCount}`}
                   src={activeClip.src}
                   autoPlay
                   playsInline
                   preload="auto"
                   muted={isMuted}
                   onEnded={handleNextClip}
-                  onError={handleClipError}
+                  onError={() => { setClipError(true); setIsPaused(false); }}
                   onPlay={() => setIsPaused(false)}
                   onPause={() => setIsPaused(true)}
                   onClick={togglePlayPause}
                   className="relative z-10 w-full h-full object-contain cursor-pointer bg-black"
                 />
 
+                {clipError && (
+                  <div role="alert" className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-black/90 px-5 text-center text-white">
+                    <p>Il clip {currentClipIndex + 1} non si è caricato. Controlla la connessione e riprova.</p>
+                    <button type="button" onClick={retryClip} className="rounded-sm bg-[#FF3D00] px-4 py-2 font-semibold">Riprova questo video</button>
+                  </div>
+                )}
+
                 {/* Pause overlay icon if paused */}
-                {isPaused && (
+                {isPaused && !clipError && (
                   <button
                     type="button"
                     onClick={togglePlayPause}
@@ -624,10 +631,7 @@ export function VideoShowcase() {
                         <button
                           key={clip.id}
                           type="button"
-                          onClick={() => {
-                            clipErrors.current = 0;
-                            setCurrentClipIndex(idx);
-                          }}
+                          onClick={() => selectClip(idx)}
                           className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                             idx === currentClipIndex
                               ? "w-8 sm:w-12 bg-[#FF3D00] shadow-[0_0_8px_#FF3D00]"

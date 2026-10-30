@@ -39,3 +39,47 @@ test("production export is fingerprinted and contains the expected HTML", () => 
   assert.ok(html.includes('data-testid="nonsport"'));
   assert.ok(html.includes('data-testid="gallery-track"'));
 });
+
+const videoBytes = Uint8Array.from({ length: 32 }, (_, i) => i);
+function videoEnv({ withLength = true, status = 200 } = {}) {
+  return { ASSETS: { fetch: async request => {
+    assert.equal(request.headers.get('range'), null);
+    const headers = { 'Content-Type': 'video/mp4', 'ETag': '"clip"' };
+    if (withLength) headers['Content-Length'] = String(videoBytes.length);
+    return new Response(videoBytes, { status, headers });
+  } } };
+}
+async function rangeRequest(range, opts = {}, extraHeaders = {}) {
+  return worker.fetch(new Request('https://example.com/videos/showcase/showcase-5.mp4?v=test', { headers: { Range: range, ...extraHeaders } }), videoEnv(opts));
+}
+for (const [range, start, end] of [['bytes=0-1', 0, 1], ['bytes=5-12', 5, 12], ['bytes=26-', 26, 31], ['bytes=-6', 26, 31], ['bytes=28-500', 28, 31]]) {
+  test(`video byte range ${range}`, async () => {
+    const result = await rangeRequest(range);
+    assert.equal(result.status, 206);
+    assert.equal(result.headers.get('Content-Range'), `bytes ${start}-${end}/32`);
+    assert.equal(result.headers.get('Content-Length'), String(end - start + 1));
+    assert.equal(result.headers.get('Accept-Ranges'), 'bytes');
+    assert.equal(result.headers.get('CDN-Cache-Control'), 'no-store');
+    assert.deepEqual(new Uint8Array(await result.arrayBuffer()), videoBytes.slice(start, end + 1));
+  });
+}
+test('video ranges work without upstream content length', async () => {
+  const result = await rangeRequest('bytes=3-8', { withLength: false });
+  assert.equal(result.status, 206);
+  assert.deepEqual(new Uint8Array(await result.arrayBuffer()), videoBytes.slice(3, 9));
+});
+test('unsatisfiable video range is 416', async () => {
+  const result = await rangeRequest('bytes=32-');
+  assert.equal(result.status, 416);
+  assert.equal(result.headers.get('Content-Range'), 'bytes */32');
+});
+test('unsupported multipart range returns the complete video', async () => {
+  const result = await rangeRequest('bytes=0-1,4-6');
+  assert.equal(result.status, 200);
+  assert.deepEqual(new Uint8Array(await result.arrayBuffer()), videoBytes);
+});
+test('if-range mismatch returns the complete video', async () => {
+  const result = await rangeRequest('bytes=0-1', {}, { 'If-Range': '"old"' });
+  assert.equal(result.status, 200);
+  assert.deepEqual(new Uint8Array(await result.arrayBuffer()), videoBytes);
+});
