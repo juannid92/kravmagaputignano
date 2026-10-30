@@ -349,9 +349,18 @@ export function VideoShowcase() {
     setIsMuted(v.muted);
   };
 
+  const clipErrors = useRef(0);
+
+  const handleClipError = () => {
+    clipErrors.current += 1;
+    if (clipErrors.current >= SHOWCASE_PLAYLIST.length) return;
+    setCurrentClipIndex((prev) => (prev + 1) % SHOWCASE_PLAYLIST.length);
+  };
+
   const handleClose = () => {
     setIsPlaying(false);
     setIsPaused(false);
+    clipErrors.current = 0;
     const v = videoPlayerRef.current;
     if (v) v.pause();
   };
@@ -539,16 +548,14 @@ export function VideoShowcase() {
             {/* Interactive Video Playlist Player */}
             {isPlaying && (
               <div className="absolute inset-0 z-40 bg-black flex flex-col justify-between overflow-hidden select-none">
-                {/* Ambient blurred backdrop for seamless box filling */}
-                <video
-                  key={`ambient-${activeClip.src}`}
-                  src={activeClip.src}
+                {/* Un solo decoder: su iPhone due video insieme (sfondo + clip) fanno sparire i file più pesanti. */}
+                <div
                   aria-hidden
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110 pointer-events-none"
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at center, rgba(255,61,0,0.18), #07090c 68%)",
+                  }}
                 />
 
                 {/* Main sharp video */}
@@ -558,12 +565,14 @@ export function VideoShowcase() {
                   src={activeClip.src}
                   autoPlay
                   playsInline
+                  preload="auto"
                   muted={isMuted}
                   onEnded={handleNextClip}
+                  onError={handleClipError}
                   onPlay={() => setIsPaused(false)}
                   onPause={() => setIsPaused(true)}
                   onClick={togglePlayPause}
-                  className="relative z-10 w-full h-full object-contain cursor-pointer"
+                  className="relative z-10 w-full h-full object-contain cursor-pointer bg-black"
                 />
 
                 {/* Pause overlay icon if paused */}
@@ -615,7 +624,10 @@ export function VideoShowcase() {
                         <button
                           key={clip.id}
                           type="button"
-                          onClick={() => setCurrentClipIndex(idx)}
+                          onClick={() => {
+                            clipErrors.current = 0;
+                            setCurrentClipIndex(idx);
+                          }}
                           className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                             idx === currentClipIndex
                               ? "w-8 sm:w-12 bg-[#FF3D00] shadow-[0_0_8px_#FF3D00]"
