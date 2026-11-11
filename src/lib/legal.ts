@@ -53,6 +53,7 @@ export function legalJsonLd() {
     description:
       "Scuola di Krav Maga a Putignano. Corsi per adulti, ragazzi e difesa personale femminile.",
     url: LEGAL.website,
+    image: "https://www.difesapersonalekravmaga.it/images/hero-istruttori.jpg",
     telephone: LEGAL.phoneE164,
     email: LEGAL.email,
     address: {
