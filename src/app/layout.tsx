@@ -27,7 +27,8 @@ export const metadata: Metadata = {
   description:
     "Scuola di Krav Maga a Putignano (BA). Corsi per adulti e bambini (6-12 anni) a Putignano e Conversano. Istruttore certificato 4° Livello Saverio Mauro Capozza. Prenota una lezione di prova gratuita.",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/favicon.jpg",
+    apple: "/favicon.jpg",
   },
   keywords: [
     "krav maga putignano",
