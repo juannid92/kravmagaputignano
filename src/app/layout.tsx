@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "Krav Maga Putignano",
     images: [
       {
-        url: "https://kravmagaputignano.it/images/hero-istruttori.jpg",
+        url: "https://www.difesapersonalekravmaga.it/images/hero-istruttori.jpg",
         width: 1200,
         height: 800,
         alt: "Krav Maga Putignano — Team Istruttori e Allenamento Difesa Personale",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     description:
       "Corsi di Krav Maga a Putignano e Conversano. Adulti e bambini. Prima lezione gratuita.",
     images: [
-      "https://kravmagaputignano.it/images/hero-istruttori.jpg",
+      "https://www.difesapersonalekravmaga.it/images/hero-istruttori.jpg",
     ],
   },
   robots: {
@@ -81,10 +81,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://kravmagaputignano.it",
+    canonical: "https://www.difesapersonalekravmaga.it",
     languages: {
-      "it-IT": "https://kravmagaputignano.it",
-      "x-default": "https://kravmagaputignano.it",
+      "it-IT": "https://www.difesapersonalekravmaga.it",
+      "x-default": "https://www.difesapersonalekravmaga.it",
     },
   },
 };

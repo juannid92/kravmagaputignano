@@ -15,7 +15,7 @@ export const LEGAL = {
   phone: "+39 340 710 6618",
   phoneE164: "+393407106618",
   whatsapp: "393407106618",
-  website: "https://kravmagaputignano.it",
+  website: "https://www.difesapersonalekravmaga.it",
   federazione: "ENDAS — settore nazionale",
   direttoreTecnico: "Saverio Mauro Capozza — Istruttore 4° Livello",
   complaintsEmail: "segreteria@global-defender.com",

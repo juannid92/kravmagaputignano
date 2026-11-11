@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Termini & Condizioni | Krav Maga Putignano",
   description:
     "Termini e condizioni di iscrizione ai corsi di Krav Maga Putignano e Conversano: iscrizione, recessi, pagamenti, regole di comportamento e foro competente.",
-  alternates: { canonical: "https://kravmagaputignano.it/termini" },
+  alternates: { canonical: "https://www.difesapersonalekravmaga.it/termini" },
 };
 
 export default function TerminiPage() {

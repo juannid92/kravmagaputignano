@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Informativa sull'uso dei cookie, redatta in conformità con le Linee guida del Garante per la protezione dei dati personali (10 giugno 2021). Tipologie di cookie, finalità e gestione del consenso.",
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://kravmagaputignano.it/cookie-policy" },
+  alternates: { canonical: "https://www.difesapersonalekravmaga.it/cookie-policy" },
 };
 
 export default function CookiePolicyPage() {

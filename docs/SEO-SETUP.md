@@ -2,7 +2,7 @@
 
 Last updated: 17 ottobre 2026
 
-This document covers the operational SEO steps for `kravmagaputignano.it`.
+This document covers the operational SEO steps for `www.difesapersonalekravmaga.it`.
 The site is built with Next.js 15 (`output: "export"`) and deployed to a
 Cloudflare Worker (`wrangler.jsonc` → `kravmagaputignano`). The static
 export does NOT regenerate the sitemap at build time, so the operator
@@ -23,7 +23,7 @@ must remember a few manual steps after each deploy.
 
 URL: <https://search.google.com/search-console/>
 
-1. **Property type:** URL prefix → `https://kravmagaputignano.it`
+1. **Property type:** URL prefix → `https://www.difesapersonalekravmaga.it`
    (the "Domain" property requires DNS records; the URL prefix is faster
    to set up and uses an HTML meta tag).
 2. **Verification method:** HTML tag.
@@ -42,7 +42,7 @@ URL: <https://search.google.com/search-console/>
    - Commit, push, wait for the deploy to propagate (~1 minute on
      Cloudflare), then click "Verify" in GSC.
 3. **Sitemap submission:** under "Sitemaps" submit
-   `https://kravmagaputignano.it/sitemap.xml`. Google will surface
+   `https://www.difesapersonalekravmaga.it/sitemap.xml`. Google will surface
    crawl/coverage issues here.
 4. **Index the 8 routes:** under "URL Inspection" submit each route for
    re-crawling:
@@ -59,7 +59,7 @@ URL: <https://search.google.com/search-console/>
 
 URL: <https://www.bing.com/webmasters>
 
-1. Add the site `https://kravmagaputignano.it`.
+1. Add the site `https://www.difesapersonalekravmaga.it`.
 2. Verification method: HTML meta tag. Bing returns
    `<meta name="msvalidate.01" content="XXXXXXX" />`.
 3. Add the value to `metadata.verification.bing` in the same
@@ -70,7 +70,7 @@ URL: <https://www.bing.com/webmasters>
      bing: "msvalidate.01=XXXXXXX",
    },
    ```
-4. Submit `https://kravmagaputignano.it/sitemap.xml` under
+4. Submit `https://www.difesapersonalekravmaga.it/sitemap.xml` under
    "Sitemaps". Bing also accepts the same sitemap.
 
 ## Sitemap
@@ -100,10 +100,10 @@ sets:
 
 ```ts
 alternates: {
-  canonical: "https://kravmagaputignano.it",
+  canonical: "https://www.difesapersonalekravmaga.it",
   languages: {
-    "it-IT": "https://kravmagaputignano.it",
-    "x-default": "https://kravmagaputignano.it",
+    "it-IT": "https://www.difesapersonalekravmaga.it",
+    "x-default": "https://www.difesapersonalekravmaga.it",
   },
 },
 ```
@@ -140,8 +140,8 @@ deploying.
 - [ ] The commit SHA in `out/_build-info.json` matches the deploy
       commit (Cloudflare Worker emits this; see `DEPLOY.md`).
 - [ ] After deploy, verify with
-      `curl -I https://kravmagaputignano.it/sitemap.xml` and
-      `curl -I https://kravmagaputignano.it/robots.txt` — both should
+      `curl -I https://www.difesapersonalekravmaga.it/sitemap.xml` and
+      `curl -I https://www.difesapersonalekravmaga.it/robots.txt` — both should
       return 200 with `Cache-Control: no-cache` on HTML and the
       appropriate `Content-Type`.
 - [ ] Resubmit the changed URLs to GSC "URL Inspection" if the page

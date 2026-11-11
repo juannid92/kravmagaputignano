@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Informativa sul trattamento dei dati personali ai sensi degli artt. 13-14 del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 come modificato dal D.lgs. 101/2018. Titolare: SSD Global Defender Srl.",
   robots: { index: true, follow: true },
-  alternates: { canonical: "https://kravmagaputignano.it/privacy-policy" },
+  alternates: { canonical: "https://www.difesapersonalekravmaga.it/privacy-policy" },
 };
 
 export default function PrivacyPolicyPage() {

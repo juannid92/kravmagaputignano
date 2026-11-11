@@ -22,12 +22,12 @@ export async function generateMetadata({
     title: `Sede di ${sede.comune} — Palestra ${sede.nomePalestra} | Krav Maga Putignano`,
     description: `${sede.introBreve} Scuola ufficiale SSD Global Defender Srl, istruttore Saverio Mauro Capozza, 4° Livello.`,
     alternates: {
-      canonical: `https://kravmagaputignano.it/sedi/${sede.slug}`,
+      canonical: `https://www.difesapersonalekravmaga.it/sedi/${sede.slug}`,
     },
     openGraph: {
       title: `Sede di ${sede.comune} — Palestra ${sede.nomePalestra} | Krav Maga Putignano`,
       description: sede.introBreve,
-      url: `https://kravmagaputignano.it/sedi/${sede.slug}`,
+      url: `https://www.difesapersonalekravmaga.it/sedi/${sede.slug}`,
       type: "article",
       locale: "it_IT",
       images: [
@@ -88,7 +88,7 @@ export default async function SedePage({
     additionalType: "https://schema.org/SportsActivityLocation",
     name: `Krav Maga Putignano — ${sede!.comune}`,
     description: sede!.introBreve,
-    url: `https://kravmagaputignano.it/sedi/${sede!.slug}`,
+    url: `https://www.difesapersonalekravmaga.it/sedi/${sede!.slug}`,
     image: sede!.foto[0],
     telephone: LEGAL.phoneE164,
     email: LEGAL.email,
@@ -110,7 +110,7 @@ export default async function SedePage({
     parentOrganization: {
       "@type": "Organization",
       name: "Krav Maga Putignano",
-      url: "https://kravmagaputignano.it",
+      url: "https://www.difesapersonalekravmaga.it",
     },
   };
 
@@ -122,9 +122,9 @@ export default async function SedePage({
       />
       <BreadcrumbList
         items={[
-          { name: "Home", url: "https://kravmagaputignano.it" },
-          { name: "Sedi", url: "https://kravmagaputignano.it#sedi" },
-          { name: sede!.comune, url: `https://kravmagaputignano.it/sedi/${sede!.slug}` },
+          { name: "Home", url: "https://www.difesapersonalekravmaga.it" },
+          { name: "Sedi", url: "https://www.difesapersonalekravmaga.it#sedi" },
+          { name: sede!.comune, url: `https://www.difesapersonalekravmaga.it/sedi/${sede!.slug}` },
         ]}
       />
       <SedeTemplate sede={sede!} altraSede={altraSede} />

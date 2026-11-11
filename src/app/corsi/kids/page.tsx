@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Defensystem Kids 6-12 anni | Krav Maga Putignano",
   description:
     "Corso di Krav Maga e premartialità per bambini 6-12 anni. Mercoledì e venerdì 18.15-19.15 alla Palestra Joy Fit di Putignano; martedì e giovedì 18.00-19.00 all'Imperial Gym di Conversano. Antibullismo e cyberbullismo. Prima lezione di prova gratuita.",
-  alternates: { canonical: "https://kravmagaputignano.it/corsi/kids" },
+  alternates: { canonical: "https://www.difesapersonalekravmaga.it/corsi/kids" },
   openGraph: {
     title: "Defensystem Kids 6-12 anni | Krav Maga Putignano e Conversano",
     description:
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     locale: "it_IT",
     images: [
       {
-        url: "https://kravmagaputignano.it/images/kids-diplomi.jpg",
+        url: "https://www.difesapersonalekravmaga.it/images/kids-diplomi.jpg",
         width: 1200,
         height: 800,
         alt: "Krav Maga Kids — allenamento di premartialità per bambini 6-12 anni",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description:
       "Autodifesa e premartialità per bambini 6-12 anni. Sedi a Putignano e Conversano. Prima lezione di prova gratuita.",
     images: [
-      "https://kravmagaputignano.it/images/kids-diplomi.jpg",
+      "https://www.difesapersonalekravmaga.it/images/kids-diplomi.jpg",
     ],
   },
 };
@@ -40,9 +40,9 @@ export default function CorsiKidsPage() {
     <>
       <BreadcrumbList
         items={[
-          { name: "Home", url: "https://kravmagaputignano.it" },
-          { name: "Corsi", url: "https://kravmagaputignano.it#percorsi" },
-          { name: "Kids", url: "https://kravmagaputignano.it/corsi/kids" },
+          { name: "Home", url: "https://www.difesapersonalekravmaga.it" },
+          { name: "Corsi", url: "https://www.difesapersonalekravmaga.it#percorsi" },
+          { name: "Kids", url: "https://www.difesapersonalekravmaga.it/corsi/kids" },
         ]}
       />
       <Header />
