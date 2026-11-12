@@ -20,6 +20,7 @@ export function Hero() {
   const eyebrowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const goldAccentRef = useRef<HTMLDivElement>(null);
+  const definitionRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(
     () => {
@@ -32,6 +33,7 @@ export function Hero() {
           eyebrowRef.current,
           titleRef.current,
           subtitleRef.current,
+          definitionRef.current,
           ctaRef.current,
         ], { opacity: 1, y: 0 });
         return;
@@ -42,6 +44,7 @@ export function Hero() {
         eyebrowRef.current,
         titleRef.current,
         subtitleRef.current,
+        definitionRef.current,
         ctaRef.current,
       ], { opacity: 0, y: 40 });
 
@@ -77,13 +80,22 @@ export function Hero() {
         delay: 0.9,
       });
 
+      // Definition
+      gsap.to(definitionRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 1.0,
+      });
+
       // CTA
       gsap.to(ctaRef.current, {
         opacity: 1,
         y: 0,
         duration: 0.8,
         ease: "power3.out",
-        delay: 1.1,
+        delay: 1.2,
       });
 
       // Video parallax
@@ -234,6 +246,11 @@ export function Hero() {
             SSD GLOBAL DEFENDER SRL SPORT E SECURITY
           </p>
         </div>
+
+        {/* Definition — citable passage for AI answer engines */}
+        <p ref={definitionRef} className="max-w-2xl mx-auto text-lg leading-relaxed text-white/80 mb-10">
+          Il Krav Maga è un sistema di difesa personale sviluppato per le forze militari israeliane, basato su reazioni istintive e situazioni reali. A differenza delle arti marziali tradizionali, non prevede gare né coreografie: ogni tecnica è progettata per funzionare sotto stress, contro aggressioni improvvise, prese, strangolamenti e minacce armate. A Putignano e Conversano, la scuola SSD Global Defender offre corsi certificati FederKravMaga per adulti dai 13 anni e bambini dai 6 ai 12 anni, con istruttore di 4° Livello Saverio Mauro Capozza. Le prime due lezioni sono gratuite e senza impegno.
+        </p>
 
         {/* CTA */}
         <div ref={ctaRef} className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
