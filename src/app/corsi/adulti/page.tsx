@@ -108,6 +108,7 @@ const courseSchema = {
       },
     },
   ],
+  dateModified: "2026-11-12",
 };
 
 export default function CorsiAdultiPage() {
