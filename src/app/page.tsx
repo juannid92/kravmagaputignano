@@ -12,11 +12,16 @@ import { Chiusura } from "@/components/Chiusura";
 import { Footer } from "@/components/Footer";
 
 import { faqs } from "@/lib/faqs";
+import { instructorJsonLd } from "@/lib/legal";
 
 export default function Home() {
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(instructorJsonLd()) }}
+      />
       <main id="main-content" tabIndex={-1}>
         <Hero />
         <NonSport />

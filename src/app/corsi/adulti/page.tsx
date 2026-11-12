@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CorsoPage } from "@/components/CorsoPage";
 import { BreadcrumbList } from "@/components/BreadcrumbList";
+import { instructorJsonLd } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Corsi Krav Maga Adulti | Putignano e Conversano",
@@ -117,6 +118,10 @@ export default function CorsiAdultiPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(instructorJsonLd()) }}
       />
       <BreadcrumbList
         items={[

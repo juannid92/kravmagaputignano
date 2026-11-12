@@ -83,3 +83,27 @@ export function legalJsonLd() {
     ...(LEGAL.vatId ? { taxID: LEGAL.vatId } : {}),
   } as const;
 }
+
+/** JSON-LD Person per l'istruttore Saverio Mauro Capozza. */
+export function instructorJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Saverio Mauro Capozza",
+    jobTitle: "Istruttore 4° Livello Krav Maga",
+    description:
+      "Direttore tecnico SSD Global Defender Srl. Istruttore certificato 4° Livello FederKravMaga ENDAS, specializzato in difesa personale reale per adulti e bambini.",
+    worksFor: {
+      "@type": "Organization",
+      name: LEGAL.legalName,
+      url: LEGAL.website,
+    },
+    knowsAbout: ["Krav Maga", "Difesa personale", "Defensystem Kids", "Antibullismo"],
+    sameAs: [
+      "https://www.facebook.com/kravmagaputignano2",
+      "https://www.instagram.com/krav_maga_putignano_conversano",
+    ],
+    url: LEGAL.website,
+    dateModified: "2026-11-12",
+  } as const;
+}
