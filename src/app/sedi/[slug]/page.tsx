@@ -107,6 +107,7 @@ export default async function SedePage({
     },
     openingHoursSpecification,
     priceRange: "€€",
+    dateModified: "2026-11-12",
     parentOrganization: {
       "@type": "Organization",
       name: "Krav Maga Putignano",
