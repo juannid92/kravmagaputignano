@@ -79,6 +79,7 @@ export function legalJsonLd() {
       "https://www.instagram.com/krav_maga_putignano_conversano",
     ],
     priceRange: "€€",
+    dateModified: "2026-11-12",
     ...(LEGAL.vatId ? { taxID: LEGAL.vatId } : {}),
   } as const;
 }
